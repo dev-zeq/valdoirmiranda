@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Combinação dos Alimentos | Valdoir Miranda — Estudos Avançados</title>
+<meta name="description" content="Como organizar o que você come — não apenas o quê, mas em que ordem e em que companhia — para digerir melhor, absorver mais e sobrar mais energia no fim do dia.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+/* =============== RESET & BASE =============== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+:root{
+  --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius: 10px;
+  --transition: 220ms ease;
+}
+html[data-theme="light"]{
+  --bg: #faf7f0;
+  --bg-elevated: #ffffff;
+  --bg-soft: #f2ede1;
+  --text: #23241f;
+  --text-soft: #55564c;
+  --border: #e3ddcc;
+  --accent: #7a5b1e;
+  --accent-strong: #4f3c14;
+  --accent-bg: #f3e9d2;
+  --green: #23543f;
+  --green-bg: #e7f0e9;
+  --shadow: 0 10px 30px -12px rgba(35,30,10,0.18);
+  --overlay: rgba(250,247,240,0.86);
+}
+html[data-theme="dark"]{
+  --bg: #14181a;
+  --bg-elevated: #1c2225;
+  --bg-soft: #20272a;
+  --text: #ece7db;
+  --text-soft: #b3ab99;
+  --border: #33393c;
+  --accent: #d8b168;
+  --accent-strong: #efd39a;
+  --accent-bg: #2a2416;
+  --green: #7fbf9d;
+  --green-bg: #16241d;
+  --shadow: 0 10px 34px -10px rgba(0,0,0,0.55);
+  --overlay: rgba(20,24,26,0.88);
+}
+body{
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+  min-height:100vh;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+
+/* =============== PROGRESS BAR + HEADER =============== */
+#progress-bar{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--green));
+  z-index:1000;transition:width 80ms linear;
+}
+header.top{
+  position:fixed;top:3px;left:0;right:0;height:58px;
+  background:var(--overlay);
+  backdrop-filter:saturate(140%) blur(8px);
+  -webkit-backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;z-index:900;
+}
+.brand{
+  font-family:var(--serif);font-size:15px;letter-spacing:.02em;
+  display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.brand .dot{color:var(--accent);}
+.brand small{font-family:var(--sans);font-weight:400;color:var(--text-soft);font-size:12px;display:block;}
+.header-actions{display:flex;align-items:center;gap:8px;}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--border);
+  background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;
+  font-size:17px;transition:transform var(--transition), background var(--transition);
+}
+.icon-btn:hover{transform:translateY(-1px);background:var(--bg-soft);}
+#menu-toggle{display:none;}
+
+/* =============== LAYOUT =============== */
+.app-shell{display:flex;padding-top:76px;max-width:1180px;margin:0 auto;}
+aside.sidebar{
+  width:250px;flex-shrink:0;position:sticky;top:76px;height:calc(100vh - 76px);
+  overflow-y:auto;padding:22px 14px 40px 22px;
+}
+aside.sidebar h4{
+  font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-soft);
+  margin-bottom:12px;font-weight:700;
+}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.toc a{
+  display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;
+  font-size:13.5px;color:var(--text-soft);text-decoration:none;
+  transition:background var(--transition), color var(--transition);
+  border-left:2px solid transparent;
+}
+.toc a:hover{background:var(--bg-soft);color:var(--text);}
+.toc a.active{background:var(--accent-bg);color:var(--accent-strong);border-left-color:var(--accent);font-weight:600;}
+.toc .check{
+  width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;
+  transition:all var(--transition);
+}
+.toc .check.done{background:var(--green);border-color:var(--green);color:#fff;}
+.sidebar-progress{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+.sidebar-progress .track{height:6px;border-radius:6px;background:var(--bg-soft);overflow:hidden;}
+.sidebar-progress .fill{height:100%;background:var(--green);width:0%;transition:width 300ms ease;border-radius:6px;}
+.sidebar-progress .label{font-size:11.5px;color:var(--text-soft);margin-top:7px;}
+
+main.content{flex:1;min-width:0;padding:10px 28px 100px;}
+.content-inner{max-width:70ch;margin:0 auto;}
+
+.module-hero{padding:8px 0 30px;border-bottom:1px solid var(--border);margin-bottom:36px;}
+.module-hero .eyebrow{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.module-hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,40px);line-height:1.15;margin:10px 0 14px;}
+.module-hero p.lede{color:var(--text-soft);font-size:16.5px;max-width:62ch;}
+.module-meta{display:flex;gap:16px;margin-top:18px;flex-wrap:wrap;font-size:12.5px;color:var(--text-soft);}
+.module-meta span{display:flex;align-items:center;gap:6px;}
+
+section.study-section{margin-bottom:62px;scroll-margin-top:90px;opacity:0;transform:translateY(18px);transition:opacity 600ms ease, transform 600ms ease;}
+section.study-section.visible{opacity:1;transform:translateY(0);}
+section.study-section h2{
+  font-family:var(--serif);font-size:26px;margin-bottom:6px;display:flex;align-items:center;gap:10px;
+}
+section.study-section h2 .num{color:var(--accent);font-size:16px;font-weight:700;}
+section.study-section .section-mark{
+  display:inline-flex;align-items:center;gap:7px;margin:14px 0 22px;padding:7px 13px;
+  border:1px solid var(--border);border-radius:30px;font-size:12.5px;background:var(--bg-elevated);
+  color:var(--text-soft);transition:all var(--transition);
+}
+section.study-section .section-mark.done{background:var(--green-bg);color:var(--green);border-color:var(--green);}
+section.study-section .section-mark .dot-i{width:8px;height:8px;border-radius:50%;background:currentColor;}
+
+section.study-section p{font-size:16.5px;margin-bottom:16px;}
+section.study-section p:last-of-type{margin-bottom:0;}
+
+.term{
+  border-bottom:1.5px dotted var(--accent);cursor:help;position:relative;color:var(--accent-strong);
+  font-weight:600;
+}
+.term:hover::after{
+  content:attr(data-def);position:absolute;left:0;bottom:135%;background:var(--accent-strong);
+  color:var(--bg);padding:9px 12px;border-radius:8px;font-size:12.5px;font-weight:400;
+  width:min(260px,60vw);line-height:1.45;box-shadow:var(--shadow);z-index:50;
+}
+
+figure.study-figure{margin:26px 0;border-radius:var(--radius);overflow:hidden;background:var(--bg-soft);border:1px solid var(--border);}
+.figure-media{position:relative;width:100%;height:280px;background:linear-gradient(135deg,var(--accent-bg),var(--green-bg));}
+.figure-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.figure-media .figure-fallback{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-size:52px;color:var(--accent);
+}
+.figure-media.img-fallback img{display:none;}
+.figure-media.img-fallback .figure-fallback{display:flex;}
+figure.study-figure figcaption{padding:12px 16px;font-size:12.5px;color:var(--text-soft);font-style:italic;}
+
+.callout{border-radius:var(--radius);padding:18px 20px;margin:22px 0;border:1px solid var(--border);position:relative;}
+.callout .label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.callout p{margin-bottom:0;font-size:15.5px;}
+.callout.key{background:var(--accent-bg);border-color:var(--accent);}
+.callout.key .label{color:var(--accent-strong);}
+.callout.practice{background:var(--green-bg);border-color:var(--green);}
+.callout.practice .label{color:var(--green);}
+.callout.author{background:var(--bg-soft);border-left:3px solid var(--text-soft);border-radius:6px;}
+.callout.author .label{color:var(--text-soft);}
+.callout.author p{font-style:italic;}
+
+.accordion{border:1px solid var(--border);border-radius:var(--radius);margin:22px 0;overflow:hidden;background:var(--bg-elevated);}
+.accordion summary{
+  list-style:none;padding:15px 18px;font-weight:600;font-size:15px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.accordion summary::-webkit-details-marker{display:none;}
+.accordion summary .plus{transition:transform var(--transition);font-size:18px;color:var(--accent);flex-shrink:0;}
+.accordion[open] summary .plus{transform:rotate(45deg);}
+.accordion .accordion-body{padding:0 18px 18px;color:var(--text-soft);font-size:15px;}
+
+.toggle-compare{border:1px solid var(--border);border-radius:var(--radius);margin:22px 0;overflow:hidden;background:var(--bg-elevated);}
+.toggle-compare .tabs{display:flex;border-bottom:1px solid var(--border);}
+.toggle-compare .tabs button{
+  flex:1;padding:13px;background:none;border:none;font-size:14px;font-weight:600;color:var(--text-soft);
+  border-bottom:2px solid transparent;transition:all var(--transition);
+}
+.toggle-compare .tabs button.active{color:var(--accent-strong);border-bottom-color:var(--accent);background:var(--accent-bg);}
+.toggle-compare .panel{padding:18px 20px;font-size:15px;display:none;}
+.toggle-compare .panel.active{display:block;}
+.toggle-compare .panel ul{padding-left:18px;}
+.toggle-compare .panel li{margin-bottom:6px;}
+
+.section-actions{margin-top:26px;display:flex;justify-content:flex-end;}
+.btn-complete{
+  border:1px solid var(--green);color:var(--green);background:transparent;padding:10px 18px;
+  border-radius:30px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;
+  transition:all var(--transition);
+}
+.btn-complete:hover{background:var(--green-bg);}
+.btn-complete.done{background:var(--green);color:#fff;}
+
+footer.site-footer{
+  border-top:1px solid var(--border);padding:34px 28px 60px;text-align:center;
+  color:var(--text-soft);font-size:12.5px;max-width:1180px;margin:0 auto;
+}
+footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text);margin-bottom:10px;}
+
+/* =============== MOBILE =============== */
+@media (max-width:880px){
+  .app-shell{padding-top:70px;}
+  aside.sidebar{
+    position:fixed;top:61px;left:0;bottom:0;width:78vw;max-width:300px;
+    background:var(--bg-elevated);border-right:1px solid var(--border);
+    transform:translateX(-100%);transition:transform 260ms ease;z-index:800;
+    box-shadow:var(--shadow);
+  }
+  aside.sidebar.open{transform:translateX(0);}
+  #menu-toggle{display:flex;}
+  main.content{padding:10px 18px 100px;}
+  .sidebar-scrim{
+    display:none;position:fixed;inset:0;top:61px;background:rgba(0,0,0,.35);z-index:790;
+  }
+  .sidebar-scrim.show{display:block;}
+}
+@media (min-width:881px){
+  #menu-toggle{display:none !important;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<header class="top">
+  <div class="brand">
+    <button id="menu-toggle" class="icon-btn" aria-label="Abrir menu">☰</button>
+    <div>
+      Valdoir Miranda <span class="dot">|</span> Estudos Avançados
+      <small>Alimentação · Combinação de Alimentos</small>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema">🌙</button>
+  </div>
+</header>
+
+<div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <h4>Neste módulo</h4>
+    <ul class="toc" id="toc-list">
+      <li><a href="#por-que-a-combinacao-importa"><span class="check" data-target="por-que-a-combinacao-importa"></span>01. Por que a combinação importa</a></li>
+      <li><a href="#proteinas-e-carboidratos"><span class="check" data-target="proteinas-e-carboidratos"></span>02. Proteínas e carboidratos: a dupla que compete</a></li>
+      <li><a href="#frutas-sozinhas-ou-acompanhadas"><span class="check" data-target="frutas-sozinhas-ou-acompanhadas"></span>03. Frutas: sozinhas ou acompanhadas?</a></li>
+      <li><a href="#fibras-gorduras-e-ritmo"><span class="check" data-target="fibras-gorduras-e-ritmo"></span>04. Fibras, gorduras boas e o ritmo da digestão</a></li>
+      <li><a href="#montando-o-prato-metodo"><span class="check" data-target="montando-o-prato-metodo"></span>05. Montando o prato: um método prático</a></li>
+    </ul>
+    <div class="sidebar-progress">
+      <div class="track"><div class="fill" id="sidebar-fill"></div></div>
+      <div class="label" id="sidebar-label">0 de 5 seções concluídas</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="content-inner">
+      <div class="module-hero">
+        <div class="eyebrow">Alimentação · Combinação de Alimentos</div>
+        <h1>Guia de Combinação dos Alimentos</h1>
+        <p class="lede">Como organizar o que você come — não apenas o quê, mas em que ordem e em que companhia — para digerir melhor, absorver mais e sobrar mais energia no fim do dia.</p>
+        <div class="module-meta">
+          <span>📖 Leitura ~14 min</span>
+          <span>🗂️ 5 seções</span>
+          <span>🔒 Conteúdo exclusivo para alunos</span>
+        </div>
+      </div>
+
+    <section class="study-section" id="por-que-a-combinacao-importa">
+      <h2><span class="num">01</span> Por que a combinação importa</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Ainda não concluída</span></div>
+      <p>Passamos décadas sendo ensinados a pensar em comida como uma lista de itens isolados: proteína aqui, carboidrato ali, uma fruta de sobremesa. Mas o corpo não digere itens isolados — digere refeições inteiras, e a forma como os alimentos se encontram no estômago determina quanto esforço o sistema digestivo vai gastar e quanto de energia vai sobrar para o resto do corpo.</p>
+      <p>Cada tipo de alimento pede um ambiente químico e um tempo de digestão diferentes. Quando essas exigências entram em conflito dentro do mesmo prato, o resultado é aquela sensação de peso, sono após o almoço e uma digestão que se arrasta por horas. Não é falta de força de vontade — é fisiologia básica sendo ignorada.</p>
+      <p>Este módulo não propõe regras rígidas nem listas de proibições. Propõe um raciocínio: entender a lógica por trás da combinação para que você mesmo comece a montar pratos mais inteligentes, no seu ritmo e com os alimentos que já fazem parte da sua rotina.</p>
+      <figure class="study-figure">
+        <div class="figure-media">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&q=60&auto=format&fit=crop" alt="Prato colorido com vegetais e proteínas organizados" loading="lazy" onerror="this.parentElement.classList.add('img-fallback')">
+          <div class="figure-fallback">🥗</div>
+        </div>
+        <figcaption>A organização do prato é tão importante quanto a escolha dos ingredientes.</figcaption>
+      </figure>
+      <div class="callout key">
+        <div class="label">💡 Conceito-Chave — <span class="term" data-def="Ideia de que diferentes grupos de alimentos são processados em ritmos e ambientes distintos pelo sistema digestivo">Digestão sequencial</span></div>
+        <p>O estômago ajusta sua acidez e seu ritmo de acordo com o tipo de alimento predominante. Quando você mistura grupos com exigências muito diferentes em grande quantidade, o corpo precisa negociar — e essa negociação consome tempo e energia.</p>
+      </div>
+      <div class="callout practice">
+        <div class="label">🎯 Prática Sugerida — Observação de uma semana</div>
+        <p>Antes de mudar qualquer coisa, apenas observe. Anote como você se sente 90 minutos depois de cada refeição: leve, normal ou pesado. Esse registro simples já revela seus padrões pessoais de combinação antes de qualquer ajuste.</p>
+      </div>
+      <div class="callout author">
+        <div class="label">✒️ Observação do Autor</div>
+        <p>Não existe uma tabela universal que sirva perfeitamente para todo corpo. O que ensino aqui é um método de observação — décadas de estudo me mostraram que a resposta individual sempre tem a palavra final.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="por-que-a-combinacao-importa">✓ <span class="btn-text">Marcar como concluído</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="proteinas-e-carboidratos">
+      <h2><span class="num">02</span> Proteínas e carboidratos: a dupla que compete</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Ainda não concluída</span></div>
+      <p>A combinação mais discutida — e mais mal compreendida — é a de <span class="term" data-def="carnes, ovos, queijos e leguminosas em porção generosa">proteínas concentradas</span> com <span class="term" data-def="arroz, pão, massas e batatas em porção generosa">carboidratos densos</span> no mesmo prato, no mesmo volume. Não é que essa combinação seja proibida; é que, quando ambos aparecem em grande quantidade, a digestão de um pode competir pelo espaço e pelo tempo do outro.</p>
+      <p>Uma forma prática de pensar nisso: em vez de perguntar 'o que posso comer junto', pergunte 'qual desses dois grupos será o protagonista desta refeição'. Quando um domina o prato e o outro aparece em quantidade moderada, a digestão tende a fluir com menos atrito.</p>
+      <p>Vegetais e folhas, por outro lado, praticamente nunca competem com nada — eles são o elemento neutro que facilita a digestão de qualquer combinação, funcionando quase como um mediador entre os grupos.</p>
+      <details class="accordion">
+        <summary>E o feijão com arroz, prato mais tradicional do Brasil?<span class="plus">+</span></summary>
+        <div class="accordion-body">O feijão com arroz não é um problema em si — é uma combinação testada por gerações e nutricionalmente complementar em aminoácidos. A questão não é eliminá-la, mas observar o volume: pratos com porções moderadas de ambos, mais vegetais, tendem a ser mais bem tolerados do que pratos onde os dois aparecem em quantidade máxima, sem nenhum vegetal para equilibrar.</div>
+      </details>
+      <div class="toggle-compare">
+        <div class="tabs">
+          <button class="active">Prato tradicional</button>
+          <button class="">Prato reorganizado</button>
+        </div>
+        <div class="panel active"><ul><li>Porção grande de arroz</li><li>Porção grande de carne</li><li>Feijão em quantidade generosa</li><li>Pouco ou nenhum vegetal cru</li></ul><p style='margin-top:10px'>Três grupos densos disputando atenção digestiva ao mesmo tempo — comum, mas nem sempre o mais leve.</p></div>
+        <div class="panel"><ul><li>Metade do prato em vegetais e folhas</li><li>Um protagonista: proteína OU carboidrato em maior porção</li><li>O segundo grupo em porção moderada</li><li>Gordura boa (azeite, abacate) para dar saciedade</li></ul><p style='margin-top:10px'>Mesma comida, proporção diferente — menos disputa, mais leveza percebida.</p></div>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="proteinas-e-carboidratos">✓ <span class="btn-text">Marcar como concluído</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="frutas-sozinhas-ou-acompanhadas">
+      <h2><span class="num">03</span> Frutas: sozinhas ou acompanhadas?</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Ainda não concluída</span></div>
+      <p>Frutas têm um trânsito rápido pelo estômago quando consumidas isoladamente — em muitos casos, minutos. O problema aparece quando elas são comidas *depois* de uma refeição pesada, como sobremesa: elas ficam represadas atrás de alimentos que digerem mais devagar, e esse tempo de espera pode favorecer fermentação e desconforto para algumas pessoas.</p>
+      <p>Uma prática antiga e simples — comer a fruta cerca de 20 a 30 minutos antes da refeição, ou em um horário isolado, como lanche — costuma resolver boa parte dessa queixa. Não é uma regra absoluta, mas um ajuste de horário que muita gente relata sentir diferença real.</p>
+      <p>Exceção interessante: frutas gordurosas como abacate e coco se comportam de forma diferente das frutas ricas em açúcar simples, e toleram bem companhia de outros alimentos por terem digestão mais próxima à de uma gordura do que à de um açúcar.</p>
+      <div class="callout key">
+        <div class="label">💡 Conceito-Chave — <span class="term" data-def="tempo que um alimento permanece no estômago antes de seguir para o intestino">Trânsito gástrico</span> das frutas</div>
+        <p>Frutas ricas em água e açúcar natural passam rápido pelo estômago quando estão sozinhas. Combinadas com alimentos de digestão lenta, esse trânsito rápido é bloqueado — não pela fruta, mas pelo alimento mais lento que a acompanha.</p>
+      </div>
+      <div class="callout practice">
+        <div class="label">🎯 Prática Sugerida — O teste da fruta isolada</div>
+        <p>Durante uma semana, experimente comer frutas em um horário separado das refeições principais — de manhã, no meio da tarde, ou como parte de um lanche isolado. Compare como se sente em relação a comê-las como sobremesa.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="frutas-sozinhas-ou-acompanhadas">✓ <span class="btn-text">Marcar como concluído</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="fibras-gorduras-e-ritmo">
+      <h2><span class="num">04</span> Fibras, gorduras boas e o ritmo da digestão</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Ainda não concluída</span></div>
+      <p>As <span class="term" data-def="parte dos alimentos vegetais que o corpo não digere completamente, mas que alimenta a microbiota intestinal e regula o trânsito">fibras</span> são as grandes reguladoras do processo digestivo: elas desaceleram a absorção de açúcares, dão volume e saciedade, e alimentam a comunidade de bactérias que vive no intestino. Um prato com pouca fibra e muito carboidrato refinado tende a passar rápido demais pelo intestino, gerando picos de energia seguidos de quedas bruscas.</p>
+      <p>Gorduras boas — azeite, castanhas, abacate, sementes — desempenham papel semelhante: desaceleram o esvaziamento do estômago de forma saudável, aumentam a sensação de saciedade e ajudam na absorção de vitaminas lipossolúveis presentes nos próprios vegetais do prato.</p>
+      <p>A combinação ideal, na prática, quase sempre envolve os três elementos trabalhando juntos: um protagonista (proteína ou carboidrato), fibra em abundância (vegetais e folhas) e uma fonte de gordura boa moderada. Esse trio é o que sustenta energia estável por mais tempo.</p>
+      <details class="accordion">
+        <summary>Por que sinto sono depois de almoçar mesmo comendo 'certo'?<span class="plus">+</span></summary>
+        <div class="accordion-body">Sonolência pós-almoço tem várias causas possíveis: volume total da refeição, proporção de carboidratos refinados, hidratação insuficiente, e até a qualidade do sono da noite anterior. Combinação de alimentos é uma peça do quebra-cabeça — reduzir o volume total e priorizar fibra costuma trazer o efeito mais perceptível.</div>
+      </details>
+      <div class="callout author">
+        <div class="label">✒️ Observação do Autor</div>
+        <p>Aprendi, ao longo dos anos, que fibra e gordura boa fazem mais pela sensação de energia estável do que qualquer regra de combinação isolada. Se eu pudesse dar um único conselho neste módulo, seria: nunca monte um prato sem folhas ou vegetais nele.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="fibras-gorduras-e-ritmo">✓ <span class="btn-text">Marcar como concluído</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="montando-o-prato-metodo">
+      <h2><span class="num">05</span> Montando o prato: um método prático</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Ainda não concluída</span></div>
+      <p>Depois de décadas testando variações, cheguei a uma estrutura simples que resume praticamente tudo deste módulo em um gesto visual: divida o prato mentalmente em três partes. Metade para vegetais e folhas variadas. Um quarto para o protagonista da refeição — proteína ou carboidrato, o que fizer mais sentido naquele momento. O último quarto para o coadjuvante, em porção mais modesta, mais uma fonte de gordura boa.</p>
+      <p>Esse método funciona porque resolve, de uma vez, os três pontos discutidos até aqui: reduz a disputa entre grupos densos, garante fibra suficiente para regular o processo, e inclui gordura boa para saciedade e absorção de nutrientes.</p>
+      <p>Nenhum método substitui a observação do próprio corpo. Use esta estrutura como ponto de partida, não como dogma — ajuste conforme sua rotina, sua atividade física e como você se sente nas horas seguintes.</p>
+      <figure class="study-figure">
+        <div class="figure-media">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=900&q=60&auto=format&fit=crop" alt="Prato dividido com vegetais, proteína e carboidrato em porções equilibradas" loading="lazy" onerror="this.parentElement.classList.add('img-fallback')">
+          <div class="figure-fallback">🍽️</div>
+        </div>
+        <figcaption>A regra visual do prato: metade vegetais, um quarto protagonista, um quarto coadjuvante.</figcaption>
+      </figure>
+      <div class="callout practice">
+        <div class="label">🎯 Prática Sugerida — Aplique o método hoje</div>
+        <p>Na próxima refeição principal, monte o prato seguindo a divisão de metade/quarto/quarto antes de se servir. Não mude os alimentos — apenas as proporções — e observe a diferença já na primeira tentativa.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="montando-o-prato-metodo">✓ <span class="btn-text">Marcar como concluído</span></button>
+      </div>
+    </section>
+
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="quote">"O conhecimento só tem valor quando é compartilhado."</div>
+  © 2026 Valdoir Barreto Miranda. Material exclusivo para alunos. Reprodução proibida.
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var MODULE_KEY = "combinacao-alimentos";
+  var STORAGE_THEME = "vm_theme";
+  var STORAGE_PROGRESS = "vm_progress_" + MODULE_KEY;
+
+  /* ---------- THEME ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("theme-toggle");
+  function applyTheme(t){
+    root.setAttribute("data-theme", t);
+    themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+  }
+  var savedTheme = localStorage.getItem(STORAGE_THEME);
+  if(!savedTheme){
+    savedTheme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  applyTheme(savedTheme);
+  themeBtn.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem(STORAGE_THEME, next);
+  });
+
+  /* ---------- MOBILE SIDEBAR ---------- */
+  var sidebar = document.getElementById("sidebar");
+  var scrim = document.getElementById("sidebar-scrim");
+  var menuToggle = document.getElementById("menu-toggle");
+  function openSidebar(){ sidebar.classList.add("open"); scrim.classList.add("show"); }
+  function closeSidebar(){ sidebar.classList.remove("open"); scrim.classList.remove("show"); }
+  menuToggle.addEventListener("click", function(){
+    sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
+  });
+  scrim.addEventListener("click", closeSidebar);
+  document.querySelectorAll("#toc-list a").forEach(function(a){
+    a.addEventListener("click", closeSidebar);
+  });
+
+  /* ---------- READING PROGRESS BAR ---------- */
+  var progressBar = document.getElementById("progress-bar");
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrollTop = h.scrollTop || document.body.scrollTop;
+    var scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = pct + "%";
+  }
+  document.addEventListener("scroll", updateProgress, {passive:true});
+  updateProgress();
+
+  /* ---------- SCROLLSPY (TOC active link) ---------- */
+  var sections = Array.prototype.slice.call(document.querySelectorAll("section.study-section"));
+  var tocLinks = {};
+  document.querySelectorAll("#toc-list a").forEach(function(a){
+    tocLinks[a.getAttribute("href").slice(1)] = a;
+  });
+  var spyObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var link = tocLinks[entry.target.id];
+      if(!link) return;
+      if(entry.isIntersecting){
+        Object.values(tocLinks).forEach(function(l){ l.classList.remove("active"); });
+        link.classList.add("active");
+      }
+    });
+  }, {rootMargin: "-30% 0px -60% 0px", threshold: 0});
+  sections.forEach(function(s){ spyObserver.observe(s); });
+
+  /* ---------- SCROLL REVEAL ---------- */
+  var revealObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.12});
+  sections.forEach(function(s){ revealObserver.observe(s); });
+
+  /* ---------- PROGRESS (mark as done) ---------- */
+  var total = sections.length;
+  function loadProgress(){
+    try{
+      return JSON.parse(localStorage.getItem(STORAGE_PROGRESS) || "{}");
+    }catch(e){ return {}; }
+  }
+  function saveProgress(state){
+    localStorage.setItem(STORAGE_PROGRESS, JSON.stringify(state));
+  }
+  function renderProgress(){
+    var state = loadProgress();
+    var doneCount = 0;
+    sections.forEach(function(s){
+      var id = s.id;
+      var isDone = !!state[id];
+      if(isDone) doneCount++;
+      var check = document.querySelector('.toc .check[data-target="'+id+'"]');
+      var mark = s.querySelector(".section-mark");
+      var btn = s.querySelector(".btn-complete");
+      if(check){ check.classList.toggle("done", isDone); check.textContent = isDone ? "✓" : ""; }
+      if(mark){
+        mark.classList.toggle("done", isDone);
+        mark.querySelector(".mark-text").textContent = isDone ? "Seção concluída" : "Ainda não concluída";
+      }
+      if(btn){
+        btn.classList.toggle("done", isDone);
+        btn.querySelector(".btn-text").textContent = isDone ? "Concluído ✓" : "Marcar como concluído";
+      }
+    });
+    var fill = document.getElementById("sidebar-fill");
+    var label = document.getElementById("sidebar-label");
+    var pct = total > 0 ? (doneCount/total)*100 : 0;
+    if(fill) fill.style.width = pct + "%";
+    if(label) label.textContent = doneCount + " de " + total + " seções concluídas";
+  }
+  document.querySelectorAll(".btn-complete").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var id = btn.getAttribute("data-target");
+      var state = loadProgress();
+      state[id] = !state[id];
+      saveProgress(state);
+      renderProgress();
+    });
+  });
+  renderProgress();
+
+  /* ---------- TOGGLE COMPARE ---------- */
+  document.querySelectorAll(".toggle-compare").forEach(function(box){
+    var tabs = box.querySelectorAll(".tabs button");
+    var panels = box.querySelectorAll(".panel");
+    tabs.forEach(function(tab, i){
+      tab.addEventListener("click", function(){
+        tabs.forEach(function(t){ t.classList.remove("active"); });
+        panels.forEach(function(p){ p.classList.remove("active"); });
+        tab.classList.add("active");
+        panels[i].classList.add("active");
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
