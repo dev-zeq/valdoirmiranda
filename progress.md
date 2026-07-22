@@ -12,7 +12,7 @@ Produto **publicado na Hotmart com vendas ativas** (21/07/2026, autorizado pelo 
 - Português (padrão): `valdoirmiranda.com/` → `index.html`
 - Espanhol: `valdoirmiranda.com/es/` → `es/index.html`
 - Inglês: `valdoirmiranda.com/en/` → `en/index.html`
-- Tags `hreflang` no `<head>` de todas para o Google indexar a versão certa por país. As páginas EN/ES são geradas a partir da PT pelo script `scratchpad/build_i18n.py` (tabela de tradução PT→EN→ES) — **ao editar textos, altere o `index.html` e regenere as traduções** para não dessincronizar.
+- Tags `hreflang` no `<head>` de todas para o Google indexar a versão certa por país. As páginas EN/ES são geradas a partir da PT pelo script `build_i18n.py` (na raiz do repo, tabela de tradução PT→EN→ES) — **ao editar textos, altere o `index.html`, rode `python3 build_i18n.py` e faça commit dos 3 arquivos** para não dessincronizar.
 - Preço mantido em R$ (BRL) nas 3 versões, com nota "convertido para sua moeda no checkout" (a Hotmart converte automaticamente). Mesmo link de checkout serve todos os países.
 
 - Produto: "Biblioteca Valdoir Miranda | Estudos Avançados"
