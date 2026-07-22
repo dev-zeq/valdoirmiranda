@@ -939,6 +939,28 @@
       letter-spacing: .04em;
     }
 
+    .btn-incluido {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--green-fog);
+      color: var(--green-deep);
+      font-size: .8rem;
+      font-weight: 600;
+      padding: .5rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid var(--green-pale);
+      text-decoration: none;
+      width: fit-content;
+      letter-spacing: .04em;
+      transition: all .25s;
+    }
+
+    .btn-incluido:hover {
+      background: var(--green-pale);
+      transform: translateY(-1px);
+    }
+
     /* =============================================
        VALORES / INVESTIMENTO
     ============================================= */
@@ -1536,9 +1558,9 @@
       </div>
 
       <p class="bib-intro reveal reveal-delay-2">
-        Mais de 50 materiais desenvolvidos ao longo dos anos serão organizados nesta biblioteca digital.
-        Em breve, será possível acessar guias, estudos e conteúdos sobre alimentação, saúde masculina,
-        equilíbrio físico e mental e longevidade.
+        Mais de 50 materiais desenvolvidos ao longo dos anos estão sendo organizados nesta biblioteca digital.
+        Os 5 primeiros módulos já estão disponíveis — guias, estudos e conteúdos sobre alimentação, saúde masculina,
+        equilíbrio físico e mental e longevidade. E quem entra agora recebe também tudo o que ainda vem.
       </p>
 
       <div class="bib-progress-bar reveal reveal-delay-3">
@@ -1556,9 +1578,7 @@
           <div class="bib-card-tag">Alimentação</div>
           <h3>Guia de Combinação dos Alimentos</h3>
           <p>Como combinar alimentos de forma inteligente para melhorar a digestão e aumentar a energia disponível.</p>
-          <button class="btn-soon" disabled aria-label="Em breve">
-            🔒 Em breve
-          </button>
+          <a class="btn-incluido" href="#valores">🔓 Incluído no acesso</a>
         </div>
 
         <div class="bib-card reveal reveal-delay-2">
@@ -1566,9 +1586,7 @@
           <div class="bib-card-tag">Energia</div>
           <h3>Alimentação e Energia</h3>
           <p>O que comer para manter o ânimo, o foco e a disposição ao longo do dia — e o que evitar.</p>
-          <button class="btn-soon" disabled aria-label="Em breve">
-            🔒 Em breve
-          </button>
+          <a class="btn-incluido" href="#valores">🔓 Incluído no acesso</a>
         </div>
 
         <div class="bib-card reveal reveal-delay-3">
@@ -1576,9 +1594,7 @@
           <div class="bib-card-tag">Masculinidade</div>
           <h3>Saúde Masculina e Vitalidade</h3>
           <p>Estudos sobre hormônios, energia e bem-estar específico para o organismo e a saúde do homem.</p>
-          <button class="btn-soon" disabled aria-label="Em breve">
-            🔒 Em breve
-          </button>
+          <a class="btn-incluido" href="#valores">🔓 Incluído no acesso</a>
         </div>
 
         <div class="bib-card reveal reveal-delay-4">
@@ -1586,9 +1602,7 @@
           <div class="bib-card-tag">Equilíbrio</div>
           <h3>Corpo, Mente e Hábitos</h3>
           <p>A conexão entre alimentação, hábitos diários e saúde mental — e como pequenas escolhas fazem grande diferença.</p>
-          <button class="btn-soon" disabled aria-label="Em breve">
-            🔒 Em breve
-          </button>
+          <a class="btn-incluido" href="#valores">🔓 Incluído no acesso</a>
         </div>
 
         <div class="bib-card reveal reveal-delay-5">
@@ -1596,9 +1610,7 @@
           <div class="bib-card-tag">Longevidade</div>
           <h3>Longevidade e Qualidade de Vida</h3>
           <p>O que décadas de pesquisa revelam sobre viver mais — com saúde, propósito e bem-estar real.</p>
-          <button class="btn-soon" disabled aria-label="Em breve">
-            🔒 Em breve
-          </button>
+          <a class="btn-incluido" href="#valores">🔓 Incluído no acesso</a>
         </div>
 
         <!-- Card de espaço futuro para PDFs -->
@@ -1660,9 +1672,12 @@
           <div class="progress-fill" style="width:35%;"></div>
         </div>
 
-        <button class="btn-soon" disabled aria-label="Em breve" style="width:100%; justify-content:center; padding:.9rem 1.5rem; font-size:.9rem;">
-          🔒 Em breve
-        </button>
+        <a href="https://pay.hotmart.com/V106821157P" class="btn-primary" style="display:flex; width:100%; justify-content:center; padding:.9rem 1.5rem; font-size:.95rem; text-align:center;">
+          Quero meu acesso por R$ 37
+        </a>
+        <p style="text-align:center; font-size:.78rem; color:var(--text-muted); margin-top:.6rem;">
+          Pagamento seguro via Hotmart · Acesso liberado automaticamente por e-mail
+        </p>
 
         <div class="valores-guarantee">
           <span aria-hidden="true">🛡️</span>

@@ -4,7 +4,7 @@ _Atualizado em 21/07/2026_
 
 ## Status geral
 
-Produto criado na Hotmart como **rascunho** (não publicado, não enviado para revisão, não ativo para venda). Nada foi finalizado sem sua confirmação.
+Produto **publicado na Hotmart com vendas ativas** (21/07/2026, autorizado pelo Ezequiel). Checkout: `https://pay.hotmart.com/V106821157P` · Página de vendas Hotmart: `https://go.hotmart.com/V106821157P`. Site com botões de compra ativos apontando pro checkout.
 
 - Produto: "Biblioteca Valdoir Miranda | Estudos Avançados"
 - ID Hotmart: 8164684
@@ -51,9 +51,11 @@ Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `bibliotec
 
 - ~~Templates de e-mail em HTML~~ — **feito**: e-mail de acesso agora usa template com a identidade visual do site (verde/âmbar, tipografia serifada no título), compatível com os principais clientes de e-mail (arquivo em `/opt/biblioteca-app/templates/email-access.html` na VPS). Testado e confirmado recebido corretamente.
 - ~~Atualizar os links das aulas na Hotmart Club~~ — **feito**: as 5 aulas agora apontam para `https://valdoirmiranda.com/entrar` (fluxo novo de login) em vez do link antigo do GitHub Pages
-- Definir preço final de venda (seção "Investimento" do site já está com R$ 37 promocional / R$ 67 preço cheio como sugestão, ligado ao progresso do acervo — ver `index.html`)
+- ~~Definir preço final de venda~~ — **feito**: R$ 37 (preço base na Hotmart, oferta `49b52jzx`), reembolso 7 dias
+- ~~Decidir sobre publicar/ativar o produto pra venda~~ — **feito**: cadastro finalizado e vendas ativas em 21/07/2026
 - Revisar a página de vendas do produto na Hotmart (gerada automaticamente, ainda não editada)
-- Decidir sobre publicar/ativar o produto pra venda (nada foi publicado ainda — aguardando confirmação final)
+- Adicionar imagem de capa do produto na Hotmart (está sem imagem — placeholder cinza)
+- Testar uma compra real de ponta a ponta (checkout → webhook → e-mail de acesso)
 - Avaliar tradução do site pra outros idiomas (mencionado, não iniciado)
 - (Opcional, não bloqueante) Acompanhar resposta do ticket #12601558 da DigitalOcean, caso queira usar SMTP do Mailcow no futuro
 
