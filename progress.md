@@ -8,6 +8,13 @@ Produto **publicado na Hotmart com vendas ativas** (21/07/2026, autorizado pelo 
 
 **Renomeação (21/07/2026):** o produto foi rebatizado de "Biblioteca Valdoir Miranda | Estudos Avançados" para **"O Código da Longevidade | por Valdoir Miranda"** — posicionamento de longevidade para todos os públicos, escolhido pelo Ezequiel. Aplicado no site (title, hero, seções, footer), no nome + descrição do produto na Hotmart, e numa nova capa (`capa-hotmart.png`). ID Hotmart e links de checkout permanecem os mesmos (8164684 / V106821157P).
 
+**Site trilíngue (21/07/2026):** o site agora tem 3 idiomas com URLs próprias e seletor no menu (PT · ES · EN):
+- Português (padrão): `valdoirmiranda.com/` → `index.html`
+- Espanhol: `valdoirmiranda.com/es/` → `es/index.html`
+- Inglês: `valdoirmiranda.com/en/` → `en/index.html`
+- Tags `hreflang` no `<head>` de todas para o Google indexar a versão certa por país. As páginas EN/ES são geradas a partir da PT pelo script `scratchpad/build_i18n.py` (tabela de tradução PT→EN→ES) — **ao editar textos, altere o `index.html` e regenere as traduções** para não dessincronizar.
+- Preço mantido em R$ (BRL) nas 3 versões, com nota "convertido para sua moeda no checkout" (a Hotmart converte automaticamente). Mesmo link de checkout serve todos os países.
+
 - Produto: "Biblioteca Valdoir Miranda | Estudos Avançados"
 - ID Hotmart: 8164684
 - Área de membros: Hotmart Club dedicado, slug `biblioteca-valdoir-miranda` (isolado de outros produtos seus, como o "Do Zero ao Profissional")
