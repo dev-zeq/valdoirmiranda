@@ -56,6 +56,11 @@ Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `bibliotec
 - Testado de ponta a ponta: compra aprovada (via webhook) → login em `/entrar` → e-mail chega de verdade com o link de acesso. **Confirmado recebido.**
 - O domínio no Mailcow continua configurado e pode ser usado no futuro (ex: quando o ticket da DigitalOcean for resolvido, ou pra caixas de e-mail comuns tipo suporte@).
 
+## Programa de afiliados
+
+- Comissão definida: **50%** por venda aprovada (decisão do Ezequiel, 22/07/2026).
+- Texto de divulgação do programa redigido — ver histórico da conversa ou colar novamente se precisar reeditar no painel Hotmart (Produto → Programa de afiliados).
+
 ## Pendências
 
 - ~~Templates de e-mail em HTML~~ — **feito**: e-mail de acesso agora usa template com a identidade visual do site (verde/âmbar, tipografia serifada no título), compatível com os principais clientes de e-mail (arquivo em `/opt/biblioteca-app/templates/email-access.html` na VPS). Testado e confirmado recebido corretamente.
