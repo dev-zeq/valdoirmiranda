@@ -6,6 +6,8 @@ _Atualizado em 21/07/2026_
 
 Produto **publicado na Hotmart com vendas ativas** (21/07/2026, autorizado pelo Ezequiel). Checkout: `https://pay.hotmart.com/V106821157P` · Página de vendas Hotmart: `https://go.hotmart.com/V106821157P`. Site com botões de compra ativos apontando pro checkout.
 
+**Renomeação (21/07/2026):** o produto foi rebatizado de "Biblioteca Valdoir Miranda | Estudos Avançados" para **"O Código da Longevidade | por Valdoir Miranda"** — posicionamento de longevidade para todos os públicos, escolhido pelo Ezequiel. Aplicado no site (title, hero, seções, footer), no nome + descrição do produto na Hotmart, e numa nova capa (`capa-hotmart.png`). ID Hotmart e links de checkout permanecem os mesmos (8164684 / V106821157P).
+
 - Produto: "Biblioteca Valdoir Miranda | Estudos Avançados"
 - ID Hotmart: 8164684
 - Área de membros: Hotmart Club dedicado, slug `biblioteca-valdoir-miranda` (isolado de outros produtos seus, como o "Do Zero ao Profissional")
