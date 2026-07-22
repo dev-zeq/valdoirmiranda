@@ -1,6 +1,6 @@
 # Biblioteca Valdoir Miranda | Estudos Avançados — Progresso
 
-_Atualizado em 21/07/2026_
+_Atualizado em 22/07/2026_
 
 ## Status geral
 
@@ -51,7 +51,7 @@ Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `bibliotec
 
 ## E-mail transacional — funcionando ✅
 
-- Tentamos primeiro via Mailcow próprio (`mail.bezclean.com.br`) usando SMTP, mas o droplet da DigitalOcean bloqueia portas SMTP de saída (25/465/587) por padrão, política antispam deles — confirmado com teste direto contra o Gmail, que falhou igual. Abri o **ticket #12601558** na DigitalOcean pedindo a liberação (ainda em aberto, mas não é mais bloqueante).
+- Tentamos primeiro via Mailcow próprio (`mail.bezclean.com.br`) usando SMTP, mas o droplet da DigitalOcean bloqueia portas SMTP de saída (25/465/587) por padrão, política antispam deles — confirmado com teste direto contra o Gmail, que falhou igual. Abri o **ticket #12601558** na DigitalOcean pedindo a liberação — **respondido em 21/07/2026: negado**, política deles não permite exceção. Sugeriram porta alternativa 2525 ou envio via API HTTP. Não bloqueia nada, pois o envio já roda 100% pela Resend.
 - **Solução adotada**: Resend (envio via API HTTPS, não usa portas SMTP, então não esbarra no bloqueio). Domínio `valdoirmiranda.com` verificado na Resend (DKIM, MX e SPF no subdomínio `send.valdoirmiranda.com`, sem conflitar com o Mailcow no domínio raiz).
 - Testado de ponta a ponta: compra aprovada (via webhook) → login em `/entrar` → e-mail chega de verdade com o link de acesso. **Confirmado recebido.**
 - O domínio no Mailcow continua configurado e pode ser usado no futuro (ex: quando o ticket da DigitalOcean for resolvido, ou pra caixas de e-mail comuns tipo suporte@).
@@ -66,7 +66,7 @@ Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `bibliotec
 - Adicionar imagem de capa do produto na Hotmart (está sem imagem — placeholder cinza)
 - Testar uma compra real de ponta a ponta (checkout → webhook → e-mail de acesso)
 - Avaliar tradução do site pra outros idiomas (mencionado, não iniciado)
-- (Opcional, não bloqueante) Acompanhar resposta do ticket #12601558 da DigitalOcean, caso queira usar SMTP do Mailcow no futuro
+- ~~Acompanhar resposta do ticket #12601558 da DigitalOcean~~ — **feito**: negado (21/07/2026). Se quiser usar o Mailcow no futuro, precisa de porta alternativa (2525) ou relay externo com API HTTP
 
 ## Onde as coisas estão
 
