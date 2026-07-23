@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nutrition and Energy | Valdoir Miranda — Advanced Studies</title>
+<meta name="description" content="What to eat to keep your mood, focus, and energy steady throughout the day — and what quietly drains your energy without you noticing the cause.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a4d2e">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Longevity">
+<style>
+/* =============== RESET & BASE =============== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+:root{
+  --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius: 10px;
+  --transition: 220ms ease;
+}
+html[data-theme="light"]{
+  --bg: #faf7f0;
+  --bg-elevated: #ffffff;
+  --bg-soft: #f2ede1;
+  --text: #23241f;
+  --text-soft: #55564c;
+  --border: #e3ddcc;
+  --accent: #7a5b1e;
+  --accent-strong: #4f3c14;
+  --accent-bg: #f3e9d2;
+  --green: #23543f;
+  --green-bg: #e7f0e9;
+  --shadow: 0 10px 30px -12px rgba(35,30,10,0.18);
+  --overlay: rgba(250,247,240,0.86);
+}
+html[data-theme="dark"]{
+  --bg: #14181a;
+  --bg-elevated: #1c2225;
+  --bg-soft: #20272a;
+  --text: #ece7db;
+  --text-soft: #b3ab99;
+  --border: #33393c;
+  --accent: #d8b168;
+  --accent-strong: #efd39a;
+  --accent-bg: #2a2416;
+  --green: #7fbf9d;
+  --green-bg: #16241d;
+  --shadow: 0 10px 34px -10px rgba(0,0,0,0.55);
+  --overlay: rgba(20,24,26,0.88);
+}
+body{
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+  min-height:100vh;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+
+/* =============== PROGRESS BAR + HEADER =============== */
+#progress-bar{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--green));
+  z-index:1000;transition:width 80ms linear;
+}
+header.top{
+  position:fixed;top:3px;left:0;right:0;height:58px;
+  background:var(--overlay);
+  backdrop-filter:saturate(140%) blur(8px);
+  -webkit-backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;z-index:900;
+}
+.brand{
+  font-family:var(--serif);font-size:17px;letter-spacing:.02em;
+  display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.brand .dot{color:var(--accent);}
+.brand small{font-family:var(--sans);font-weight:400;color:var(--text-soft);font-size:12px;display:block;}
+.header-actions{display:flex;align-items:center;gap:8px;}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--border);
+  background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;
+  font-size:17px;transition:transform var(--transition), background var(--transition);
+}
+.icon-btn:hover{transform:translateY(-1px);background:var(--bg-soft);}
+#menu-toggle{display:none;}
+
+/* =============== LAYOUT =============== */
+.app-shell{display:flex;padding-top:76px;max-width:1180px;margin:0 auto;}
+aside.sidebar{
+  width:250px;flex-shrink:0;position:sticky;top:76px;height:calc(100vh - 76px);
+  overflow-y:auto;padding:22px 14px 40px 22px;
+}
+aside.sidebar h4{
+  font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-soft);
+  margin-bottom:12px;font-weight:700;
+}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.toc a{
+  display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;
+  font-size:13.5px;color:var(--text-soft);text-decoration:none;
+  transition:background var(--transition), color var(--transition);
+  border-left:2px solid transparent;
+}
+.toc a:hover{background:var(--bg-soft);color:var(--text);}
+.toc a.active{background:var(--accent-bg);color:var(--accent-strong);border-left-color:var(--accent);font-weight:600;}
+.toc .check{
+  width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;
+  transition:all var(--transition);
+}
+.toc .check.done{background:var(--green);border-color:var(--green);color:#fff;}
+.sidebar-progress{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+.sidebar-progress .track{height:6px;border-radius:6px;background:var(--bg-soft);overflow:hidden;}
+.sidebar-progress .fill{height:100%;background:var(--green);width:0%;transition:width 300ms ease;border-radius:6px;}
+.sidebar-progress .label{font-size:11.5px;color:var(--text-soft);margin-top:7px;}
+
+main.content{flex:1;min-width:0;padding:10px 28px 100px;}
+.content-inner{max-width:70ch;margin:0 auto;}
+
+.module-hero{padding:8px 0 30px;border-bottom:1px solid var(--border);margin-bottom:36px;}
+.module-hero .eyebrow{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.module-hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,40px);line-height:1.15;margin:10px 0 14px;}
+.module-hero p.lede{color:var(--text-soft);font-size:16.5px;max-width:62ch;}
+.module-meta{display:flex;gap:16px;margin-top:18px;flex-wrap:wrap;font-size:12.5px;color:var(--text-soft);}
+.module-meta span{display:flex;align-items:center;gap:6px;}
+
+section.study-section{margin-bottom:62px;scroll-margin-top:90px;opacity:0;transform:translateY(18px);transition:opacity 600ms ease, transform 600ms ease;}
+section.study-section.visible{opacity:1;transform:translateY(0);}
+section.study-section h2{
+  font-family:var(--serif);font-size:26px;margin-bottom:6px;display:flex;align-items:center;gap:10px;
+}
+section.study-section h2 .num{color:var(--accent);font-size:16px;font-weight:700;}
+section.study-section .section-mark{
+  display:inline-flex;align-items:center;gap:7px;margin:14px 0 22px;padding:7px 13px;
+  border:1px solid var(--border);border-radius:30px;font-size:12.5px;background:var(--bg-elevated);
+  color:var(--text-soft);transition:all var(--transition);
+}
+section.study-section .section-mark.done{background:var(--green-bg);color:var(--green);border-color:var(--green);}
+section.study-section .section-mark .dot-i{width:8px;height:8px;border-radius:50%;background:currentColor;}
+
+section.study-section p{font-size:16.5px;margin-bottom:16px;}
+section.study-section p:last-of-type{margin-bottom:0;}
+
+.term{
+  border-bottom:1.5px dotted var(--accent);cursor:help;position:relative;color:var(--accent-strong);
+  font-weight:600;
+}
+.term:hover::after{
+  content:attr(data-def);position:absolute;left:0;bottom:135%;background:var(--accent-strong);
+  color:var(--bg);padding:9px 12px;border-radius:8px;font-size:12.5px;font-weight:400;
+  width:min(260px,60vw);line-height:1.45;box-shadow:var(--shadow);z-index:50;
+}
+
+figure.study-figure{margin:26px 0;border-radius:var(--radius);overflow:hidden;background:var(--bg-soft);border:1px solid var(--border);}
+.figure-media{position:relative;width:100%;height:280px;background:linear-gradient(135deg,var(--accent-bg),var(--green-bg));}
+.figure-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.figure-media .figure-fallback{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-size:52px;color:var(--accent);
+}
+.figure-media.img-fallback img{display:none;}
+.figure-media.img-fallback .figure-fallback{display:flex;}
+figure.study-figure figcaption{padding:12px 16px;font-size:12.5px;color:var(--text-soft);font-style:italic;}
+
+.callout{border-radius:var(--radius);padding:18px 20px;margin:22px 0;border:1px solid var(--border);position:relative;}
+.callout .label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.callout p{margin-bottom:0;font-size:15.5px;}
+.callout.key{background:var(--accent-bg);border-color:var(--accent);}
+.callout.key .label{color:var(--accent-strong);}
+.callout.practice{background:var(--green-bg);border-color:var(--green);}
+.callout.practice .label{color:var(--green);}
+.callout.author{background:var(--bg-soft);border-left:3px solid var(--text-soft);border-radius:6px;}
+.callout.author .label{color:var(--text-soft);}
+.callout.author p{font-style:italic;}
+
+.accordion{border:1px solid var(--border);border-radius:var(--radius);margin:22px 0;overflow:hidden;background:var(--bg-elevated);}
+.accordion summary{
+  list-style:none;padding:15px 18px;font-weight:600;font-size:15px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.accordion summary::-webkit-details-marker{display:none;}
+.accordion summary .plus{transition:transform var(--transition);font-size:18px;color:var(--accent);flex-shrink:0;}
+.accordion[open] summary .plus{transform:rotate(45deg);}
+.accordion .accordion-body{padding:0 18px 18px;color:var(--text-soft);font-size:15px;}
+
+.toggle-compare{border:1px solid var(--border);border-radius:var(--radius);margin:22px 0;overflow:hidden;background:var(--bg-elevated);}
+.toggle-compare .tabs{display:flex;border-bottom:1px solid var(--border);}
+.toggle-compare .tabs button{
+  flex:1;padding:13px;background:none;border:none;font-size:14px;font-weight:600;color:var(--text-soft);
+  border-bottom:2px solid transparent;transition:all var(--transition);
+}
+.toggle-compare .tabs button.active{color:var(--accent-strong);border-bottom-color:var(--accent);background:var(--accent-bg);}
+.toggle-compare .panel{padding:18px 20px;font-size:15px;display:none;}
+.toggle-compare .panel.active{display:block;}
+.toggle-compare .panel ul{padding-left:18px;}
+.toggle-compare .panel li{margin-bottom:6px;}
+
+.food-guide-intro{font-size:16.5px;color:var(--text-soft);margin-bottom:26px;}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:8px 0 28px;}
+.food-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px 18px;background:var(--bg-elevated);transition:transform var(--transition), box-shadow var(--transition);}
+.food-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+.food-card .food-icon{
+  width:44px;height:44px;border-radius:50%;background:var(--accent-bg);color:var(--accent-strong);
+  display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px;
+}
+.food-card h3{font-family:var(--serif);font-size:18px;margin-bottom:8px;}
+.food-card p{font-size:14px;color:var(--text-soft);margin-bottom:0;line-height:1.6;}
+
+.section-actions{margin-top:26px;display:flex;justify-content:flex-end;}
+.btn-complete{
+  border:1px solid var(--green);color:var(--green);background:transparent;padding:10px 18px;
+  border-radius:30px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;
+  transition:all var(--transition);
+}
+.btn-complete:hover{background:var(--green-bg);}
+.btn-complete.done{background:var(--green);color:#fff;}
+
+footer.site-footer{
+  border-top:1px solid var(--border);padding:34px 28px 60px;text-align:center;
+  color:var(--text-soft);font-size:12.5px;max-width:1180px;margin:0 auto;
+}
+footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text);margin-bottom:10px;}
+
+/* =============== MOBILE =============== */
+@media (max-width:880px){
+  .app-shell{padding-top:70px;}
+  aside.sidebar{
+    position:fixed;top:61px;left:0;bottom:0;width:78vw;max-width:300px;
+    background:var(--bg-elevated);border-right:1px solid var(--border);
+    transform:translateX(-100%);transition:transform 260ms ease;z-index:800;
+    box-shadow:var(--shadow);
+  }
+  aside.sidebar.open{transform:translateX(0);}
+  #menu-toggle{display:flex;}
+  main.content{padding:10px 18px 100px;}
+  .sidebar-scrim{
+    display:none;position:fixed;inset:0;top:61px;background:rgba(0,0,0,.35);z-index:790;
+  }
+  .sidebar-scrim.show{display:block;}
+}
+@media (min-width:881px){
+  #menu-toggle{display:none !important;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<header class="top">
+  <div class="brand">
+    <button id="menu-toggle" class="icon-btn" aria-label="Open menu">☰</button>
+    <div>
+      The Longevity Code
+      <small>Valdoir Miranda · Nutrition and Energy</small>
+    </div>
+  </div>
+  <div class="header-actions">
+    <a class="icon-btn" href="/biblioteca" aria-label="Back to library" style="text-decoration:none;color:inherit;">🏠</a>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+  </div>
+</header>
+
+<div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <h4>In this module</h4>
+    <ul class="toc" id="toc-list">
+      <li><a href="#o-que-rouba-sua-energia"><span class="check" data-target="o-que-rouba-sua-energia"></span>01. What really drains your energy</a></li>
+      <li><a href="#glicemia-motor-do-cansaco"><span class="check" data-target="glicemia-motor-do-cansaco"></span>02. Blood sugar: the engine behind fatigue</a></li>
+      <li><a href="#cafe-da-manha-mito-ou-necessidade"><span class="check" data-target="cafe-da-manha-mito-ou-necessidade"></span>03. Breakfast: myth, habit, or necessity?</a></li>
+      <li><a href="#alimentos-que-sustentam-o-foco"><span class="check" data-target="alimentos-que-sustentam-o-foco"></span>04. Foods that sustain focus throughout the day</a></li>
+      <li><a href="#hidratacao-e-energia-invisivel"><span class="check" data-target="hidratacao-e-energia-invisivel"></span>05. Hydration, minerals, and invisible energy</a></li>
+      <li><a href="#guia-rapido-de-alimentos"><span class="check" data-target="guia-rapido-de-alimentos"></span>06. Quick food guide</a></li>
+    </ul>
+    <div class="sidebar-progress">
+      <div class="track"><div class="fill" id="sidebar-fill"></div></div>
+      <div class="label" id="sidebar-label">0 of 5 sections completed</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="content-inner">
+      <div class="module-hero">
+        <div class="eyebrow">Nutrition · Energy</div>
+        <h1>Nutrition and Energy</h1>
+        <p class="lede">What to eat to keep your mood, focus, and energy steady throughout the day — and what quietly drains your energy without you noticing the cause.</p>
+        <div class="module-meta">
+          <span>📖 ~17 min read</span>
+          <span>🗂️ 6 sections</span>
+          <span>🔒 Content exclusive to students</span>
+        </div>
+      </div>
+
+    <section class="study-section" id="o-que-rouba-sua-energia">
+      <h2><span class="num">01</span> What really drains your energy</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Not yet completed</span></div>
+      <p>Most people look for energy in stimulants — coffee, sugar, energy drinks — without realizing that the cause of fatigue is often a decision made hours earlier: an unbalanced meal, insufficient hydration, or a poorly used night's sleep.</p>
+      <p>There are three silent energy thieves that show up in most of the cases I've observed over the years: <span class="term" data-def="fast, intense rises in blood sugar followed by equally fast drops">glycemic spikes</span>, mild dehydration (which already reduces perceived energy before thirst even appears), and overly large meals, which divert blood and energy toward digestion.</p>
+      <p>Identifying which of these three is your main personal thief already solves a good part of the problem — and that's discovered by observing, not guessing.</p>
+      <div class="callout key">
+        <div class="label">💡 Key Concept — Energy is not the same thing as stimulation</div>
+        <p>Caffeine and sugar stimulate the nervous system, creating a passing sense of alertness. Real energy comes from a well-fed, hydrated, and rested metabolism — it's more stable, lasts longer, and doesn't charge the bill later in the form of a sharp crash.</p>
+      </div>
+      <div class="callout practice">
+        <div class="label">🎯 Suggested Practice — Energy diary</div>
+        <p>For three days, write down your energy level from 1 to 5 every two or three hours, along with what you ate and drank beforehand. Patterns emerge quickly — usually by the second day.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="o-que-rouba-sua-energia">✓ <span class="btn-text">Mark as completed</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="glicemia-motor-do-cansaco">
+      <h2><span class="num">02</span> Blood sugar: the engine behind fatigue</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Not yet completed</span></div>
+      <p>When we eat an isolated refined carbohydrate — white bread, a sweet, a sugary juice — the body absorbs the sugar quickly, generating a spike in blood glucose. In response, the body releases <span class="term" data-def="a hormone that removes excess sugar from the blood, storing it in cells">insulin</span> to bring levels back to normal — and this process often 'overshoots,' producing a drop below the starting level. That drop is felt as fatigue, irritability, or sudden hunger, usually one to two hours after eating.</p>
+      <p>The good news is that this cycle is avoidable in practice, without eliminating carbohydrates from your life: just never eat them completely on their own. Fiber, protein, and fat, when present in the same meal, slow down sugar absorption and soften both the spike and the crash.</p>
+      <p>This explains why a piece of bread on its own tires you out faster than the same piece of bread eaten with egg, avocado, or a portion of protein.</p>
+      <figure class="study-figure">
+        <div class="figure-media">
+          <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=900&q=60&auto=format&fit=crop" alt="Balanced breakfast with eggs, whole-grain bread, and fruit" loading="lazy" onerror="this.parentElement.classList.add('img-fallback')">
+          <div class="figure-fallback">⚡</div>
+        </div>
+        <figcaption>Pairing carbohydrate with protein and fat smooths the energy curve.</figcaption>
+      </figure>
+      <details class="accordion">
+        <summary>Why do I crave something sweet almost every afternoon?<span class="plus">+</span></summary>
+        <div class="accordion-body">This pattern almost always points to a glycemic crash after lunch, especially if the meal was low in protein and fiber. The body, sensing energy levels dropping, asks for a quick fix — sugar. Adjusting lunch to include more protein and vegetables usually reduces this specific craving quite a bit.</div>
+      </details>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="glicemia-motor-do-cansaco">✓ <span class="btn-text">Mark as completed</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="cafe-da-manha-mito-ou-necessidade">
+      <h2><span class="num">03</span> Breakfast: myth, habit, or necessity?</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Not yet completed</span></div>
+      <p>For generations, breakfast has been presented as 'the most important meal of the day' — a claim repeated so often it's rarely questioned. The truth, observed over decades of study, is more individual: some people perform better eating early, while others feel lighter and more focused delaying their first meal by a few hours.</p>
+      <p>What matters isn't the time itself, but the quality of the first meal, whether it's at 7 a.m. or at noon. A breakfast rich in simple sugar (white bread, processed juice, sugary cereal) can generate more fatigue than benefit, reversing the logic that 'eating early gives you energy.'</p>
+      <p>It's worth trying both approaches for a few weeks each and comparing, carefully, how your body responds — rather than following a generic rule that may not suit your metabolism.</p>
+      <div class="toggle-compare">
+        <div class="tabs">
+          <button class="active">Early, light breakfast</button>
+          <button class="">Delayed first meal</button>
+        </div>
+        <div class="panel active"><ul><li>Ideal for those who feel real hunger on waking</li><li>Priority: protein + good fat, little sugar</li><li>Avoids a glycemic spike right at the start of the day</li></ul></div>
+        <div class="panel"><ul><li>Ideal for those who don't feel hungry in the morning</li><li>Coffee or tea without sugar can fill the gap</li><li>Many report more mental clarity in the first half of the day</li></ul></div>
+      </div>
+      <div class="callout author">
+        <div class="label">✒️ Author's Observation</div>
+        <p>I've seen people force themselves to eat early for decades, with discomfort, simply because they'd heard it was 'mandatory.' The body speaks — and it's worth listening to it rather than following a generic rule.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="cafe-da-manha-mito-ou-necessidade">✓ <span class="btn-text">Mark as completed</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="alimentos-que-sustentam-o-foco">
+      <h2><span class="num">04</span> Foods that sustain focus throughout the day</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Not yet completed</span></div>
+      <p>The brain consumes a disproportionate share of the body's energy and is particularly sensitive to swings in glucose. Foods that release energy gradually — <span class="term" data-def="those that raise blood sugar slowly and gradually, such as legumes, oats, and most vegetables">low glycemic-index carbohydrates</span>, lean proteins, good fats like olive oil and nuts — tend to sustain concentration longer than pure sugar spikes.</p>
+      <p>Eggs, nuts, avocado, fatty fish, and legumes come up often among the foods most associated with sustained focus, likely because they combine good fat, protein, and micronutrients in a single source.</p>
+      <p>It's also worth noting the role of portion size: very large meals divert blood flow toward digestion, temporarily reducing the energy available for other functions, including mental concentration. Moderate, more frequent meals tend to sustain focus more consistently than two huge meals a day.</p>
+      <div class="callout practice">
+        <div class="label">🎯 Suggested Practice — One-week swap</div>
+        <p>Pick a snack or meal in your day that's currently based on simple sugar (cookies, soda, candy) and swap it for an option with protein and good fat (nuts, a boiled egg, plain yogurt). Notice the difference in energy over the following two or three hours.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="alimentos-que-sustentam-o-foco">✓ <span class="btn-text">Mark as completed</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="hidratacao-e-energia-invisivel">
+      <h2><span class="num">05</span> Hydration, minerals, and invisible energy</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Not yet completed</span></div>
+      <p>Mild dehydration — often just 1 to 2% of body weight in water — is already enough to reduce perceived energy, focus, and even mood, usually before the sensation of thirst appears clearly. It's one of the most underestimated energy thieves, precisely because it's silent.</p>
+      <p>Alongside water, <span class="term" data-def="minerals such as sodium, potassium, and magnesium, essential for muscle and nerve function">electrolytes</span> play a central role: on hot days, with heavy sweating or physical activity, water alone may not be enough to replace what was lost, and the feeling of fatigue persists even when drinking plenty of fluids.</p>
+      <p>A simple practice: start the day with a glass of water before coffee, keep a bottle visible throughout the day (simply seeing it already increases intake), and include natural mineral sources like fruit, dark leafy greens, and nuts in your daily diet.</p>
+      <div class="callout key">
+        <div class="label">💡 Key Concept — Thirst is a late alarm</div>
+        <p>By the time you feel thirsty, your body has already been mildly dehydrated for a while. Keeping hydration steady throughout the day, rather than only responding to thirst, is the difference between stable energy and bouts of unexplained fatigue.</p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-complete" data-target="hidratacao-e-energia-invisivel">✓ <span class="btn-text">Mark as completed</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="guia-rapido-de-alimentos">
+      <h2><span class="num">06</span> Quick food guide</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Not yet completed</span></div>
+      <p class="food-guide-intro">There's no miracle food — and it's worth being suspicious of anyone who promises one. What exists is a diet rich in real food, day after day. Here are some of the ones I use and recommend most in practice, with what I've learned about each over the years.</p>
+
+      <div class="food-grid">
+        <div class="food-card">
+          <div class="food-icon">🫒</div>
+          <h3>Olive oil</h3>
+          <p>Monounsaturated fats, omega-9, and vitamins E, A, and K. Mediterranean cultures call it "liquid gold" — always choose extra-virgin, in a dark bottle.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🥑</div>
+          <h3>Avocado</h3>
+          <p>Good fat, fiber, and potassium. Helps keep cholesterol balanced and sustains satiety longer — worth including regularly.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🌱</div>
+          <h3>Chia seeds</h3>
+          <p>Omega-3, antioxidants, calcium, and fiber in a cheap and natural supplement. One tablespoon a day, hydrated, already makes a difference.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🧅</div>
+          <h3>Onion</h3>
+          <p>Vitamins A, C, and E, plus sulfur, selenium, and anthocyanin — an underrated natural antioxidant. Always prefer it freshly cut, at peak freshness.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🌾</div>
+          <h3>Quinoa</h3>
+          <p>Phosphorus, magnesium, and calcium for bone health. Gluten-free and one of the few plant sources with all nine essential amino acids — rare among grains.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🌰</div>
+          <h3>Brazil nuts</h3>
+          <p>The most concentrated source of selenium there is. Three nuts a day already cover a good part of the daily need for this mineral.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🍯</div>
+          <h3>Bee pollen</h3>
+          <p>Proteins, B-complex vitamins, minerals, and antioxidants in a single grain. Traditionally used as a natural ally during low-energy phases.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🥬</div>
+          <h3>Dark leafy greens</h3>
+          <p>Kale, arugula, and spinach are generous sources of antioxidants. Best eaten raw, in salads, without prolonged cooking.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🥕</div>
+          <h3>Tubers and roots</h3>
+          <p>Arracacha and radish are tubers; sweet potato, carrot, and beet are roots. All are energy sources — worth rotating through them over the week.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🍚</div>
+          <h3>Brown rice</h3>
+          <p>Keeps the bran and germ that white rice loses in polishing, which is why it holds more fiber, magnesium, manganese, and B-complex vitamins, plus produces a more stable blood sugar response after the meal. Paired with beans or another legume over the course of the day — it doesn't need to be on the same plate — it helps complete the essential amino acid profile.</p>
+        </div>
+      </div>
+
+      <div class="callout practice">
+        <div class="label">🍚 Practical Tip — Fluffy brown rice</div>
+        <p>The secret isn't the cooking time, it's the order: put the raw rice on the heat in cold water (double the volume of the rice), without salt, until it's almost dry — salt at the start makes the grain harder. Sauté onion and garlic only afterward, and season last. In about 25 minutes it comes out perfectly fluffy.</p>
+      </div>
+
+      <div class="callout practice">
+        <div class="label">🎯 Complementary Habit — Sleep well</div>
+        <p>Energy-restoring sleep begins before you lie down: a dark room, no electronic devices nearby, and the habit of exercising — preferably right after waking — make a real difference in the quality of rest.</p>
+      </div>
+
+      <div class="section-actions">
+        <button class="btn-complete" data-target="guia-rapido-de-alimentos">✓ <span class="btn-text">Mark as completed</span></button>
+      </div>
+    </section>
+
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="quote">"Knowledge only has value when it's shared."</div>
+  © 2026 Valdoir Barreto Miranda. Material exclusive to students. Reproduction prohibited.
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var MODULE_KEY = "alimentacao-energia";
+  var STORAGE_THEME = "vm_theme";
+  var STORAGE_PROGRESS = "vm_progress_" + MODULE_KEY;
+
+  /* ---------- THEME ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("theme-toggle");
+  function applyTheme(t){
+    root.setAttribute("data-theme", t);
+    themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+  }
+  var savedTheme = localStorage.getItem(STORAGE_THEME);
+  if(!savedTheme){
+    savedTheme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  applyTheme(savedTheme);
+  themeBtn.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem(STORAGE_THEME, next);
+  });
+
+  /* ---------- MOBILE SIDEBAR ---------- */
+  var sidebar = document.getElementById("sidebar");
+  var scrim = document.getElementById("sidebar-scrim");
+  var menuToggle = document.getElementById("menu-toggle");
+  function openSidebar(){ sidebar.classList.add("open"); scrim.classList.add("show"); }
+  function closeSidebar(){ sidebar.classList.remove("open"); scrim.classList.remove("show"); }
+  menuToggle.addEventListener("click", function(){
+    sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
+  });
+  scrim.addEventListener("click", closeSidebar);
+  document.querySelectorAll("#toc-list a").forEach(function(a){
+    a.addEventListener("click", closeSidebar);
+  });
+
+  /* ---------- READING PROGRESS BAR ---------- */
+  var progressBar = document.getElementById("progress-bar");
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrollTop = h.scrollTop || document.body.scrollTop;
+    var scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = pct + "%";
+  }
+  document.addEventListener("scroll", updateProgress, {passive:true});
+  updateProgress();
+
+  /* ---------- SCROLLSPY (TOC active link) ---------- */
+  var sections = Array.prototype.slice.call(document.querySelectorAll("section.study-section"));
+  var tocLinks = {};
+  document.querySelectorAll("#toc-list a").forEach(function(a){
+    tocLinks[a.getAttribute("href").slice(1)] = a;
+  });
+  var spyObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var link = tocLinks[entry.target.id];
+      if(!link) return;
+      if(entry.isIntersecting){
+        Object.values(tocLinks).forEach(function(l){ l.classList.remove("active"); });
+        link.classList.add("active");
+      }
+    });
+  }, {rootMargin: "-30% 0px -60% 0px", threshold: 0});
+  sections.forEach(function(s){ spyObserver.observe(s); });
+
+  /* ---------- SCROLL REVEAL ---------- */
+  var revealObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.12});
+  sections.forEach(function(s){ revealObserver.observe(s); });
+
+  /* ---------- PROGRESS (mark as done) ---------- */
+  var total = sections.length;
+  function loadProgress(){
+    try{
+      return JSON.parse(localStorage.getItem(STORAGE_PROGRESS) || "{}");
+    }catch(e){ return {}; }
+  }
+  function saveProgress(state){
+    localStorage.setItem(STORAGE_PROGRESS, JSON.stringify(state));
+  }
+  function renderProgress(){
+    var state = loadProgress();
+    var doneCount = 0;
+    sections.forEach(function(s){
+      var id = s.id;
+      var isDone = !!state[id];
+      if(isDone) doneCount++;
+      var check = document.querySelector('.toc .check[data-target="'+id+'"]');
+      var mark = s.querySelector(".section-mark");
+      var btn = s.querySelector(".btn-complete");
+      if(check){ check.classList.toggle("done", isDone); check.textContent = isDone ? "✓" : ""; }
+      if(mark){
+        mark.classList.toggle("done", isDone);
+        mark.querySelector(".mark-text").textContent = isDone ? "Section completed" : "Not yet completed";
+      }
+      if(btn){
+        btn.classList.toggle("done", isDone);
+        btn.querySelector(".btn-text").textContent = isDone ? "Completed ✓" : "Mark as completed";
+      }
+    });
+    var fill = document.getElementById("sidebar-fill");
+    var label = document.getElementById("sidebar-label");
+    var pct = total > 0 ? (doneCount/total)*100 : 0;
+    if(fill) fill.style.width = pct + "%";
+    if(label) label.textContent = doneCount + " of " + total + " sections completed";
+  }
+  document.querySelectorAll(".btn-complete").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var id = btn.getAttribute("data-target");
+      var state = loadProgress();
+      state[id] = !state[id];
+      saveProgress(state);
+      renderProgress();
+    });
+  });
+  renderProgress();
+
+  /* ---------- TOGGLE COMPARE ---------- */
+  document.querySelectorAll(".toggle-compare").forEach(function(box){
+    var tabs = box.querySelectorAll(".tabs button");
+    var panels = box.querySelectorAll(".panel");
+    tabs.forEach(function(tab, i){
+      tab.addEventListener("click", function(){
+        tabs.forEach(function(t){ t.classList.remove("active"); });
+        panels.forEach(function(p){ p.classList.remove("active"); });
+        tab.classList.add("active");
+        panels[i].classList.add("active");
+      });
+    });
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
