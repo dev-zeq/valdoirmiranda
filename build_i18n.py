@@ -67,6 +67,7 @@ TR = [
  ("Relação entre alimentação, rotina e equilíbrio emocional — o elo entre corpo saudável e mente tranquila.","The relationship between nutrition, routine and emotional balance — the link between a healthy body and a calm mind.","Relación entre alimentación, rutina y equilibrio emocional — el vínculo entre un cuerpo sano y una mente tranquila."),
  ("Vitalidade Masculina","Male Vitality","Vitalidad Masculina"),
  ("Estudo aprofundado sobre energia, hormônios, desempenho e bem-estar específico para o organismo masculino.","An in-depth study of energy, hormones, performance and well-being specific to the male body.","Estudio profundo sobre energía, hormonas, desempeño y bienestar específico para el organismo masculino."),
+ ("Estudo aprofundado sobre hormônios, ciclo e bem-estar específico para o organismo feminino.","An in-depth study of hormones, cycle and well-being specific to the female body.","Estudio profundo sobre hormonas, ciclo y bienestar específico para el organismo femenino."),
  ("Longevidade","Longevity","Longevidad"),
  ("O que a ciência e a observação revelam sobre viver mais — com saúde, energia e qualidade.","What science and observation reveal about living longer — with health, energy and quality.","Lo que la ciencia y la observación revelan sobre vivir más — con salud, energía y calidad."),
  ("Estudos e Pesquisas","Studies & Research","Estudios e Investigaciones"),
