@@ -1,104 +1,110 @@
-# Biblioteca Valdoir Miranda | Estudos Avançados — Progresso
+# O Código da Longevidade — Progresso
 
 _Atualizado em 22/07/2026_
 
 ## Status geral
 
-Produto **publicado na Hotmart com vendas ativas** (21/07/2026, autorizado pelo Ezequiel). Checkout: `https://pay.hotmart.com/V106821157P` · Página de vendas Hotmart: `https://go.hotmart.com/V106821157P`. Site com botões de compra ativos apontando pro checkout.
+Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acesso funcionando de ponta a ponta (compra → e-mail → login → módulos). Praticamente pronto pra vender de verdade — falta só revisar a página de vendas automática da Hotmart e decidir sobre a capa do produto lá.
 
-**Renomeação (21/07/2026):** o produto foi rebatizado de "Biblioteca Valdoir Miranda | Estudos Avançados" para **"O Código da Longevidade | por Valdoir Miranda"** — posicionamento de longevidade para todos os públicos, escolhido pelo Ezequiel. Aplicado no site (title, hero, seções, footer), no nome + descrição do produto na Hotmart, e numa nova capa (`capa-hotmart.png`). ID Hotmart e links de checkout permanecem os mesmos (8164684 / V106821157P).
+- **Nome do produto**: "O Código da Longevidade | por Valdoir Miranda" (renomeado de "Biblioteca Valdoir Miranda" em 21/07/2026 — posicionamento de longevidade pra todos os públicos, não só masculino)
+- **ID Hotmart**: 8164684
+- **Preço**: R$ 37 (preço de fundador, sobe pra R$ 67 quando o acervo chegar a 100%), pagamento único, reembolso 7 dias
+- **Checkout**: `https://pay.hotmart.com/V106821157P` · Página de vendas: `https://go.hotmart.com/V106821157P`
+- **Categoria**: vendido como "curso" (Cursos Online / Área de Membros na Hotmart) — decisão consciente: não é ebook (tem progresso salvo, "marcar como concluído", interatividade) nem curso em vídeo (não tem vídeo-aula nenhuma). Conferido: nenhum texto do site promete vídeo, então "curso" não gera expectativa quebrada.
+- **Domínio**: `valdoirmiranda.com` (Porkbun)
+- **Área de membros**: Hotmart Club, slug `biblioteca-valdoir-miranda`
 
-**Site trilíngue (21/07/2026):** o site agora tem 3 idiomas com URLs próprias e seletor no menu (PT · ES · EN):
-- Português (padrão): `valdoirmiranda.com/` → `index.html`
-- Espanhol: `valdoirmiranda.com/es/` → `es/index.html`
-- Inglês: `valdoirmiranda.com/en/` → `en/index.html`
-- Tags `hreflang` no `<head>` de todas para o Google indexar a versão certa por país. As páginas EN/ES são geradas a partir da PT pelo script `build_i18n.py` (na raiz do repo, tabela de tradução PT→EN→ES) — **ao editar textos, altere o `index.html`, rode `python3 build_i18n.py` e faça commit dos 3 arquivos** para não dessincronizar.
-- Preço mantido em R$ (BRL) nas 3 versões, com nota "convertido para sua moeda no checkout" (a Hotmart converte automaticamente). Mesmo link de checkout serve todos os países.
+## Módulos (conteúdo pago)
 
-- Produto: "Biblioteca Valdoir Miranda | Estudos Avançados"
-- ID Hotmart: 8164684
-- Área de membros: Hotmart Club dedicado, slug `biblioteca-valdoir-miranda` (isolado de outros produtos seus, como o "Do Zero ao Profissional")
-- Domínio próprio: **valdoirmiranda.com** (registrado na Porkbun, já configurado — ver seção Infraestrutura)
-
-## Módulos
-
-5 módulos criados, cada um com 1 aula publicada. Cada aula tem um texto de introdução + um link que abre a página de estudo interativa.
+5 módulos, cada um uma página HTML interativa (índice lateral, progresso salvo por seção, sanfonas, comparações clicáveis):
 
 | Módulo | Arquivo |
 |---|---|
 | 1. Combinação de Alimentos | `b455ba4f3f.html` |
-| 2. Alimentação e Energia | `f25ef86eb7.html` |
+| 2. Alimentação e Energia (+ seção 06 "Guia rápido de alimentos", adicionada 22/07) | `f25ef86eb7.html` |
 | 3. Vitalidade Masculina | `d786c82234.html` |
 | 4. Corpo, Mente e Hábitos | `7d40d1ef04.html` |
 | 5. Longevidade e Qualidade de Vida | `2adee283ae.html` |
 
-## Infraestrutura (migrado do GitHub Pages para VPS própria)
+**Guia rápido de alimentos (22/07/2026):** o pai do Ezequiel (Valdoir) mandou um álbum do Google Fotos ("FISH 100%", ~29 slides) com conteúdo sobre benefícios de alimentos, num template visual carregado (fundo verde neon, marca "Medicina Integrativa" sem relação com o produto). Revisei ~13 dos 29 slides e reescrevi 9 alimentos + 1 hábito em tom naturalista/observacional (não clínico), removendo:
+- Um mito sem comprovação científica (cebola cortada "absorve toxina do ar")
+- Promoção de marca de terceiro (produto "Pólen Baldoni") com alegações médicas fortes ("cura próstata", "efeito antibiótico") — mantive o tema pólen apícola, só tirei a marca e as alegações
+- Erros de português (ex.: "as sementes de chia tem" → "têm")
 
-- **VPS**: DigitalOcean, droplet `biblioteca-valdoir-vps` (Ubuntu 24.04, 512MB RAM + 1GB swap), IP `161.35.110.78`, US$ 4/mês
-- **Domínio**: `valdoirmiranda.com` e `www.valdoirmiranda.com` apontando pro droplet via DNS (Porkbun), com HTTPS (Let's Encrypt, renovação automática configurada)
-- **Site estático** (`index.html`, página de vendas/institucional): servido direto pelo nginx a partir do repositório `dev-zeq/valdoirmiranda` clonado em `/var/www/valdoirmiranda`
-- **Os 5 módulos** ficaram fora da pasta pública (`/var/www/valdoirmiranda-private`) e só são liberados através do fluxo de login abaixo — não são mais acessíveis via link direto (nem os nomes aleatórios funcionam mais sozinhos)
-- O antigo GitHub Pages não é mais a fonte servida ao público; o repositório GitHub continua sendo a fonte de verdade do código, mas quem serve ao vivo é a VPS
+**Pendente:** ~14-16 slides do álbum ainda não foram abertos/revisados. Se quiser completar, o método que funcionou foi: abrir o álbum compartilhado no Google Fotos, clicar em cada foto, e capturar a URL da imagem através da resposta da API interna (`rpcids=VrseUb` nas requisições de rede) — as miniaturas comprimidas não são legíveis. Também ficou pendente confirmar com o Valdoir se a regra "não misturar tubérculos na mesma refeição" (slide de tubérculos/raízes) é intencional (linha da trofologia/combinação de alimentos, não é consenso científico mainstream, mas pode ser proposital dado que o Módulo 1 é sobre isso).
 
-## Controle de acesso (implementado)
+## Site institucional (trilíngue)
 
-Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `biblioteca-app`, reinicia sozinho se cair):
+3 idiomas com URLs próprias e seletor no menu:
+- Português (padrão): `valdoirmiranda.com/` → `index.html`
+- Espanhol: `valdoirmiranda.com/es/` → `es/index.html`
+- Inglês: `valdoirmiranda.com/en/` → `en/index.html`
 
-- **Webhook da Hotmart** (`/webhook/hotmart`) cadastrado e testado (200 OK) — compra aprovada libera acesso automaticamente; cancelamento, reembolso ou chargeback revogam automaticamente
-- **Login por e-mail** (`/entrar`): comprador digita o e-mail usado na compra, recebe um link de acesso válido por 24h
-- **Biblioteca protegida** (`/biblioteca` → `/modulos/...`): só abre com sessão válida (cookie assinado), checando se o e-mail está com status "ativo"
-- Dados de compradores/tokens guardados em `/opt/biblioteca-app/data.json` (arquivo simples, sem necessidade de banco de dados pro volume esperado)
+Tags `hreflang` no `<head>` de todas pro Google indexar a versão certa por país. As páginas EN/ES são geradas a partir da PT pelo script `build_i18n.py` (raiz do repo, tabela de tradução PT→EN→ES) — **ao editar textos, altere o `index.html`, rode `python3 build_i18n.py` e comite os 3 arquivos** pra não dessincronizar. Preço mantido em R$ nas 3 versões (nota "convertido pra sua moeda no checkout" — a Hotmart converte automático).
+
+## Infraestrutura
+
+- **VPS**: DigitalOcean, droplet `biblioteca-valdoir-vps` (Ubuntu 24.04, 512MB RAM + 1GB swap), IP `161.35.110.78`, US$ 4/mês. SSH: `~/.ssh/digitalocean_biblioteca_valdoir`
+- **Site institucional** (`index.html` + `/es/` + `/en/`): nginx serve direto de `/var/www/valdoirmiranda` (clone do repo `dev-zeq/valdoirmiranda`)
+- **Os 5 módulos**: ficam em `/var/www/valdoirmiranda-private` (fora da pasta pública), só acessíveis pelo fluxo de login — **precisam ser copiados manualmente pra lá depois de cada `git pull`** (não é sincronizado automaticamente, ver seção "Como fazer deploy")
+- **nginx**: config em `/etc/nginx/sites-available/valdoirmiranda`, cópia salva em `infra/nginx-valdoirmiranda.conf` no repo. Só repassa pro backend Node as rotas explícitas: `/webhook/`, `/entrar`, `/biblioteca`, `/sair`, `/modulos/`. Qualquer rota nova no `server.js` **precisa ser adicionada aqui também**, senão dá 404 (aconteceu com `/sair`, já corrigido)
+- **HTTPS**: Let's Encrypt, renovação automática
+
+## Backend de acesso (`server.js`)
+
+Node.js em `/opt/biblioteca-app`, roda como serviço systemd `biblioteca-app` (reinicia sozinho se cair). **O `server.js` e os templates vivem só na VPS, não no repositório git** — sempre baixar (`scp`), editar localmente, testar sintaxe (`node -c`) e subir de volta antes de reiniciar o serviço.
+
+- **Webhook Hotmart** (`/webhook/hotmart`): compra aprovada libera acesso automaticamente; cancelamento/reembolso/chargeback revogam automaticamente. Testado (200 OK).
+- **Login por e-mail** (`/entrar`): compra digita e-mail, recebe link válido por 24h.
+- **Sessão salva: 90 dias** (era 24h, aumentado 22/07 a pedido do Ezequiel — o link do e-mail continua expirando em 24h, só o cookie de sessão pós-clique dura mais). Reembolso revoga o acesso na hora mesmo com sessão de 90 dias, porque a checagem roda a cada página, não fica em cache no cookie.
+- **Dashboard `/biblioteca`**: redesenhado 22/07 (era uma lista de links azuis sem estilo) — agora cards com ícone/título/descrição de cada módulo, no mesmo visual dos módulos internos. Tem botão "Sair" (`/sair`, novo).
+- **Dados de compradores**: `/opt/biblioteca-app/data.json` (arquivo simples). Estrutura: `{"purchasers": {"email": {"status": "active"|"revoked", ...}}, "tokens": {...}}`.
+- **Acesso do dono**: `zeqmiranda@gmail.com` foi marcado manualmente como `status: 'active'` (`transaction_id: 'manual-owner-access'`) direto no `data.json` — acesso vitalício sem passar pela Hotmart, útil pra sempre poder conferir o produto como comprador real vê.
+
+## App instalável (PWA)
+
+Site instalável como app no celular ("Adicionar à tela de início"), sem loja de app:
+- Ícone próprio (folha estilizada verde/âmbar) em `icons/`, `manifest.json` na raiz
+- `sw.js` (service worker): módulos e `/biblioteca` já visitados ficam salvos no aparelho, abrem offline (estratégia "tenta rede, cai pro cache se falhar")
+- Tags de manifest/ícone precisam estar nos 5 módulos **e** nas páginas `/entrar` e `/biblioteca` do `server.js` — se reeditar o backend, manter esses blocos
+- Testado: manifest, ícones e sw.js servem certo (200), service worker registra e ativa, cache confirmado guardando página visitada
 
 ## E-mail transacional — funcionando ✅
 
-- Tentamos primeiro via Mailcow próprio (`mail.bezclean.com.br`) usando SMTP, mas o droplet da DigitalOcean bloqueia portas SMTP de saída (25/465/587) por padrão, política antispam deles — confirmado com teste direto contra o Gmail, que falhou igual. Abri o **ticket #12601558** na DigitalOcean pedindo a liberação — **respondido em 21/07/2026: negado**, política deles não permite exceção. Sugeriram porta alternativa 2525 ou envio via API HTTP. Não bloqueia nada, pois o envio já roda 100% pela Resend.
-- **Solução adotada**: Resend (envio via API HTTPS, não usa portas SMTP, então não esbarra no bloqueio). Domínio `valdoirmiranda.com` verificado na Resend (DKIM, MX e SPF no subdomínio `send.valdoirmiranda.com`, sem conflitar com o Mailcow no domínio raiz).
-- Testado de ponta a ponta: compra aprovada (via webhook) → login em `/entrar` → e-mail chega de verdade com o link de acesso. **Confirmado recebido.**
-- O domínio no Mailcow continua configurado e pode ser usado no futuro (ex: quando o ticket da DigitalOcean for resolvido, ou pra caixas de e-mail comuns tipo suporte@).
+- **Envio**: Resend (API HTTPS, não usa porta SMTP). Domínio `valdoirmiranda.com` verificado (DKIM/MX/SPF em `send.valdoirmiranda.com`).
+- Testado ponta a ponta: compra → `/entrar` → e-mail chega com link de acesso. Template com identidade visual do site em `/opt/biblioteca-app/templates/email-access.html` (na VPS, não no repo).
+- **SMTP direto (Mailcow) bloqueado pela DigitalOcean** — ticket #12601558 negado em 21/07/2026. Não é bloqueante (Resend resolve tudo), mas se quiser usar o Mailcow (`mail.bezclean.com.br`, caixa `acesso@valdoirmiranda.com` já criada) no futuro, precisa de porta alternativa (2525) ou relay via API.
 
 ## Programa de afiliados
 
-- Comissão definida: **50%** por venda aprovada (decisão do Ezequiel, 22/07/2026).
-- Texto de divulgação do programa redigido — ver histórico da conversa ou colar novamente se precisar reeditar no painel Hotmart (Produto → Programa de afiliados).
+- **Comissão: 50%** por venda aprovada — mas atenção: é 50% do valor líquido (após taxa da Hotmart), não dos R$ 37 cheios. Na prática dá **~R$ 16,17 por venda**, não R$ 18,50. Já corrigido em todo lugar (texto na Hotmart, página de afiliados).
+- **Página de recrutamento de afiliados**: `afiliados.valdoirmiranda.com` — repositório **separado** no GitHub (`dev-zeq/valdoirmiranda-afiliados`), com GitHub Pages próprio (domínio customizado, HTTPS via Let's Encrypt do próprio GitHub). **Não faz parte do repo `dev-zeq/valdoirmiranda`** — pra atualizar essa página, editar `afiliados.html` localmente e fazer push pro outro repo (não pro principal).
+- Link direto de afiliação: `https://affiliate.hotmart.com/affiliate-recruiting/view/3159O106821178`
+- **Pendência conhecida, não crítica**: a página pública de recrutamento na própria Hotmart mostra o texto de divulgação **duplicado** (uma cópia certa com R$16,17, uma cópia antiga com R$18,50). Só achei um campo editável nas configurações (já corrigido); a duplicação pode ser um comportamento de cache do lado da Hotmart. Se persistir depois de alguns dias, vale abrir chamado com o suporte deles.
 
-## Dashboard `/biblioteca` redesenhado — feito 22/07/2026
+## Como fazer deploy (checklist rápido)
 
-A página que o comprador vê depois de logar era um rascunho técnico (lista de links azuis sublinhados, sem estilo nenhum). Redesenhada com a mesma identidade visual dos módulos: cards com ícone, título e descrição de cada módulo, cabeçalho com marca, rodapé com a citação do Valdoir. Também adicionei um botão "Sair" funcional (não existia antes — rota `/sair` nova, precisou de ajuste no nginx pra repassar essa rota pro backend Node; config salva em `infra/nginx-valdoirmiranda.conf`).
-
-## App instalável (PWA) — feito 22/07/2026
-
-O site agora é instalável como app no celular ("Adicionar à tela de início"), sem passar por loja de apps:
-- Ícone próprio (folha estilizada, verde/âmbar) em `icons/`, `manifest.json` na raiz do site
-- `sw.js` (service worker): módulos e a página `/biblioteca` já visitados ficam salvos no aparelho e abrem mesmo sem internet (estratégia "tenta rede, cai pro cache salvo se falhar")
-- Tags de manifest/ícone adicionadas nos 5 módulos e nas páginas `/entrar` e `/biblioteca` (essas duas vivem inline no `server.js`, não em arquivo HTML separado)
-- Testado: manifest, ícones e sw.js servidos corretamente (200, content-type certo); service worker registra e ativa; cache confirmado guardando a página visitada
-- **Para builds futuros do backend**: sempre que reeditar `server.js`, mantenha os blocos de `<link rel="manifest">` e o `<script>` de registro do service worker nas páginas `/entrar` e `/biblioteca`
-
-## Sessão de login — 90 dias — feito 22/07/2026
-
-O cookie de sessão (depois de clicar no link do e-mail) agora dura **90 dias**, não mais 24h. O link do e-mail em si continua expirando em 24h (é só o "cartão de entrada" único). Reembolso/cancelamento revoga o acesso na hora, independente da duração do cookie, porque a checagem roda a cada página.
-
-## Acesso do dono do produto
-
-O e-mail `zeqmiranda@gmail.com` foi marcado manualmente como comprador ativo (`status: 'active'`) direto no `data.json` da VPS, com `transaction_id: 'manual-owner-access'` — acesso vitalício sem ter passado pela Hotmart. Útil pra sempre poder conferir como o produto real aparece pro comprador.
+1. **Site institucional / módulos (arquivos HTML)**: editar local → `git commit` + `git push` → `ssh` na VPS → `git pull` em `/var/www/valdoirmiranda` → se mudou algum dos 5 módulos, copiar manualmente pra `/var/www/valdoirmiranda-private/`
+2. **Backend (`server.js`, templates de e-mail)**: baixar da VPS com `scp` → editar local → `node -c server.js` (checar sintaxe) → `scp` de volta → `systemctl restart biblioteca-app` na VPS
+3. **nginx**: se adicionar rota nova no `server.js`, adicionar também em `/etc/nginx/sites-available/valdoirmiranda` → `nginx -t` (testar) → `systemctl reload nginx`. Sempre fazer backup do arquivo antes (`cp arquivo arquivo.bak`).
+4. **Página de afiliados**: repo separado `dev-zeq/valdoirmiranda-afiliados`, GitHub Pages atualiza sozinho após o push.
 
 ## Pendências
 
-- ~~Templates de e-mail em HTML~~ — **feito**: e-mail de acesso agora usa template com a identidade visual do site (verde/âmbar, tipografia serifada no título), compatível com os principais clientes de e-mail (arquivo em `/opt/biblioteca-app/templates/email-access.html` na VPS). Testado e confirmado recebido corretamente.
-- ~~Atualizar os links das aulas na Hotmart Club~~ — **feito**: as 5 aulas agora apontam para `https://valdoirmiranda.com/entrar` (fluxo novo de login) em vez do link antigo do GitHub Pages
-- ~~Definir preço final de venda~~ — **feito**: R$ 37 (preço base na Hotmart, oferta `49b52jzx`), reembolso 7 dias
-- ~~Decidir sobre publicar/ativar o produto pra venda~~ — **feito**: cadastro finalizado e vendas ativas em 21/07/2026
-- Revisar a página de vendas do produto na Hotmart (gerada automaticamente, ainda não editada)
-- Adicionar imagem de capa do produto na Hotmart (está sem imagem — placeholder cinza)
-- Testar uma compra real de ponta a ponta (checkout → webhook → e-mail de acesso)
-- Avaliar tradução do site pra outros idiomas (mencionado, não iniciado)
-- ~~Acompanhar resposta do ticket #12601558 da DigitalOcean~~ — **feito**: negado (21/07/2026). Se quiser usar o Mailcow no futuro, precisa de porta alternativa (2525) ou relay externo com API HTTP
+- Revisar a página de vendas do produto na Hotmart (gerada automaticamente pela Hotmart, ainda não editada manualmente)
+- Adicionar imagem de capa do produto na Hotmart (tenho uma pronta: `capa-hotmart.png` na raiz do repo — falta só fazer o upload manual no painel, é um passo que exige interação de arquivo do sistema)
+- Testar uma compra real de ponta a ponta (checkout pago de verdade → webhook → e-mail) — só testei o fluxo de login manualmente, nunca uma compra 100% real
+- Completar a revisão dos ~14-16 slides restantes do álbum "FISH 100%" do Valdoir (ver seção Módulos)
+- Confirmar com o Valdoir a regra dos tubérculos (ver seção Módulos)
+- Acompanhar se a duplicação de texto na página de afiliados da Hotmart se resolve sozinha (ver seção Afiliados)
+- Avaliar se vale reaproveitar as instruções de "não misturar tubérculos" e demais conteúdo naturalista do Valdoir nos próximos módulos, mantendo o mesmo cuidado de checar mitos/marcas antes de publicar
 
 ## Onde as coisas estão
 
-- Repositório GitHub: `dev-zeq/valdoirmiranda` (index.html do site + os 5 arquivos de módulo, histórico de commits)
-- VPS: DigitalOcean, droplet `biblioteca-valdoir-vps`, IP `161.35.110.78` (chave SSH em `~/.ssh/digitalocean_biblioteca_valdoir`)
-- Domínio: Porkbun (`valdoirmiranda.com`), DNS gerenciado lá
-- E-mail (envio): Resend, domínio `valdoirmiranda.com` verificado, API key configurada como variável de ambiente no serviço systemd da VPS
-- E-mail (Mailcow, backup/futuro): `mail.bezclean.com.br` (painel próprio, domínio `valdoirmiranda.com` adicionado, caixa `acesso@valdoirmiranda.com` criada)
-- Painel Hotmart: produto 8164684, dentro do Club "biblioteca-valdoir-miranda", webhook cadastrado em Ferramentas → Webhook
+- **Repositório principal**: `dev-zeq/valdoirmiranda` — site institucional (PT/ES/EN), os 5 módulos, PWA (manifest/ícones/sw.js), config do nginx documentada em `infra/`
+- **Repositório da página de afiliados**: `dev-zeq/valdoirmiranda-afiliados` (separado, GitHub Pages próprio)
+- **VPS**: DigitalOcean, IP `161.35.110.78`, chave SSH `~/.ssh/digitalocean_biblioteca_valdoir`. Backend Node em `/opt/biblioteca-app` (fora do git), módulos privados em `/var/www/valdoirmiranda-private`, site público em `/var/www/valdoirmiranda`
+- **Domínio**: Porkbun (`valdoirmiranda.com`), DNS gerenciado lá
+- **E-mail (envio)**: Resend, domínio verificado, API key na VPS
+- **E-mail (Mailcow, backup/futuro)**: `mail.bezclean.com.br`
+- **Painel Hotmart**: produto 8164684, dentro do Club "biblioteca-valdoir-miranda"
