@@ -125,10 +125,10 @@ Site instalável como app no celular ("Adicionar à tela de início"), sem loja 
 - Revisar a página de vendas do produto na Hotmart (gerada automaticamente pela Hotmart, ainda não editada manualmente)
 - Adicionar imagem de capa do produto na Hotmart (tenho uma pronta: `capa-hotmart.png` na raiz do repo — falta só fazer o upload manual no painel, é um passo que exige interação de arquivo do sistema)
 - Testar uma compra real de ponta a ponta (checkout pago de verdade → webhook → e-mail) — só testei o fluxo de login manualmente, nunca uma compra 100% real
-- Completar a revisão dos ~14-16 slides restantes do álbum "FISH 100%" do Valdoir (ver seção Módulos)
-- Confirmar com o Valdoir a regra dos tubérculos (ver seção Módulos)
+- Confirmar com o Valdoir a regra dos tubérculos (não misturar tubérculos na mesma refeição, ver seção Módulos) — ainda não confirmado se é intencional
 - Acompanhar se a duplicação de texto na página de afiliados da Hotmart se resolve sozinha (ver seção Afiliados)
-- Avaliar se vale reaproveitar as instruções de "não misturar tubérculos" e demais conteúdo naturalista do Valdoir nos próximos módulos, mantendo o mesmo cuidado de checar mitos/marcas antes de publicar
+- Avisar os amigos que vão vender no Peru que o backend já suporta ES/EN completo (login, e-mail, dashboard, os 6 módulos) — falta só eles terem a página de vendas deles em espanhol linkando pra `/entrar?lang=es`
+- Revisar com calma o restante do conteúdo dos "piores alimentos" do álbum do Valdoir (açúcar, farinha, industrializados etc.) — só entrou o essencial dos 6 itens novos (alho, peixe, kefir, especiarias, magnésio, limão) e a nota sobre iodo/tireoide; a seção de "alimentos a evitar" tem bastante alegação exagerada/imprecisa (ex. "farinha integral pior que a branca", "glúten aumentou 400x") que ainda precisa da mesma triagem antes de virar conteúdo, se quiserem usar
 
 ## Onde as coisas estão
 
