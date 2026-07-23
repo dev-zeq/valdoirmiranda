@@ -61,6 +61,23 @@ Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `bibliotec
 - Comissão definida: **50%** por venda aprovada (decisão do Ezequiel, 22/07/2026).
 - Texto de divulgação do programa redigido — ver histórico da conversa ou colar novamente se precisar reeditar no painel Hotmart (Produto → Programa de afiliados).
 
+## App instalável (PWA) — feito 22/07/2026
+
+O site agora é instalável como app no celular ("Adicionar à tela de início"), sem passar por loja de apps:
+- Ícone próprio (folha estilizada, verde/âmbar) em `icons/`, `manifest.json` na raiz do site
+- `sw.js` (service worker): módulos e a página `/biblioteca` já visitados ficam salvos no aparelho e abrem mesmo sem internet (estratégia "tenta rede, cai pro cache salvo se falhar")
+- Tags de manifest/ícone adicionadas nos 5 módulos e nas páginas `/entrar` e `/biblioteca` (essas duas vivem inline no `server.js`, não em arquivo HTML separado)
+- Testado: manifest, ícones e sw.js servidos corretamente (200, content-type certo); service worker registra e ativa; cache confirmado guardando a página visitada
+- **Para builds futuros do backend**: sempre que reeditar `server.js`, mantenha os blocos de `<link rel="manifest">` e o `<script>` de registro do service worker nas páginas `/entrar` e `/biblioteca`
+
+## Sessão de login — 90 dias — feito 22/07/2026
+
+O cookie de sessão (depois de clicar no link do e-mail) agora dura **90 dias**, não mais 24h. O link do e-mail em si continua expirando em 24h (é só o "cartão de entrada" único). Reembolso/cancelamento revoga o acesso na hora, independente da duração do cookie, porque a checagem roda a cada página.
+
+## Acesso do dono do produto
+
+O e-mail `zeqmiranda@gmail.com` foi marcado manualmente como comprador ativo (`status: 'active'`) direto no `data.json` da VPS, com `transaction_id: 'manual-owner-access'` — acesso vitalício sem ter passado pela Hotmart. Útil pra sempre poder conferir como o produto real aparece pro comprador.
+
 ## Pendências
 
 - ~~Templates de e-mail em HTML~~ — **feito**: e-mail de acesso agora usa template com a identidade visual do site (verde/âmbar, tipografia serifada no título), compatível com os principais clientes de e-mail (arquivo em `/opt/biblioteca-app/templates/email-access.html` na VPS). Testado e confirmado recebido corretamente.
