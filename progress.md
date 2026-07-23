@@ -1,6 +1,6 @@
 # O Código da Longevidade — Progresso
 
-_Atualizado em 23/07/2026_
+_Atualizado em 23/07/2026 (fim de sessão longa — próxima sessão começa daqui)_
 
 ## Status geral
 
@@ -16,16 +16,20 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 
 ## Módulos (conteúdo pago)
 
-6 módulos, cada um uma página HTML interativa (índice lateral, progresso salvo por seção, sanfonas, comparações clicáveis):
+6 módulos, cada um uma página HTML interativa (índice lateral, progresso salvo por seção, sanfonas, comparações clicáveis). Ordem oficial (dashboard e página de vendas):
 
 | Módulo | Arquivo |
 |---|---|
 | 1. Combinação de Alimentos | `b455ba4f3f.html` |
-| 2. Alimentação e Energia (+ seção 06 "Guia rápido de alimentos", adicionada 22/07) | `f25ef86eb7.html` |
+| 2. Alimentação e Energia (+ seção 06 "Guia rápido de alimentos") | `f25ef86eb7.html` |
 | 3. Vitalidade Masculina | `d786c82234.html` |
-| 4. Corpo, Mente e Hábitos | `7d40d1ef04.html` |
-| 5. Longevidade e Qualidade de Vida | `2adee283ae.html` |
-| 6. Vitalidade Feminina (novo, 23/07) | `c16240ae3d.html` |
+| 4. Vitalidade Feminina | `c16240ae3d.html` |
+| 5. Corpo, Mente e Hábitos | `7d40d1ef04.html` |
+| 6. Longevidade e Qualidade de Vida | `2adee283ae.html` |
+
+**Navegação entre módulos (23/07/2026):** todos os 6 têm agora "← Módulo anterior" / "Próximo módulo →" no rodapé do conteúdo (antes só dava pra sair pelo ícone 🏠). Segue a ordem da tabela acima; nas pontas (1º e 6º) o link vai pra `/biblioteca` em vez de outro módulo.
+
+**Guia rápido de alimentos — 2ª leva (23/07/2026):** mais uma rodada de conteúdo do álbum do Valdoir (transcrito via IA de visão — Qwen/DeepSeek — a partir de fotos, não do link do álbum). Entraram 6 itens novos revisados (alho, peixe, kefir, especiarias, magnésio, limão) + uma nota sobre iodo/Lugol. Dois pontos que não entraram de jeito nenhum, por segurança: a receita de dosagem específica do Lugol (risco real de dano à tireoide em automedicação) e a alegação "sol cura câncer/mata vírus e bactéria". A nota final sobre Lugol ficou como: reconhece o uso na medicina integrativa sem apresentar como consenso científico, e recomenda exame de tireoide + acompanhamento médico antes/durante o uso — ver [[feedback_evidence_graded_content]]. Ainda restam mais itens do álbum não revisados (seção "piores alimentos", ver Pendências).
 
 **Vitalidade Feminina (23/07/2026):** a Bruna notou que só existia módulo de vitalidade pro público masculino. Diferente dos outros módulos (que vêm de material próprio do Valdoir), esse foi construído do zero via pesquisa (WebSearch), com grade de evidência forte/moderada/fraca — ver [[feedback_evidence_graded_content]]. Espelha as mesmas 5 seções do módulo masculino (hormônios/ciclo, sono, treino de força e densidade óssea, alimentação, estresse crônico). **Importante:** por não vir de observação pessoal do Valdoir sobre esse tema específico, o módulo NÃO tem o bloco "✒️ Observação do Autor" que os outros módulos usam — evita atribuir a ele uma autoridade pessoal que não existe nessa área. Já traduzido pra ES/EN (`es/c16240ae3d.html`, `en/c16240ae3d.html`). Ordem corrigida a pedido do Ezequiel: fica logo depois de Vitalidade Masculina (dashboard e página de vendas), não mais por último.
 
@@ -40,8 +44,9 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 - **"+50 materiais" removido** de todos os 3 lugares onde aparecia (chip flutuante, estatística, texto do acervo) — dava a entender que o produto teria 50 módulos, quando na real o material bruto do Valdoir é organizado e distribuído dentro dos módulos existentes. Trocado por "Décadas de estudo".
 - **3 selos de destaque** adicionados na seção do acervo: 📱 Funciona liso no celular / 🎨 Visual moderno e intuitivo / ✅ Progresso salvo automaticamente.
 - **Barra "Organização do acervo"**: atualizada de 35% pra 60% (avanço real na organização, confirmado com o Ezequiel antes de mudar — não é só ajuste de marketing).
-- **Card da Vitalidade Feminina** também adicionado na seção "Áreas de Pesquisa" (mais genérica, sobre temas de estudo) — só tinha o card de Vitalidade Masculina lá, mesma inconsistência da seção de módulos.
+- **Card da Vitalidade Feminina** também adicionado na seção "Áreas de Pesquisa" (mais genérica, sobre temas de estudo) — só tinha o card de Vitalidade Masculina lá, mesma inconsistência da seção de módulos. Contador "Áreas de estudo" corrigido de 8 pra 9 (ficou desatualizado quando o card foi adicionado — pego pelo Ezequiel).
 - Tudo sincronizado nos 3 idiomas via `build_i18n.py` (tabela de tradução atualizada junto com cada mudança).
+- **Nota**: a seção "Áreas de Pesquisa" (9 cards, temas gerais que o Valdoir estuda) é conceitualmente diferente dos "6 módulos" do produto — não precisam bater 1:1, são coisas diferentes na página.
 
 **Guia rápido de alimentos (22/07/2026):** o pai do Ezequiel (Valdoir) mandou um álbum do Google Fotos ("FISH 100%", ~29 slides) com conteúdo sobre benefícios de alimentos, num template visual carregado (fundo verde neon, marca "Medicina Integrativa" sem relação com o produto). Revisei ~13 dos 29 slides e reescrevi 9 alimentos + 1 hábito em tom naturalista/observacional (não clínico), removendo:
 - Um mito sem comprovação científica (cebola cortada "absorve toxina do ar")
@@ -52,9 +57,9 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 
 ## Módulos multilíngues (23/07/2026)
 
-Pedido do Ezequiel — amigos vão vender o produto no Peru e países vizinhos, então os 5 módulos pagos agora existem em 3 idiomas, não só o site institucional:
+Pedido do Ezequiel — amigos vão vender o produto no Peru e países vizinhos, então os 6 módulos pagos agora existem em 3 idiomas, não só o site institucional:
 
-- **Arquivos**: `es/` e `en/` na raiz do repo (mesmos 5 nomes-hash, conteúdo traduzido), espelhando a estrutura do site institucional. Na VPS ficam em `/var/www/valdoirmiranda-private/es/` e `/en/` (pastas novas, criadas nesse dia).
+- **Arquivos**: `es/` e `en/` na raiz do repo (mesmos nomes-hash, conteúdo traduzido), espelhando a estrutura do site institucional. Na VPS ficam em `/var/www/valdoirmiranda-private/es/` e `/en/`.
 - **Preferência de idioma por comprador**: campo `language` (`pt`/`es`/`en`, padrão `pt`) salvo no `data.json` de cada comprador. Duas formas de setar:
   1. Link de origem: `/entrar?lang=es` (útil pra linkar direto da futura página de vendas em espanhol dos amigos) — grava a preferência assim que a pessoa faz login pela primeira vez.
   2. Seletor manual dentro do `/biblioteca` (PT / ES / EN, rota `/idioma/:lang`) — só aparece na entrada principal, não dentro de cada módulo.
@@ -112,7 +117,7 @@ Site instalável como app no celular ("Adicionar à tela de início"), sem loja 
 - **Página de recrutamento de afiliados**: `afiliados.valdoirmiranda.com` — repositório **separado** no GitHub (`dev-zeq/valdoirmiranda-afiliados`), com GitHub Pages próprio (domínio customizado, HTTPS via Let's Encrypt do próprio GitHub). **Não faz parte do repo `dev-zeq/valdoirmiranda`** — pra atualizar essa página, editar `afiliados.html` localmente e fazer push pro outro repo (não pro principal).
 - Link direto de afiliação: `https://affiliate.hotmart.com/affiliate-recruiting/view/3159O106821178`
 - **Pendência conhecida, não crítica**: a página pública de recrutamento na própria Hotmart mostra o texto de divulgação **duplicado** (uma cópia certa com R$16,17, uma cópia antiga com R$18,50). Só achei um campo editável nas configurações (já corrigido); a duplicação pode ser um comportamento de cache do lado da Hotmart. Se persistir depois de alguns dias, vale abrir chamado com o suporte deles.
-- **Kit de divulgação (23/07/2026)**: pasta `materiais/` na raiz do repo (fora do Git, protegida por `.gitignore` — esse repo é a raiz pública do site, não pode ter material interno acessível por URL). Contém `kit-afiliados.md/.pdf` (headlines, legendas Instagram/Stories, mensagem WhatsApp, roteiro de vídeo, ficha rápida) e `regras-afiliados.md/.pdf` (o que pode/não pode na divulgação — sem promessa de cura, sem garantir resultado, sem se passar por profissional de saúde). Faltou subir isso pro painel da Hotmart em "Afiliados → Material para divulgação → Link para uma pasta na nuvem" (precisa de upload manual pro Google Drive + link de compartilhamento, ação que fica pro Ezequiel fazer).
+- **Kit de divulgação (23/07/2026)**: pasta `materiais/` na raiz do repo (fora do Git, protegida por `.gitignore` — esse repo é a raiz pública do site, não pode ter material interno acessível por URL). Contém `kit-afiliados.md/.pdf` (headlines, legendas Instagram/Stories, mensagem WhatsApp, roteiro de vídeo, ficha rápida), `regras-afiliados.md/.pdf` (o que pode/não pode na divulgação — sem promessa de cura, sem garantir resultado, sem se passar por profissional de saúde) e `post-feed.png`/`post-story.png` (artes prontas, geradas via HTML+Chromium headless já que a geração de design do Canva não está habilitada no plano da conta). **Já publicado**: subiu pro Google Drive e o link foi cadastrado na Hotmart em Afiliados → Material para divulgação → Link para uma pasta na nuvem.
 - Primeiro afiliado já se cadastrou (23/07/2026).
 
 ## Como fazer deploy (checklist rápido)
@@ -134,7 +139,7 @@ Site instalável como app no celular ("Adicionar à tela de início"), sem loja 
 
 ## Onde as coisas estão
 
-- **Repositório principal**: `dev-zeq/valdoirmiranda` — site institucional (PT/ES/EN), os 5 módulos, PWA (manifest/ícones/sw.js), config do nginx documentada em `infra/`
+- **Repositório principal**: `dev-zeq/valdoirmiranda` — site institucional (PT/ES/EN), os 6 módulos (PT/ES/EN), PWA (manifest/ícones/sw.js), config do nginx documentada em `infra/`, kit de divulgação em `materiais/` (fora do Git)
 - **Repositório da página de afiliados**: `dev-zeq/valdoirmiranda-afiliados` (separado, GitHub Pages próprio)
 - **VPS**: DigitalOcean, IP `161.35.110.78`, chave SSH `~/.ssh/digitalocean_biblioteca_valdoir`. Backend Node em `/opt/biblioteca-app` (fora do git), módulos privados em `/var/www/valdoirmiranda-private`, site público em `/var/www/valdoirmiranda`
 - **Domínio**: Porkbun (`valdoirmiranda.com`), DNS gerenciado lá
