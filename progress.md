@@ -1,6 +1,6 @@
 # O Código da Longevidade — Progresso
 
-_Atualizado em 22/07/2026_
+_Atualizado em 23/07/2026_
 
 ## Status geral
 
@@ -32,6 +32,20 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 - Erros de português (ex.: "as sementes de chia tem" → "têm")
 
 **Pendente:** ~14-16 slides do álbum ainda não foram abertos/revisados. Se quiser completar, o método que funcionou foi: abrir o álbum compartilhado no Google Fotos, clicar em cada foto, e capturar a URL da imagem através da resposta da API interna (`rpcids=VrseUb` nas requisições de rede) — as miniaturas comprimidas não são legíveis. Também ficou pendente confirmar com o Valdoir se a regra "não misturar tubérculos na mesma refeição" (slide de tubérculos/raízes) é intencional (linha da trofologia/combinação de alimentos, não é consenso científico mainstream, mas pode ser proposital dado que o Módulo 1 é sobre isso).
+
+## Módulos multilíngues (23/07/2026)
+
+Pedido do Ezequiel — amigos vão vender o produto no Peru e países vizinhos, então os 5 módulos pagos agora existem em 3 idiomas, não só o site institucional:
+
+- **Arquivos**: `es/` e `en/` na raiz do repo (mesmos 5 nomes-hash, conteúdo traduzido), espelhando a estrutura do site institucional. Na VPS ficam em `/var/www/valdoirmiranda-private/es/` e `/en/` (pastas novas, criadas nesse dia).
+- **Preferência de idioma por comprador**: campo `language` (`pt`/`es`/`en`, padrão `pt`) salvo no `data.json` de cada comprador. Duas formas de setar:
+  1. Link de origem: `/entrar?lang=es` (útil pra linkar direto da futura página de vendas em espanhol dos amigos) — grava a preferência assim que a pessoa faz login pela primeira vez.
+  2. Seletor manual dentro do `/biblioteca` (PT / ES / EN, rota `/idioma/:lang`) — só aparece na entrada principal, não dentro de cada módulo.
+- **Tudo localizado**: página de login, dashboard `/biblioteca`, e-mail de acesso (`templates/email-access.{pt,es,en}.html`) e o conteúdo dos 5 módulos. `/modulos/:file` decide sozinho (no `server.js`) de qual pasta servir, com fallback pro português se um arquivo traduzido não existir.
+- **nginx**: precisou adicionar `location /idioma/ { proxy_pass ... }` (rota nova, mesma pegadinha do `/sair` antes — allowlist explícita).
+- **Tradução**: feita por agentes em paralelo, preservando 100% da estrutura HTML/CSS/JS e traduzindo só o texto visível; vocabulário adaptado pro espanhol latino-americano onde fazia sentido (palta, camote, quinua, frijoles).
+- **Testado ponta a ponta**: login, e-mail, dashboard e conteúdo dos módulos nos 3 idiomas, incluindo troca de idioma pelo seletor.
+- **Nomenclatura do produto por idioma** (já usada no site institucional, reaproveitada no backend): PT "O Código da Longevidade", ES "El Código de la Longevidad", EN "The Longevity Code".
 
 ## Site institucional (trilíngue)
 
