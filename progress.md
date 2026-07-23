@@ -16,7 +16,7 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 
 ## Módulos (conteúdo pago)
 
-5 módulos, cada um uma página HTML interativa (índice lateral, progresso salvo por seção, sanfonas, comparações clicáveis):
+6 módulos, cada um uma página HTML interativa (índice lateral, progresso salvo por seção, sanfonas, comparações clicáveis):
 
 | Módulo | Arquivo |
 |---|---|
@@ -25,6 +25,9 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 | 3. Vitalidade Masculina | `d786c82234.html` |
 | 4. Corpo, Mente e Hábitos | `7d40d1ef04.html` |
 | 5. Longevidade e Qualidade de Vida | `2adee283ae.html` |
+| 6. Vitalidade Feminina (novo, 23/07) | `c16240ae3d.html` |
+
+**Vitalidade Feminina (23/07/2026):** a Bruna notou que só existia módulo de vitalidade pro público masculino. Diferente dos outros módulos (que vêm de material próprio do Valdoir), esse foi construído do zero via pesquisa (WebSearch), com grade de evidência forte/moderada/fraca — ver [[feedback_evidence_graded_content]]. Espelha as mesmas 5 seções do módulo masculino (hormônios/ciclo, sono, treino de força e densidade óssea, alimentação, estresse crônico). **Importante:** por não vir de observação pessoal do Valdoir sobre esse tema específico, o módulo NÃO tem o bloco "✒️ Observação do Autor" que os outros módulos usam — evita atribuir a ele uma autoridade pessoal que não existe nessa área. Ainda falta traduzir esse módulo pra ES/EN (por enquanto cai no fallback pro português nos dashboards em espanhol/inglês).
 
 **Guia rápido de alimentos (22/07/2026):** o pai do Ezequiel (Valdoir) mandou um álbum do Google Fotos ("FISH 100%", ~29 slides) com conteúdo sobre benefícios de alimentos, num template visual carregado (fundo verde neon, marca "Medicina Integrativa" sem relação com o produto). Revisei ~13 dos 29 slides e reescrevi 9 alimentos + 1 hábito em tom naturalista/observacional (não clínico), removendo:
 - Um mito sem comprovação científica (cebola cortada "absorve toxina do ar")
