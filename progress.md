@@ -61,6 +61,10 @@ Backend Node.js (`/opt/biblioteca-app`, rodando como serviço systemd `bibliotec
 - Comissão definida: **50%** por venda aprovada (decisão do Ezequiel, 22/07/2026).
 - Texto de divulgação do programa redigido — ver histórico da conversa ou colar novamente se precisar reeditar no painel Hotmart (Produto → Programa de afiliados).
 
+## Dashboard `/biblioteca` redesenhado — feito 22/07/2026
+
+A página que o comprador vê depois de logar era um rascunho técnico (lista de links azuis sublinhados, sem estilo nenhum). Redesenhada com a mesma identidade visual dos módulos: cards com ícone, título e descrição de cada módulo, cabeçalho com marca, rodapé com a citação do Valdoir. Também adicionei um botão "Sair" funcional (não existia antes — rota `/sair` nova, precisou de ajuste no nginx pra repassar essa rota pro backend Node; config salva em `infra/nginx-valdoirmiranda.conf`).
+
 ## App instalável (PWA) — feito 22/07/2026
 
 O site agora é instalável como app no celular ("Adicionar à tela de início"), sem passar por loja de apps:
