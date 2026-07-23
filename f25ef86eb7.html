@@ -200,6 +200,17 @@ figure.study-figure figcaption{padding:12px 16px;font-size:12.5px;color:var(--te
 .toggle-compare .panel ul{padding-left:18px;}
 .toggle-compare .panel li{margin-bottom:6px;}
 
+.food-guide-intro{font-size:16.5px;color:var(--text-soft);margin-bottom:26px;}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:8px 0 28px;}
+.food-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px 18px;background:var(--bg-elevated);transition:transform var(--transition), box-shadow var(--transition);}
+.food-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+.food-card .food-icon{
+  width:44px;height:44px;border-radius:50%;background:var(--accent-bg);color:var(--accent-strong);
+  display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px;
+}
+.food-card h3{font-family:var(--serif);font-size:18px;margin-bottom:8px;}
+.food-card p{font-size:14px;color:var(--text-soft);margin-bottom:0;line-height:1.6;}
+
 .section-actions{margin-top:26px;display:flex;justify-content:flex-end;}
 .btn-complete{
   border:1px solid var(--green);color:var(--green);background:transparent;padding:10px 18px;
@@ -264,6 +275,7 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
       <li><a href="#cafe-da-manha-mito-ou-necessidade"><span class="check" data-target="cafe-da-manha-mito-ou-necessidade"></span>03. Café da manhã: mito, hábito ou necessidade?</a></li>
       <li><a href="#alimentos-que-sustentam-o-foco"><span class="check" data-target="alimentos-que-sustentam-o-foco"></span>04. Alimentos que sustentam o foco ao longo do dia</a></li>
       <li><a href="#hidratacao-e-energia-invisivel"><span class="check" data-target="hidratacao-e-energia-invisivel"></span>05. Hidratação, minerais e a energia invisível</a></li>
+      <li><a href="#guia-rapido-de-alimentos"><span class="check" data-target="guia-rapido-de-alimentos"></span>06. Guia rápido de alimentos</a></li>
     </ul>
     <div class="sidebar-progress">
       <div class="track"><div class="fill" id="sidebar-fill"></div></div>
@@ -278,8 +290,8 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
         <h1>Alimentação e Energia</h1>
         <p class="lede">O que comer para manter ânimo, foco e disposição ao longo do dia — e o que discretamente rouba sua energia sem você perceber a causa.</p>
         <div class="module-meta">
-          <span>📖 Leitura ~13 min</span>
-          <span>🗂️ 5 seções</span>
+          <span>📖 Leitura ~17 min</span>
+          <span>🗂️ 6 seções</span>
           <span>🔒 Conteúdo exclusivo para alunos</span>
         </div>
       </div>
@@ -375,6 +387,69 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
       </div>
       <div class="section-actions">
         <button class="btn-complete" data-target="hidratacao-e-energia-invisivel">✓ <span class="btn-text">Marcar como concluído</span></button>
+      </div>
+    </section>
+
+    <section class="study-section" id="guia-rapido-de-alimentos">
+      <h2><span class="num">06</span> Guia rápido de alimentos</h2>
+      <div class="section-mark"><span class="dot-i"></span><span class="mark-text">Ainda não concluída</span></div>
+      <p class="food-guide-intro">Não existe alimento milagroso — e vale desconfiar de quem promete isso. O que existe é uma alimentação rica em alimentos de verdade, dia após dia. Reuni aqui alguns dos que mais uso e recomendo na prática, com o que aprendi sobre cada um ao longo dos anos.</p>
+
+      <div class="food-grid">
+        <div class="food-card">
+          <div class="food-icon">🫒</div>
+          <h3>Azeite de oliva</h3>
+          <p>Gorduras monoinsaturadas, ômega 9 e vitaminas E, A e K. Os mediterrâneos o chamam de "ouro líquido" — prefira sempre o extravirgem, em embalagem escura.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🥑</div>
+          <h3>Abacate</h3>
+          <p>Gordura boa, fibras e potássio. Ajuda a manter o colesterol em equilíbrio e sustenta a saciedade por mais tempo — vale incluir com regularidade.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🌱</div>
+          <h3>Chia</h3>
+          <p>Ômega-3, antioxidantes, cálcio e fibras num complemento barato e natural. Uma colher de sopa por dia, hidratada, já faz diferença.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🧅</div>
+          <h3>Cebola</h3>
+          <p>Vitaminas A, C e E, mais enxofre, selênio e antocianina — um antioxidante natural subestimado. Prefira sempre recém-cortada, no ponto máximo de frescor.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🌾</div>
+          <h3>Quinoa</h3>
+          <p>Fósforo, magnésio e cálcio para a saúde óssea. Sem glúten e uma das poucas fontes vegetais com os nove aminoácidos essenciais — rara entre os grãos.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🌰</div>
+          <h3>Castanha-do-pará</h3>
+          <p>A fonte mais concentrada de selênio que existe. Três castanhas por dia já cobrem boa parte da necessidade diária desse mineral.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🍯</div>
+          <h3>Pólen apícola</h3>
+          <p>Proteínas, vitaminas do complexo B, minerais e antioxidantes num único grão. Tradicionalmente usado como aliado natural em fases de baixa energia.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🥬</div>
+          <h3>Folhas verde-escuras</h3>
+          <p>Couve, rúcula e espinafre são fontes generosas de antioxidantes. Melhor aproveitadas cruas, em saladas, sem cozimento prolongado.</p>
+        </div>
+        <div class="food-card">
+          <div class="food-icon">🥕</div>
+          <h3>Tubérculos e raízes</h3>
+          <p>Batata-baroa e rabanete são tubérculos; batata-doce, cenoura e beterraba são raízes. Todos fontes de energia — vale variar entre eles ao longo da semana.</p>
+        </div>
+      </div>
+
+      <div class="callout practice">
+        <div class="label">🎯 Hábito Complementar — Dormir bem</div>
+        <p>Sono recuperador de energia começa antes de deitar: quarto bem escuro, sem aparelhos eletrônicos por perto, e o hábito de se exercitar — de preferência logo após acordar — fazem diferença real na qualidade do descanso.</p>
+      </div>
+
+      <div class="section-actions">
+        <button class="btn-complete" data-target="guia-rapido-de-alimentos">✓ <span class="btn-text">Marcar como concluído</span></button>
       </div>
     </section>
 
