@@ -1608,9 +1608,9 @@
       </p>
 
       <div class="bib-progress-bar reveal reveal-delay-3">
-        <p>Organización del acervo: 35% completado</p>
+        <p>Organización del acervo: 60% completado</p>
         <div class="progress-track">
-          <div class="progress-fill" id="progress-fill" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-fill" id="progress-fill" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <p class="bib-progress-note">El precio de fundador (R$ 37) es válido hasta que el acervo llegue al 100%</p>
       </div>
@@ -1709,11 +1709,11 @@
 
         <p class="valores-urgency">
           El valor sube a <strong>R$ 67</strong> en cuanto el acervo complete el 100% de los materiales
-          <em>(hoy en 35%)</em>. Quien entra ahora fija el precio de fundador para siempre.
+          <em>(hoy en 60%)</em>. Quien entra ahora fija el precio de fundador para siempre.
         </p>
 
         <div class="progress-track" style="margin-bottom:1.2rem;" aria-hidden="true">
-          <div class="progress-fill" style="width:35%;"></div>
+          <div class="progress-fill" style="width:60%;"></div>
         </div>
 
         <a href="https://pay.hotmart.com/V106821157P" class="btn-primary" style="display:flex; width:100%; justify-content:center; padding:.9rem 1.5rem; font-size:.95rem; text-align:center;">
@@ -1806,7 +1806,7 @@
     const progressObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          progressFill.style.width = '35%';
+          progressFill.style.width = '60%';
           progressObserver.unobserve(entry.target);
         }
       });
