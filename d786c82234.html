@@ -6,6 +6,12 @@
 <title>Saúde Masculina e Vitalidade | Valdoir Miranda — Estudos Avançados</title>
 <meta name="description" content="Estudo aprofundado sobre energia, hormônios e bem-estar específico para o organismo masculino — o que está sob seu controle diário e como sustentá-lo com consistência.">
 <meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a4d2e">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Longevidade">
 <style>
 /* =============== RESET & BASE =============== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -529,6 +535,13 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
     });
   });
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
