@@ -27,7 +27,21 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 | 5. Longevidade e Qualidade de Vida | `2adee283ae.html` |
 | 6. Vitalidade Feminina (novo, 23/07) | `c16240ae3d.html` |
 
-**Vitalidade Feminina (23/07/2026):** a Bruna notou que só existia módulo de vitalidade pro público masculino. Diferente dos outros módulos (que vêm de material próprio do Valdoir), esse foi construído do zero via pesquisa (WebSearch), com grade de evidência forte/moderada/fraca — ver [[feedback_evidence_graded_content]]. Espelha as mesmas 5 seções do módulo masculino (hormônios/ciclo, sono, treino de força e densidade óssea, alimentação, estresse crônico). **Importante:** por não vir de observação pessoal do Valdoir sobre esse tema específico, o módulo NÃO tem o bloco "✒️ Observação do Autor" que os outros módulos usam — evita atribuir a ele uma autoridade pessoal que não existe nessa área. Ainda falta traduzir esse módulo pra ES/EN (por enquanto cai no fallback pro português nos dashboards em espanhol/inglês).
+**Vitalidade Feminina (23/07/2026):** a Bruna notou que só existia módulo de vitalidade pro público masculino. Diferente dos outros módulos (que vêm de material próprio do Valdoir), esse foi construído do zero via pesquisa (WebSearch), com grade de evidência forte/moderada/fraca — ver [[feedback_evidence_graded_content]]. Espelha as mesmas 5 seções do módulo masculino (hormônios/ciclo, sono, treino de força e densidade óssea, alimentação, estresse crônico). **Importante:** por não vir de observação pessoal do Valdoir sobre esse tema específico, o módulo NÃO tem o bloco "✒️ Observação do Autor" que os outros módulos usam — evita atribuir a ele uma autoridade pessoal que não existe nessa área. Já traduzido pra ES/EN (`es/c16240ae3d.html`, `en/c16240ae3d.html`). Ordem corrigida a pedido do Ezequiel: fica logo depois de Vitalidade Masculina (dashboard e página de vendas), não mais por último.
+
+## Cabeçalho dos módulos (23/07/2026)
+
+- Botão "🏠" adicionado ao lado do botão de tema nos 6 módulos, linkando pra `/biblioteca` — resolvia a falta de navegação de volta no celular (só dava pra usar o botão "voltar" do navegador).
+- Título do cabeçalho reformulado: linha principal virou "O Código da Longevidade" (era "Valdoir Miranda | Estudos Avançados", que ficava cortado no mobile sem reticências por causa de `text-overflow` não funcionar direito num flexbox); autor + nome do módulo desceram pra linha pequena.
+
+## Página de vendas — ajustes de copy (23/07/2026)
+
+- **Hero reformulado**: título principal virou "O Código da Longevidade" (era o nome "Valdoir Barreto Miranda") — Valdoir ainda é desconhecido pro público frio, então o produto vira o destaque visual e ele aparece como autor no parágrafo de apoio ("reunidas por Valdoir Miranda — pesquisador independente —"). A seção "Quem é Valdoir" mais abaixo continua intacta com a biografia completa.
+- **"+50 materiais" removido** de todos os 3 lugares onde aparecia (chip flutuante, estatística, texto do acervo) — dava a entender que o produto teria 50 módulos, quando na real o material bruto do Valdoir é organizado e distribuído dentro dos módulos existentes. Trocado por "Décadas de estudo".
+- **3 selos de destaque** adicionados na seção do acervo: 📱 Funciona liso no celular / 🎨 Visual moderno e intuitivo / ✅ Progresso salvo automaticamente.
+- **Barra "Organização do acervo"**: atualizada de 35% pra 60% (avanço real na organização, confirmado com o Ezequiel antes de mudar — não é só ajuste de marketing).
+- **Card da Vitalidade Feminina** também adicionado na seção "Áreas de Pesquisa" (mais genérica, sobre temas de estudo) — só tinha o card de Vitalidade Masculina lá, mesma inconsistência da seção de módulos.
+- Tudo sincronizado nos 3 idiomas via `build_i18n.py` (tabela de tradução atualizada junto com cada mudança).
 
 **Guia rápido de alimentos (22/07/2026):** o pai do Ezequiel (Valdoir) mandou um álbum do Google Fotos ("FISH 100%", ~29 slides) com conteúdo sobre benefícios de alimentos, num template visual carregado (fundo verde neon, marca "Medicina Integrativa" sem relação com o produto). Revisei ~13 dos 29 slides e reescrevi 9 alimentos + 1 hábito em tom naturalista/observacional (não clínico), removendo:
 - Um mito sem comprovação científica (cebola cortada "absorve toxina do ar")
