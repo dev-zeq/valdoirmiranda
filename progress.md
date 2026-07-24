@@ -150,6 +150,8 @@ Antes, o "Marcar como concluído" dos módulos salvava só no `localStorage` de 
   - **Perfil**: e-mail logado, botão Sair, seletor de idioma, seletor de tema (Claro/Escuro/Automático) — tema usa a mesma chave `vm_theme` do `localStorage` que os módulos já usavam, então fica sincronizado entre `/biblioteca` e o conteúdo
 - Testado localmente (servidor à parte, dados de teste) e depois em produção de verdade (login como dono, as 4 abas, sem erro no console) antes e depois do deploy.
 - Compradores antigos não tinham o campo `progress` — não precisou de migração, o backend trata a ausência como progresso vazio (`{}`).
+- **Fotos na Início/Conteúdos (24/07/2026)**: `MODULE_IMAGES` no `server.js` reaproveita a mesma foto (Unsplash) que cada módulo já usa internamente, aplicada nos atalhos, no card "Continuar" e nos cards de módulo (foto no topo + linha dourada). Não baixou nada novo.
+- **"Continue de onde parou" rola até a seção certa (24/07/2026)**: o Ezequiel testou e notou que o botão sempre abria o módulo no topo. Agora os módulos salvam no `localStorage` a última seção vista (`vm_lastseen_<arquivo>`, alimentado pelo scrollspy que já existia) e qual foi o último módulo aberto (`vm_lastmodule`); o card Continuar monta o link com âncora `#secao` e, ao abrir com hash, o módulo revela a seção e rola até ela. É posição de leitura por aparelho (localStorage), não sincroniza entre dispositivos — o progresso "concluído" é que fica no servidor.
 
 ## Programa de afiliados
 
