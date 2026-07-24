@@ -437,6 +437,7 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
   var MODULE_KEY = "combinacao-alimentos";
   var STORAGE_THEME = "vm_theme";
   var STORAGE_PROGRESS = "vm_progress_" + MODULE_KEY;
+  var MODULE_FILE = location.pathname.split("/").pop();
 
   /* ---------- THEME ---------- */
   var root = document.documentElement;
@@ -522,6 +523,27 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
   function saveProgress(state){
     localStorage.setItem(STORAGE_PROGRESS, JSON.stringify(state));
   }
+  function syncProgressToServer(section, done){
+    fetch("/api/progresso", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({module: MODULE_FILE, section: section, done: done})
+    }).catch(function(){});
+  }
+  function mergeServerProgress(cb){
+    fetch("/api/progresso", {credentials: "same-origin"})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if(data && data.progress && data.progress[MODULE_FILE]){
+          var state = loadProgress();
+          var merged = Object.assign({}, state, data.progress[MODULE_FILE]);
+          saveProgress(merged);
+        }
+      })
+      .catch(function(){})
+      .then(cb, cb);
+  }
   function renderProgress(){
     var state = loadProgress();
     var doneCount = 0;
@@ -554,10 +576,11 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
       var state = loadProgress();
       state[id] = !state[id];
       saveProgress(state);
+      syncProgressToServer(id, state[id]);
       renderProgress();
     });
   });
-  renderProgress();
+  mergeServerProgress(renderProgress);
 
   /* ---------- TOGGLE COMPARE ---------- */
   document.querySelectorAll(".toggle-compare").forEach(function(box){
