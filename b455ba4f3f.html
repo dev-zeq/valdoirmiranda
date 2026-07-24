@@ -466,6 +466,7 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
   var STORAGE_THEME = "vm_theme";
   var STORAGE_PROGRESS = "vm_progress_" + MODULE_KEY;
   var MODULE_FILE = location.pathname.split("/").pop();
+  try{ localStorage.setItem("vm_lastmodule", MODULE_FILE); }catch(e){}
 
   /* ---------- THEME ---------- */
   var root = document.documentElement;
@@ -514,10 +515,22 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
       if(entry.isIntersecting){
         Object.values(tocLinks).forEach(function(l){ l.classList.remove("active"); });
         link.classList.add("active");
+        try{ localStorage.setItem("vm_lastseen_" + MODULE_FILE, entry.target.id); }catch(e){}
       }
     });
   }, {rootMargin: "-30% 0px -60% 0px", threshold: 0});
   sections.forEach(function(s){ spyObserver.observe(s); });
+
+  /* ---------- DEEP LINK: continuar de onde parou ---------- */
+  if(location.hash && location.hash.length > 1){
+    var _dlTarget = document.getElementById(location.hash.slice(1));
+    if(_dlTarget){
+      requestAnimationFrame(function(){
+        _dlTarget.classList.add("visible");
+        _dlTarget.scrollIntoView({behavior:"auto", block:"start"});
+      });
+    }
+  }
 
   /* ---------- SCROLL REVEAL ---------- */
   var revealObserver = new IntersectionObserver(function(entries){
