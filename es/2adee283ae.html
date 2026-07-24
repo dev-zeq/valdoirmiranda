@@ -7,50 +7,61 @@
 <meta name="description" content="Lo que décadas de observación e investigación independiente revelan sobre vivir más — con salud, propósito y autonomía real, no solo más años en el calendario.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#1a4d2e">
+<meta name="theme-color" content="#17342a">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Longevidad">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* =============== RESET & BASE =============== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 :root{
-  --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
-  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --radius: 10px;
   --transition: 220ms ease;
+  --brand-bg: #17342a;
+  --brand-bg-deep: #122a21;
+  --brand-gold: #cfa963;
+  --brand-gold-strong: #e6c98f;
+  --brand-gold-line: rgba(207,169,99,0.32);
+  --brand-cream: #f0e8d2;
 }
 html[data-theme="light"]{
-  --bg: #faf7f0;
-  --bg-elevated: #ffffff;
-  --bg-soft: #f2ede1;
-  --text: #23241f;
-  --text-soft: #55564c;
-  --border: #e3ddcc;
-  --accent: #7a5b1e;
-  --accent-strong: #4f3c14;
-  --accent-bg: #f3e9d2;
-  --green: #23543f;
-  --green-bg: #e7f0e9;
-  --shadow: 0 10px 30px -12px rgba(35,30,10,0.18);
-  --overlay: rgba(250,247,240,0.86);
+  --bg: #f5f1e6;
+  --bg-elevated: #fdfbf4;
+  --bg-soft: #ece6d4;
+  --text: #212b21;
+  --text-soft: #5b695a;
+  --border: #ded6bf;
+  --heading: #1e3b2c;
+  --accent: #96762f;
+  --accent-strong: #6d5520;
+  --accent-bg: #f1e8cf;
+  --green: #1e4634;
+  --green-bg: #e4ece2;
+  --shadow: 0 10px 30px -12px rgba(30,59,44,0.18);
+  --overlay: rgba(245,241,230,0.88);
 }
 html[data-theme="dark"]{
-  --bg: #14181a;
-  --bg-elevated: #1c2225;
-  --bg-soft: #20272a;
-  --text: #ece7db;
-  --text-soft: #b3ab99;
-  --border: #33393c;
-  --accent: #d8b168;
-  --accent-strong: #efd39a;
-  --accent-bg: #2a2416;
-  --green: #7fbf9d;
-  --green-bg: #16241d;
+  --bg: #0f231b;
+  --bg-elevated: #173125;
+  --bg-soft: #1c392b;
+  --text: #eae4d2;
+  --text-soft: #a5b4a1;
+  --border: #2b4a38;
+  --heading: #e9dfc2;
+  --accent: #cfa963;
+  --accent-strong: #e6c98f;
+  --accent-bg: #29391f;
+  --green: #8fc7a5;
+  --green-bg: #1a3d2a;
   --shadow: 0 10px 34px -10px rgba(0,0,0,0.55);
-  --overlay: rgba(20,24,26,0.88);
+  --overlay: rgba(15,35,27,0.9);
 }
 body{
   font-family: var(--sans);
@@ -67,25 +78,32 @@ button{font-family:inherit;cursor:pointer;}
 /* =============== PROGRESS BAR + HEADER =============== */
 #progress-bar{
   position:fixed;top:0;left:0;height:3px;width:0%;
-  background:linear-gradient(90deg,var(--accent),var(--green));
+  background:linear-gradient(90deg,var(--brand-gold),var(--brand-gold-strong));
   z-index:1000;transition:width 80ms linear;
 }
 header.top{
   position:fixed;top:3px;left:0;right:0;height:58px;
-  background:var(--overlay);
-  backdrop-filter:saturate(140%) blur(8px);
-  -webkit-backdrop-filter:saturate(140%) blur(8px);
-  border-bottom:1px solid var(--border);
+  background:var(--brand-bg);
+  border-bottom:1px solid var(--brand-gold-line);
   display:flex;align-items:center;justify-content:space-between;
   padding:0 18px;z-index:900;
 }
+header.top .icon-btn{
+  background:transparent;border-color:var(--brand-gold-line);color:var(--brand-gold);
+}
+header.top .icon-btn:hover{background:rgba(207,169,99,0.12);}
+.brand-mark{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  border:1px solid var(--brand-gold-line);color:var(--brand-gold);
+  display:flex;align-items:center;justify-content:center;
+}
 .brand{
-  font-family:var(--serif);font-size:17px;letter-spacing:.02em;
-  display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text);
+  font-family:var(--serif);font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;font-weight:700;color:var(--brand-gold);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.brand .dot{color:var(--accent);}
-.brand small{font-family:var(--sans);font-weight:400;color:var(--text-soft);font-size:12px;display:block;}
+.brand .dot{color:var(--brand-gold);}
+.brand small{font-family:var(--sans);font-weight:400;color:rgba(240,232,210,0.68);font-size:11px;display:block;text-transform:none;letter-spacing:.03em;}
 .header-actions{display:flex;align-items:center;gap:8px;}
 .icon-btn{
   width:38px;height:38px;border-radius:50%;border:1px solid var(--border);
@@ -97,16 +115,16 @@ header.top{
 
 .bottom-nav{
   position:fixed;left:0;right:0;bottom:0;display:flex;
-  background:var(--bg-elevated);border-top:1px solid var(--border);
+  background:var(--brand-bg);border-top:1px solid var(--brand-gold-line);
   padding-bottom:env(safe-area-inset-bottom);z-index:900;
 }
 .bottom-nav a{
   flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:10px 4px 8px;text-decoration:none;color:var(--text-soft);
+  padding:10px 4px 8px;text-decoration:none;color:rgba(226,216,190,0.55);
 }
-.bottom-nav a .nav-icon{font-size:20px;line-height:1;}
-.bottom-nav a .nav-label{font-size:10.5px;font-family:var(--sans);}
-.bottom-nav a.active{color:var(--green);}
+.bottom-nav a .nav-icon{line-height:1;display:flex;align-items:center;justify-content:center;height:22px;}
+.bottom-nav a .nav-label{font-size:10.5px;font-family:var(--sans);letter-spacing:.02em;}
+.bottom-nav a.active{color:var(--brand-gold-strong);}
 
 /* =============== LAYOUT =============== */
 .app-shell{display:flex;padding-top:76px;padding-bottom:76px;max-width:1180px;margin:0 auto;}
@@ -143,7 +161,7 @@ main.content{flex:1;min-width:0;padding:10px 28px 100px;}
 
 .module-hero{padding:8px 0 30px;border-bottom:1px solid var(--border);margin-bottom:36px;}
 .module-hero .eyebrow{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-.module-hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,40px);line-height:1.15;margin:10px 0 14px;}
+.module-hero h1{font-family:var(--serif);font-size:clamp(31px,4.5vw,45px);line-height:1.12;margin:10px 0 14px;font-weight:700;color:var(--heading);}
 .module-hero p.lede{color:var(--text-soft);font-size:16.5px;max-width:62ch;}
 .module-meta{display:flex;gap:16px;margin-top:18px;flex-wrap:wrap;font-size:12.5px;color:var(--text-soft);}
 .module-meta span{display:flex;align-items:center;gap:6px;}
@@ -151,7 +169,7 @@ main.content{flex:1;min-width:0;padding:10px 28px 100px;}
 section.study-section{margin-bottom:62px;scroll-margin-top:90px;opacity:0;transform:translateY(18px);transition:opacity 600ms ease, transform 600ms ease;}
 section.study-section.visible{opacity:1;transform:translateY(0);}
 section.study-section h2{
-  font-family:var(--serif);font-size:26px;margin-bottom:6px;display:flex;align-items:center;gap:10px;
+  font-family:var(--serif);font-size:29px;font-weight:700;color:var(--heading);margin-bottom:6px;display:flex;align-items:baseline;gap:10px;
 }
 section.study-section h2 .num{color:var(--accent);font-size:16px;font-weight:700;}
 section.study-section .section-mark{
@@ -232,7 +250,7 @@ footer.site-footer{
   border-top:1px solid var(--border);padding:34px 28px 60px;text-align:center;
   color:var(--text-soft);font-size:12.5px;max-width:1180px;margin:0 auto;
 }
-footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text);margin-bottom:10px;}
+footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--text);margin-bottom:10px;}
 
 /* =============== MOBILE =============== */
 @media (max-width:880px){
@@ -262,6 +280,7 @@ footer.site-footer .quote{font-family:var(--serif);font-style:italic;font-size:1
 <header class="top">
   <div class="brand">
     <button id="menu-toggle" class="icon-btn" aria-label="Abrir menú">☰</button>
+    <span class="brand-mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V9"/><path d="M12 13c0-4.4-3.6-8-8-8 0 4.4 3.6 8 8 8z"/><path d="M12 9c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6z"/></svg></span>
     <div>
       El Código de la Longevidad
       <small>Valdoir Miranda · Longevidad y Calidad de Vida</small>
@@ -566,10 +585,10 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <nav class="bottom-nav">
-  <a href="/biblioteca?tab=inicio"><span class="nav-icon">🏠</span><span class="nav-label">Inicio</span></a>
-  <a href="/biblioteca?tab=conteudos" class="active"><span class="nav-icon">📚</span><span class="nav-label">Contenidos</span></a>
-  <a href="/biblioteca?tab=progresso"><span class="nav-icon">📊</span><span class="nav-label">Progreso</span></a>
-  <a href="/biblioteca?tab=perfil"><span class="nav-icon">👤</span><span class="nav-label">Perfil</span></a>
+  <a href="/biblioteca?tab=inicio"><span class="nav-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9.5 9-7 9 7V20a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20z"/><path d="M9 21.5v-8h6v8"/></svg></span><span class="nav-label">Inicio</span></a>
+  <a href="/biblioteca?tab=conteudos" class="active"><span class="nav-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="nav-label">Contenidos</span></a>
+  <a href="/biblioteca?tab=progresso"><span class="nav-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20v-4"/><path d="M12 20V10"/><path d="M18 20V4"/></svg></span><span class="nav-label">Progreso</span></a>
+  <a href="/biblioteca?tab=perfil"><span class="nav-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nav-label">Perfil</span></a>
 </nav>
 </body>
 </html>

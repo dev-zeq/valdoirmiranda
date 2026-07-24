@@ -14,6 +14,18 @@ Produto **publicado na Hotmart com vendas ativas**, site no ar, backend de acess
 - **Domínio**: `valdoirmiranda.com` (Porkbun)
 - **Área de membros**: Hotmart Club, slug `biblioteca-valdoir-miranda`
 
+## Redesign visual da área de membros (24/07/2026, branch `claude/app-design-refinement-oldovp`)
+
+Ezequiel mandou um mockup do app (verde profundo + dourado champagne, estilo premium) e pediu pra aproximar o visual. Aplicado nos **18 módulos (PT/ES/EN)**:
+
+- **Paleta nova**: tokens `--brand-bg #17342a` (verde profundo), `--brand-gold #cfa963`, creme `#f5f1e6`; tema escuro deixou de ser cinza-azulado e virou verde profundo; dourados substituem o âmbar alaranjado.
+- **Header**: barra verde-escura sólida nos dois temas, título "O CÓDIGO DA LONGEVIDADE" em serif dourada caixa alta + selo circular com broto (SVG inline).
+- **Bottom-nav**: verde profundo com ícones SVG outline dourados (emojis 🏠📚📊👤 substituídos), ativo em dourado forte.
+- **Tipografia**: Cormorant Garamond (títulos) + DM Sans (corpo) via Google Fonts — mesmas fontes do site institucional; offline cai pra Georgia/sistema.
+- **PWA**: `manifest.json` (theme `#17342a`, background `#f5f1e6`), `theme-color` dos módulos, e `sw.js` bumpado pra `vm-longevidade-v2` pra renovar o cache nos aparelhos.
+- **Dashboard `/biblioteca` e `/entrar` (server.js, só na VPS)**: NÃO deu pra aplicar nesta sessão (sem SSH). Guia completo com tokens + regras de composição em `infra/design-area-membros.md` — aplicar na próxima sessão com acesso à VPS.
+- **Lacuna pré-existente notada**: os módulos ES/EN não têm a navegação "Módulo anterior/Próximo módulo" no rodapé (só os PT têm) — não foi adicionada aqui pra não misturar com o redesign.
+
 ## Módulos (conteúdo pago)
 
 6 módulos, cada um uma página HTML interativa (índice lateral, progresso salvo por seção, sanfonas, comparações clicáveis). Ordem oficial (dashboard e página de vendas):
