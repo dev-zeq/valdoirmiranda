@@ -23,7 +23,7 @@ Ezequiel mandou um mockup do app (verde profundo + dourado champagne, estilo pre
 - **Bottom-nav**: verde profundo com ícones SVG outline dourados (emojis 🏠📚📊👤 substituídos), ativo em dourado forte.
 - **Tipografia**: Cormorant Garamond (títulos) + DM Sans (corpo) via Google Fonts — mesmas fontes do site institucional; offline cai pra Georgia/sistema.
 - **PWA**: `manifest.json` (theme `#17342a`, background `#f5f1e6`), `theme-color` dos módulos, e `sw.js` bumpado pra `vm-longevidade-v2` pra renovar o cache nos aparelhos.
-- **Dashboard `/biblioteca` e `/entrar` (server.js, só na VPS)**: NÃO deu pra aplicar nesta sessão (sem SSH). Guia completo com tokens + regras de composição em `infra/design-area-membros.md` — aplicar na próxima sessão com acesso à VPS.
+- **Dashboard `/biblioteca` e `/entrar` (24/07/2026, sessão seguinte, com SSH)**: aplicado seguindo `infra/design-area-membros.md` — mesmos tokens, mesmas fontes (Google Fonts), header verde sólido com selo circular, bottom-nav com os mesmos ícones SVG dourados (copiados direto dos módulos, mesmos hrefs `?tab=`). `/entrar` ganhou o mesmo selo + botão pill dourado sobre verde. Testado local e depois em produção (login real, as 4 abas, tema claro/escuro, console sem erro) antes e depois do deploy.
 - **Lacuna pré-existente notada**: os módulos ES/EN não têm a navegação "Módulo anterior/Próximo módulo" no rodapé (só os PT têm) — não foi adicionada aqui pra não misturar com o redesign.
 
 ## Módulos (conteúdo pago)
