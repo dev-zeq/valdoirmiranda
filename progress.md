@@ -1,6 +1,6 @@
 # O Código da Longevidade — Progresso
 
-_Atualizado em 23/07/2026 (fim de sessão longa — próxima sessão começa daqui)_
+_Atualizado em 24/07/2026 (fim de sessão longa — próxima sessão começa daqui)_
 
 ## Status geral
 
@@ -124,9 +124,19 @@ Pedido do Ezequiel: "alimentar" o comprador durante os 7 dias de garantia pra el
 - **Compradores antigos (antes dessa mudança) foram "aposentados" da sequência** — backdatar o `purchased_at` deles faria a sequência inteira disparar de uma vez, fora de contexto, então o backfill marca os 3 flags (`welcome_sent`/`mid_sent`/`closing_sent`) como já enviados pra quem já existia no `data.json`. Só compras novas a partir de 23/07/2026 entram no fluxo.
 - **Pendente**: pesquisar WhatsApp Business API (Meta Cloud API / Twilio / similar) pra mensagem de boas-vindas por WhatsApp — precisa de conta/número verificado, decisão de provedor e custo, ainda não implementado.
 
-## Progresso dos módulos só local, não sincronizado (pendência conhecida)
+## Progresso sincronizado com o servidor + novo `/biblioteca` com abas fixas (24/07/2026, publicado)
 
-O "Marcar como concluído" dos módulos (`/modulos/:file`) salva só no `localStorage` do navegador de quem está lendo (`vm_progress_...`) — não vai pro servidor, não aparece em nenhum painel pra acompanhar quem está avançando, e não sobrevive a troca de aparelho/limpeza de dados. Separado disso, o Hotmart Club tem seu próprio sistema de progresso/gamificação (moedinhas), que só atualiza se a pessoa entrar por lá — os dois não conversam entre si. Ezequiel achou interessante sincronizar o progresso pro `data.json` do servidor (por e-mail do comprador) — ainda não implementado, considerar como próximo passo.
+Antes, o "Marcar como concluído" dos módulos salvava só no `localStorage` de quem lia — não sobrevivia a troca de aparelho, e não tinha visão consolidada em lugar nenhum. Resolvido:
+
+- **Backend**: `data.purchasers[email].progress` no `data.json`, com endpoints `GET/POST /api/progresso` (autenticados via cookie de sessão). Cada seção concluída soma `{modulo: {secao: true}}`. `MODULE_SECTIONS` no `server.js` mapeia os IDs de seção de cada um dos 6 módulos (usado só pra calcular total/percentual).
+- **Os 6 módulos, nos 3 idiomas (18 arquivos PT/ES/EN)**: o botão "Marcar como concluído" agora also dispara `syncProgressToServer` (POST), e ao abrir a página faz `mergeServerProgress` (GET) puxando o que já foi salvo no servidor pra dentro do `localStorage` — funciona offline/local e sincroniza quando há rede, sem quebrar o comportamento antigo.
+- **`/biblioteca` redesenhado**: virou um shell de 4 abas fixas embaixo (inspirado num mockup de app que o Ezequiel recebeu do Perplexity, mas com dados reais, não inventados):
+  - **Início**: card "Continue de onde parou" (primeiro módulo não concluído), atalhos rápidos pros 6 módulos, lista de novidades (hoje só 2 itens fixos no código — não vem de admin/CMS)
+  - **Conteúdos**: a lista de módulos de sempre
+  - **Progresso**: % geral + barra por módulo, puxado do endpoint novo
+  - **Perfil**: e-mail logado, botão Sair, seletor de idioma, seletor de tema (Claro/Escuro/Automático) — tema usa a mesma chave `vm_theme` do `localStorage` que os módulos já usavam, então fica sincronizado entre `/biblioteca` e o conteúdo
+- Testado localmente (servidor à parte, dados de teste) e depois em produção de verdade (login como dono, as 4 abas, sem erro no console) antes e depois do deploy.
+- Compradores antigos não tinham o campo `progress` — não precisou de migração, o backend trata a ausência como progresso vazio (`{}`).
 
 ## Programa de afiliados
 
