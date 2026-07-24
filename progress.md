@@ -111,6 +111,23 @@ Site instalável como app no celular ("Adicionar à tela de início"), sem loja 
 - Testado ponta a ponta: compra → `/entrar` → e-mail chega com link de acesso. Template com identidade visual do site em `/opt/biblioteca-app/templates/email-access.html` (na VPS, não no repo).
 - **SMTP direto (Mailcow) bloqueado pela DigitalOcean** — ticket #12601558 negado em 21/07/2026. Não é bloqueante (Resend resolve tudo), mas se quiser usar o Mailcow (`mail.bezclean.com.br`, caixa `acesso@valdoirmiranda.com` já criada) no futuro, precisa de porta alternativa (2525) ou relay via API.
 
+## Sequência de e-mail de nutrição/boas-vindas (23/07/2026)
+
+Pedido do Ezequiel: "alimentar" o comprador durante os 7 dias de garantia pra ela se sentir acolhida e não pedir reembolso por esquecimento. 3 e-mails automáticos, disparados pelo próprio `server.js` (sem infra nova):
+
+- **Dia 0** (na hora que o webhook recebe `PURCHASE_APPROVED`): e-mail de boas-vindas — não depende da pessoa visitar `/entrar`.
+- **Dia 3**: "como está sendo sua experiência", incentivo a continuar no próprio ritmo.
+- **Dia 6** (véspera do fim da garantia): reforça que o acesso continua liberado, agradece a confiança, convite a responder com dúvidas.
+- Todos assinados por "Valdoir Miranda" em 1ª pessoa, tom acolhedor, sem prometer cura/resultado — mesma linha de cuidado do restante do conteúdo (ver [[feedback_evidence_graded_content]]).
+- Templates em `/opt/biblioteca-app/templates/email-{welcome,nurture-mid,nurture-closing}.{pt,es,en}.html` (na VPS, não no repo — mesmo padrão do `email-access.html`), mesma identidade visual dos e-mails de acesso.
+- **Varredura**: roda dentro do próprio processo Node, de hora em hora (`runNurtureSweep`, sem cron/systemd timer novo). Só envia pra quem está com `status: active` no momento do envio — se a compra for cancelada/reembolsada no meio do caminho, os e-mails seguintes não saem.
+- **Compradores antigos (antes dessa mudança) foram "aposentados" da sequência** — backdatar o `purchased_at` deles faria a sequência inteira disparar de uma vez, fora de contexto, então o backfill marca os 3 flags (`welcome_sent`/`mid_sent`/`closing_sent`) como já enviados pra quem já existia no `data.json`. Só compras novas a partir de 23/07/2026 entram no fluxo.
+- **Pendente**: pesquisar WhatsApp Business API (Meta Cloud API / Twilio / similar) pra mensagem de boas-vindas por WhatsApp — precisa de conta/número verificado, decisão de provedor e custo, ainda não implementado.
+
+## Progresso dos módulos só local, não sincronizado (pendência conhecida)
+
+O "Marcar como concluído" dos módulos (`/modulos/:file`) salva só no `localStorage` do navegador de quem está lendo (`vm_progress_...`) — não vai pro servidor, não aparece em nenhum painel pra acompanhar quem está avançando, e não sobrevive a troca de aparelho/limpeza de dados. Separado disso, o Hotmart Club tem seu próprio sistema de progresso/gamificação (moedinhas), que só atualiza se a pessoa entrar por lá — os dois não conversam entre si. Ezequiel achou interessante sincronizar o progresso pro `data.json` do servidor (por e-mail do comprador) — ainda não implementado, considerar como próximo passo.
+
 ## Programa de afiliados
 
 - **Comissão: 50%** por venda aprovada — mas atenção: é 50% do valor líquido (após taxa da Hotmart), não dos R$ 37 cheios. Na prática dá **~R$ 16,17 por venda**, não R$ 18,50. Já corrigido em todo lugar (texto na Hotmart, página de afiliados).
@@ -126,6 +143,14 @@ Site instalável como app no celular ("Adicionar à tela de início"), sem loja 
 2. **Backend (`server.js`, templates de e-mail)**: baixar da VPS com `scp` → editar local → `node -c server.js` (checar sintaxe) → `scp` de volta → `systemctl restart biblioteca-app` na VPS
 3. **nginx**: se adicionar rota nova no `server.js`, adicionar também em `/etc/nginx/sites-available/valdoirmiranda` → `nginx -t` (testar) → `systemctl reload nginx`. Sempre fazer backup do arquivo antes (`cp arquivo arquivo.bak`).
 4. **Página de afiliados**: repo separado `dev-zeq/valdoirmiranda-afiliados`, GitHub Pages atualiza sozinho após o push.
+
+## Segurança — GitHub Pages vazando conteúdo pago (corrigido 23/07/2026)
+
+O repositório `dev-zeq/valdoirmiranda` é público, e o GitHub Pages estava **ativo** nele (branch `main`, pasta `/`), publicando uma cópia paralela do site inteiro em `https://dev-zeq.github.io/valdoirmiranda/` — **sem passar pelo login/paywall**. Confirmado testando `.../b455ba4f3f.html`: o Módulo 1 completo (Combinação de Alimentos) abria de graça, sem `/entrar`, sem checagem de compra. Ninguém tinha notado porque o site "de verdade" (via VPS/nginx) funcionava normal em paralelo.
+
+**Corrigido**: GitHub Pages desativado via API (`Settings → Pages → Source: None`, ou `gh api -X DELETE repos/dev-zeq/valdoirmiranda/pages`). Testado depois: `dev-zeq.github.io/valdoirmiranda/` agora dá "Site not found". Não afetou o site real (VPS clona o mesmo repo via `git pull`, sem depender do Pages).
+
+**Pendente**: o repositório continua **público**. Mesmo sem Pages, alguém que soubesse o nome exato de um arquivo (ex. `b455ba4f3f.html`) ainda conseguiria abrir o conteúdo bruto via `raw.githubusercontent.com/dev-zeq/valdoirmiranda/main/b455ba4f3f.html` — bem mais difícil de achar por acaso (não indexa, não tem link em lugar nenhum), mas não é 100% fechado. Tornar o repo privado fecharia de vez, mas precisa confirmar antes se o `git pull` da VPS (chave SSH) continua funcionando com repo privado — ainda não verificado.
 
 ## Pendências
 
