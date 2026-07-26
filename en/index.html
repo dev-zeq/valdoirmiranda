@@ -1305,6 +1305,55 @@
       .areas-grid { grid-template-columns: 1fr 1fr; }
       .bib-grid { grid-template-columns: 1fr; }
     }
+
+    /* =============================================
+       CTA EXTRAS (areas / library / direct hero / sticky mobile bar)
+    ============================================= */
+    .section-cta { text-align: center; margin-top: 3rem; }
+    .section-cta p {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      font-size: 1.02rem;
+    }
+
+    .hero-direct-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: .82rem;
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color .2s;
+    }
+    .hero-direct-link:hover { color: var(--green-deep); }
+
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+      box-shadow: 0 -4px 24px rgba(0,0,0,.18);
+      transform: translateY(100%);
+      transition: transform .3s ease;
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta a {
+      display: block;
+      text-align: center;
+      padding: .9rem 1rem;
+      color: #fff;
+      font-weight: 600;
+      font-size: .92rem;
+      letter-spacing: .03em;
+      text-decoration: none;
+    }
+    .sticky-cta-price { font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .sticky-cta { display: block; }
+    }
   </style>
 
   <!-- Meta Pixel Code -->
@@ -1391,6 +1440,7 @@
         <a href="#valores" class="btn-primary">I want to unlock the Code</a>
         <a href="#sobre" class="btn-secondary">Discover the journey</a>
       </div>
+      <a href="https://pay.hotmart.com/V106821157P" class="hero-direct-link" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout');}">Already decided — go straight to checkout →</a>
     </div>
 
     <!-- FOTO -->
@@ -1546,6 +1596,11 @@
           <p>The integration of nutrition, health, purpose and habits for a life of greater fullness and balance.</p>
         </div>
 
+      </div>
+
+      <div class="section-cta reveal">
+        <p>Already relate to these topics?</p>
+        <a href="#valores" class="btn-primary">I want to unlock the Code</a>
       </div>
     </div>
   </section>
@@ -1724,6 +1779,11 @@
         </div>
 
       </div>
+
+      <div class="section-cta reveal">
+        <p>Liked what you'll get?</p>
+        <a href="#valores" class="btn-primary">I want to unlock the Code</a>
+      </div>
     </div>
   </section>
 
@@ -1817,6 +1877,15 @@
   </footer>
 
   <!-- =============================================
+       STICKY MOBILE BAR
+  ============================================= -->
+  <div class="sticky-cta" id="sticky-cta">
+    <a href="https://pay.hotmart.com/V106821157P" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout');}">
+      <span class="sticky-cta-price">R$ 37</span> — Secure access
+    </a>
+  </div>
+
+  <!-- =============================================
        JAVASCRIPT
   ============================================= -->
   <script>
@@ -1872,6 +1941,30 @@
     }, { threshold: 0.5 });
 
     progressObserver.observe(progressFill);
+
+    // ---- STICKY MOBILE CTA ----
+    const stickyCta = document.getElementById('sticky-cta');
+    const heroSectionEl = document.getElementById('hero');
+    const valoresSectionEl = document.getElementById('valores');
+    const avisoSectionEl = document.getElementById('aviso');
+    let heroVisible = true, valoresVisible = false, avisoVisible = false;
+
+    const updateStickyCta = () => {
+      stickyCta.classList.toggle('visible', !heroVisible && !valoresVisible && !avisoVisible);
+    };
+
+    const stickyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target === heroSectionEl) heroVisible = entry.isIntersecting;
+        if (entry.target === valoresSectionEl) valoresVisible = entry.isIntersecting;
+        if (entry.target === avisoSectionEl) avisoVisible = entry.isIntersecting;
+      });
+      updateStickyCta();
+    }, { threshold: 0.1 });
+
+    stickyObserver.observe(heroSectionEl);
+    stickyObserver.observe(valoresSectionEl);
+    stickyObserver.observe(avisoSectionEl);
 
     // ---- SMOOTH SCROLL for anchors ----
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
