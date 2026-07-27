@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instalar como app no iPhone — O Código da Longevidade</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green-deep:    #1a4d2e;
+    --green-mid:     #2d7a4f;
+    --green-light:   #52b788;
+    --green-pale:    #b7e4c7;
+    --green-fog:     #d8f3dc;
+    --amber:         #e8a020;
+    --amber-light:   #fde68a;
+    --cream:         #faf8f3;
+    --white:         #ffffff;
+    --text-dark:     #0f2318;
+    --text-mid:      #2c4a35;
+    --text-muted:    #5a7a63;
+    --shadow-green:  rgba(26,77,46,0.18);
+    --font-display:  'Cormorant Garamond', Georgia, serif;
+    --font-body:     'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    background: var(--cream);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  .brand {
+    display: flex; align-items: center; gap: .6rem;
+    margin-bottom: 2.6rem;
+  }
+  .brand svg { width: 26px; height: 16px; color: var(--green-mid); }
+  .brand span {
+    font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
+    letter-spacing: .03em; color: var(--green-deep);
+  }
+
+  .kicker {
+    font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--green-mid); margin-bottom: .7rem;
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 5vw, 2.5rem);
+    line-height: 1.14; color: var(--green-deep); margin-bottom: .9rem;
+  }
+  .lede {
+    font-size: 1.02rem; color: var(--text-mid); max-width: 46ch; margin-bottom: 1.6rem;
+  }
+
+  .safari-note {
+    display: flex; gap: .7rem; align-items: flex-start;
+    background: var(--white); border: 1px solid var(--green-pale);
+    border-radius: 12px; padding: .95rem 1.1rem;
+    margin-bottom: 2.6rem;
+    box-shadow: 0 2px 10px var(--shadow-green);
+  }
+  .safari-note .ic { flex-shrink: 0; font-size: 1.1rem; line-height: 1.5; }
+  .safari-note p { font-size: .88rem; color: var(--text-mid); }
+  .safari-note strong { color: var(--green-deep); }
+
+  .steps { display: flex; flex-direction: column; gap: 1.1rem; margin-bottom: 2.8rem; }
+
+  .step {
+    display: grid; grid-template-columns: 44px 1fr; gap: 1rem;
+    background: var(--white); border: 1px solid var(--green-fog);
+    border-radius: 14px; padding: 1.2rem 1.3rem;
+    box-shadow: 0 2px 12px var(--shadow-green);
+  }
+  .step-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--green-fog); color: var(--green-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+  }
+  .step h2 {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+    color: var(--text-dark); margin-bottom: .3rem; line-height: 1.25;
+  }
+  .step p { font-size: .92rem; color: var(--text-mid); }
+  .step p + p { margin-top: .5rem; }
+
+  .icon-row { display: flex; align-items: center; gap: .5rem; margin-top: .7rem; }
+  .icon-chip {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: var(--green-fog); border-radius: 8px;
+    padding: .35rem .65rem; font-size: .82rem; font-weight: 500; color: var(--green-deep);
+  }
+  .icon-chip svg { width: 15px; height: 15px; }
+
+  .phone-demo {
+    position: relative;
+    width: 168px; margin: 0 auto 1.6rem;
+    background: var(--text-dark);
+    border-radius: 30px;
+    padding: 8px;
+    box-shadow: 0 12px 30px rgba(15,35,24,.28);
+  }
+  .phone-demo .screen {
+    background: var(--white);
+    border-radius: 22px;
+    aspect-ratio: 9 / 19.5;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .phone-demo .bar {
+    height: 22px; background: var(--green-fog);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .5rem; color: var(--text-muted); font-weight: 600; letter-spacing: .04em;
+  }
+  .phone-demo .content { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .phone-demo .content svg { width: 34px; height: 34px; color: var(--green-mid); }
+  .phone-demo .tray {
+    height: 30px; background: var(--white);
+    border-top: 1px solid var(--green-fog);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .phone-demo .tray .share-btn {
+    width: 20px; height: 20px; color: var(--green-mid);
+  }
+  .tap-ring {
+    position: absolute; width: 30px; height: 30px; border-radius: 50%;
+    border: 2px solid var(--amber); top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { transform: translate(-50%, -50%) scale(.6); opacity: .9; }
+    70%  { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .tap-ring { animation: none; } }
+
+  .done {
+    text-align: center; padding: 1.8rem 1.5rem;
+    background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+    border-radius: 16px; color: var(--white);
+  }
+  .done h2 {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin-bottom: .5rem;
+  }
+  .done p { font-size: .92rem; color: var(--green-fog); max-width: 40ch; margin: 0 auto; }
+
+  footer {
+    text-align: center; margin-top: 2.4rem;
+    font-size: .78rem; color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <svg viewBox="0 0 48 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="24" cy="1.6" r="1.8" fill="currentColor"/>
+      <path d="M12 20c-3.314 0-6-2.686-6-6s2.686-6 6-6c3 0 5 1.8 8 6 3-4.2 5-6 8-6 3.314 0 6 2.686 6 6s-2.686 6-6 6c-3 0-5-1.8-8-6-3 4.2-5 6-8 6z" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <span>O Código da Longevidade</span>
+  </div>
+
+  <p class="kicker">Guia rápido</p>
+  <h1>Instale como um app no seu iPhone</h1>
+  <p class="lede">Sem baixar nada da App Store. Em menos de 30 segundos o Código da Longevidade fica na sua tela inicial, abre em tela cheia e some a barra de endereço — como qualquer outro app.</p>
+
+  <div class="safari-note">
+    <span class="ic">🧭</span>
+    <p><strong>Precisa ser pelo Safari.</strong> Se você abriu esse link no Chrome, no Instagram ou em outro app, toque nos três pontinhos e escolha “Abrir no Safari” antes de continuar.</p>
+  </div>
+
+  <div class="phone-demo" aria-hidden="true">
+    <div class="screen">
+      <div class="bar">VALDOIRMIRANDA.COM</div>
+      <div class="content">
+        <svg viewBox="0 0 48 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="24" cy="1.6" r="1.6" fill="currentColor"/>
+          <path d="M12 20c-3.314 0-6-2.686-6-6s2.686-6 6-6c3 0 5 1.8 8 6 3-4.2 5-6 8-6 3.314 0 6 2.686 6 6s-2.686 6-6 6c-3 0-5-1.8-8-6-3 4.2-5 6-8 6z" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <div class="tray">
+        <div class="tap-ring"></div>
+        <svg class="share-btn" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3v12M12 3l-4 4M12 3l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h2>Abra o site no Safari</h2>
+        <p>Acesse <strong>valdoirmiranda.com/entrar</strong> e faça login normalmente, como sempre faz.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h2>Toque no ícone de compartilhar</h2>
+        <p>Geralmente fica na barra de baixo, no centro da tela — o quadrado com uma seta apontando pra cima.</p>
+        <div class="icon-row">
+          <span class="icon-chip">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v12M12 3l-4 4M12 3l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Compartilhar
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h2>Toque em “Adicionar à Tela de Início”</h2>
+        <p>Abre uma lista de opções — role um pouco pra baixo até encontrar essa. Tem um ícone de um quadrado com um <strong>+</strong> dentro.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h2>Toque em “Adicionar”, no canto superior direito</h2>
+        <p>Pronto — o ícone aparece na sua tela inicial, do jeitinho que está lá em cima. É só tocar nele daqui pra frente.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="done">
+    <h2>É isso.</h2>
+    <p>Toda vez que você abrir pelo ícone da tela inicial, o app abre direto no seu acesso — sem barra de navegador, em tela cheia, como qualquer outro aplicativo do iPhone.</p>
+  </div>
+
+  <footer>O Código da Longevidade · valdoirmiranda.com</footer>
+
+</div>
+</body>
+</html>
