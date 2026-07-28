@@ -1,6 +1,6 @@
 # O Código da Longevidade — Progresso
 
-_Atualizado em 24/07/2026 (fim de sessão longa — próxima sessão começa daqui)_
+_Atualizado em 28/07/2026 (fim de sessão longa — próxima sessão começa daqui)_
 
 ## Status geral
 
@@ -82,6 +82,34 @@ Pedido do Ezequiel — amigos vão vender o produto no Peru e países vizinhos, 
 - **Testado ponta a ponta**: login, e-mail, dashboard e conteúdo dos módulos nos 3 idiomas, incluindo troca de idioma pelo seletor.
 - **Nomenclatura do produto por idioma** (já usada no site institucional, reaproveitada no backend): PT "O Código da Longevidade", ES "El Código de la Longevidad", EN "The Longevity Code".
 
+## Página de vendas — correções e novos CTAs (27/07/2026)
+
+- **Contagem de módulos corrigida**: a seção de investimento dizia "os 5 módulos atuais", desatualizado desde que o 6º módulo (Vitalidade Feminina) entrou — corrigido pra "6" nas 3 versões (PT/ES/EN). O resto da página já dizia "6 módulos" corretamente, só esse trecho estava errado.
+- **3 novos CTAs, nas 3 versões**:
+  1. Logo após "Áreas de Pesquisa" — "Já se identificou com esses temas?" + botão pro `#valores`, pra quem já decidiu não precisar rolar a página inteira.
+  2. Logo após a lista dos 6 módulos (seção Biblioteca) — "Gostou do que vai receber?" + mesmo botão, no pico de interesse.
+  3. Link secundário discreto no hero ("Já decidi — ir direto para o pagamento →"), abrindo direto o checkout da Hotmart — o botão principal continua indo pro `#valores` (mantém contexto de preço/garantia antes do checkout).
+- **Barra fixa mobile**: "R$ 37 — Garantir acesso" fixada no rodapé da tela em telas até 900px, sempre visível — some automaticamente quando `#hero`, `#valores` ou `#aviso` estão no viewport (evita duplicar CTA). Controlada por `IntersectionObserver` no JS de cada página.
+- Testado visualmente (mobile e desktop) antes do deploy.
+
+## Página /instalar — guia de instalação como PWA no iPhone (27-28/07/2026)
+
+- Pedido do Ezequiel: uma página explicando como adicionar o site à tela de início do iPhone (a app já é instalável via PWA, mas não tinha instruções pro comprador).
+- **`instalar.html`, `es/instalar.html`, `en/instalar.html`** — mesma identidade visual do site institucional (verde/creme, Cormorant Garamond + DM Sans), 4 passos (abrir no Safari → tocar em Compartilhar → "Adicionar à Tela de Início" → "Adicionar"), aviso de que só funciona no Safari (não Chrome/apps embutidos), e link "← Voltar pra biblioteca" no fim.
+- **Rota limpa `/instalar`** (sem `.html`): precisou de 3 blocos novos no nginx (`location = /instalar`, `/es/instalar`, `/en/instalar`, cada um com `try_files` apontando pro `.html` certo) — documentado em `infra/nginx-valdoirmiranda.conf`.
+- **Linkado no lugar certo**: não no site de vendas (primeira tentativa, revertida) — no **dashboard `/biblioteca`, aba Início, seção "Novidades"** (`t.news` no `server.js`, já existia, só adicionei um item no topo da lista nas 3 línguas + uma regra CSS `.news-item a` pra cor do link).
+
+## Publicação automática no Instagram via n8n (27-28/07/2026)
+
+Ezequiel pediu ajuda pra gerenciar as postagens do `@codigo.longevidade` sem precisar fazer tudo manual.
+
+- **Workflow n8n "Publicar no Instagram - Código da Longevidade"** (`cBM35ikgDUzhlJDT`, projeto pessoal): formulário (URL da imagem pública + legenda) → `Preparar Publicação` (injeta o Instagram Business Account ID) → `Criar Container de Mídia` → `Publicar no Instagram` (2 chamadas ao Graph API via nó `facebookGraphApi`, endpoints `/media` e `/media_publish`).
+- **App no Meta for Developers**: criado ("Longevidade Automacao"), caso de uso "Gerenciar mensagens e conteúdo no Instagram" com as permissões `instagram_basic`, `instagram_content_publish`, `pages_show_list`, `pages_read_engagement`, `business_management` liberadas em modo desenvolvimento (não precisou de App Review, é uso próprio).
+- **Instagram Business Account ID confirmado**: `17841443476645854` (Página do Facebook `1166528229887138`, nome com erro de digitação "O Código da Longividade" — pré-existente, não afeta nada técnico, cosmético).
+- **Pasta pública `/posts`** criada na raiz do repo — qualquer imagem colocada lá fica acessível em `valdoirmiranda.com/posts/<arquivo>`, é o que alimenta o campo de URL do formulário (Instagram exige imagem hospedada publicamente, não aceita upload direto).
+- **Testado com uma publicação real**: post do flat lay do Guia de Alimentos (imagem gerada com Leonardo/Nano Banana Pro a partir de um prompt que escrevi, hospedada em `/posts/10-guia-alimentos-flatlay.png`), publicado com sucesso no feed via o formulário do n8n.
+- **Pendente**: workflow só publica **foto**, não vídeo/Reels — API do Instagram trata vídeo de forma assíncrona (precisa criar o container, aguardar processamento, só depois publicar). Testamos um vídeo gerado no Leonardo AI mas "não deu muito bem" — não chegamos a integrar vídeo no workflow ainda.
+
 ## Site institucional (trilíngue)
 
 3 idiomas com URLs próprias e seletor no menu:
@@ -103,7 +131,7 @@ Tags `hreflang` no `<head>` de todas pro Google indexar a versão certa por paí
 
 Node.js em `/opt/biblioteca-app`, roda como serviço systemd `biblioteca-app` (reinicia sozinho se cair). **O `server.js` e os templates vivem só na VPS, não no repositório git** — sempre baixar (`scp`), editar localmente, testar sintaxe (`node -c`) e subir de volta antes de reiniciar o serviço.
 
-- **Webhook Hotmart** (`/webhook/hotmart`): compra aprovada libera acesso automaticamente; cancelamento/reembolso/chargeback revogam automaticamente. Testado (200 OK).
+- **Webhook Hotmart** (`/webhook/hotmart`): compra aprovada libera acesso automaticamente; cancelamento/reembolso/chargeback revogam automaticamente. Testado (200 OK). Desde 28/07/2026, numa ativação nova também encadeia uma chamada pro webhook do Tokewoot (ver seção WhatsApp) — `TOKEWOOT_WEBHOOK_URL` como constante no topo do arquivo.
 - **Login por e-mail** (`/entrar`): compra digita e-mail, recebe link válido por 24h.
 - **PIN de acesso rápido (24/07/2026)**: pra reduzir a fricção de reentrar (o Ezequiel notou que "sair toda hora, nem todo mundo vai no e-mail"). Fluxo: 1º acesso pelo link do e-mail como sempre → em Perfil, cria um PIN de 4 a 8 dígitos → depois, se a sessão cair, entra com **e-mail + PIN** direto, sem e-mail. A tela `/entrar` tem um campo PIN (opcional); vazio = envia link como antes, preenchido = login direto (JS troca a action do form pra `/entrar-pin`). O `/entrar` também lembra o último e-mail usado no aparelho (`vm_email` no localStorage) e pré-preenche. **Segurança**: PIN guardado como hash scrypt + salt por comprador (nunca em texto no `data.json`); rate limit de 5 tentativas erradas → bloqueia 15 min (`pin_attempts`/`pin_locked_until`). Endpoints: `POST /entrar-pin`, `POST /api/pin` (criar/alterar, logado), `POST /api/pin/remover`. Testado local e em produção (criar/alterar/remover, login por PIN, PIN errado, rate limit, e o link mágico continua funcionando).
 - **BUG do nginx corrigido junto (24/07/2026)**: descoberto que o `/api/progresso` (sincronização de progresso publicada mais cedo) estava dando **404 em produção** — faltou adicionar a rota no nginx (o próprio checklist avisa que toda rota nova do `server.js` precisa ser adicionada lá). Ou seja, a sincronização de progresso com o servidor nunca funcionou em produção até agora (o `.catch()` do fetch engolia o erro silenciosamente). Adicionados `location /api/` e `location = /entrar-pin` ao nginx (cópia versionada em `infra/nginx-valdoirmiranda.conf` atualizada). Agora `/api/progresso` responde 401 sem auth (backend), não mais 404.
@@ -137,7 +165,14 @@ Pedido do Ezequiel: "alimentar" o comprador durante os 7 dias de garantia pra el
 - Templates em `/opt/biblioteca-app/templates/email-{welcome,nurture-mid,nurture-closing}.{pt,es,en}.html` (na VPS, não no repo — mesmo padrão do `email-access.html`), mesma identidade visual dos e-mails de acesso.
 - **Varredura**: roda dentro do próprio processo Node, de hora em hora (`runNurtureSweep`, sem cron/systemd timer novo). Só envia pra quem está com `status: active` no momento do envio — se a compra for cancelada/reembolsada no meio do caminho, os e-mails seguintes não saem.
 - **Compradores antigos (antes dessa mudança) foram "aposentados" da sequência** — backdatar o `purchased_at` deles faria a sequência inteira disparar de uma vez, fora de contexto, então o backfill marca os 3 flags (`welcome_sent`/`mid_sent`/`closing_sent`) como já enviados pra quem já existia no `data.json`. Só compras novas a partir de 23/07/2026 entram no fluxo.
-- **WhatsApp (23-24/07/2026)**: decidido usar o **Tokewoot** (`wa.tokewoot.com`), plataforma de automação que o Ezequiel já tinha conta (mesmo número/Business Manager "Bez Clean Ads" usado pra tráfego da Bezclean — confirmado que pode usar). 3 templates de boas-vindas/nutrição (mesmo texto dos e-mails, adaptado pro WhatsApp, categoria **Marketing** — não Utilitário, que foi recusado pela Meta por não ser notificação transacional estrita) criados/em análise de aprovação da Meta. Sequência (dia 0/3/6) ainda não montada no Tokewoot — falta selecionar os templates aprovados nas 3 etapas da sequência "Boas-vindas - Código da Longevidade" já criada lá. **Risco identificado e evitado**: a conexão "WhatsApp Business" (não-oficial, via QR code) do Tokewoot pode banir o número da Meta se usada pra automação — decidido usar só a Cloud API oficial pra esse fluxo.
+- **WhatsApp (23-25/07/2026)**: decidido usar o **Tokewoot** (`wa.tokewoot.com`), plataforma de automação que o Ezequiel já tinha conta (mesmo número/Business Manager "Bez Clean Ads" usado pra tráfego da Bezclean — confirmado que pode usar). **Risco identificado e evitado**: a conexão "WhatsApp Business" (não-oficial, via QR code) do Tokewoot pode banir o número da Meta se usada pra automação — decidido usar só a Cloud API oficial pra esse fluxo.
+  - **Templates**: os 3 (`boas_vindas_longevidade_v2`, `_nutricao_dia3`, `fim_garantia_dia6`) foram **aprovados pela Meta em 25/07/2026** — como categoria **Utilitário** (não Marketing como o registro anterior dizia; parece que dessa vez passou como Utilitário mesmo — vale confirmar com o Ezequiel se foi reenviado assim de propósito).
+  - **Sequência montada e ativa** (25/07/2026): "Boas-vindas - Código da Longevidade" (ID 673291) em Automação → Sequências, 3 etapas — 1h após última ação → `boas_vindas_longevidade_v2`; +3 dias → `_nutricao_dia3`; +3 dias (≈dia 6) → `fim_garantia_dia6`. Variável `{{1}}` de cada template mapeada como **Dinâmico → Nome do contato** (não valor fixo).
+  - **Plano Pro ativado (27/07/2026)**: pago pelo irmão do Ezequiel (pessoa distinta do Valdoir, que é pai do Ezequiel). Destravou Webhooks e API REST.
+  - **✅ Concluído e testado ponta a ponta (28/07/2026)**: ação "Cadastrar em Sequência" destravada no webhook `compra-hotmart-longevidade` (Automação → Webhook), campo "Telefone WhatsApp" mapeado pra `{{payload.data.buyer.checkout_phone}}` (arrastado a partir de um evento de teste real enviado pro webhook, que "ensina" o Tokewoot o formato do payload).
+  - **Quem dispara o webhook — decidido: opção B (backend encadeia)**. O `/webhook/hotmart` no `server.js` agora, dentro do bloco de nova ativação (mesmo `if (isNewActivation)` que dispara o e-mail de boas-vindas), faz um `fetch` fire-and-forget (não bloqueia a resposta pro Hotmart, erro só loga no console) pra `TOKEWOOT_WEBHOOK_URL` (constante nova, com fallback pra `process.env.TOKEWOOT_WEBHOOK_URL`), repassando `buyer.name`, `email` e `checkout_phone` extraídos do payload da Hotmart. Fonte única de verdade: só dispara quando o backend já confirmou e liberou o acesso.
+  - **Testado de ponta a ponta de verdade**: `curl` simulando uma compra aprovada direto no `/webhook/hotmart` (com `x-hotmart-hottok` válido) → contato apareceu na lista de Contatos do Tokewoot (`Quantidade` subiu de 15 pra 16) com o telefone de teste — confirma que o encadeamento funciona em produção.
+  - **Nota de segurança**: durante essa sessão o valor de `HOTMART_HOTTOK` apareceu sem querer no terminal (comando de diagnóstico que não deveria ter impresso o valor) — Ezequiel optou por não rotacionar, risco considerado baixo (uso só servidor-a-servidor Hotmart→VPS).
 
 ## Progresso sincronizado com o servidor + novo `/biblioteca` com abas fixas (24/07/2026, publicado)
 
@@ -189,6 +224,9 @@ O repositório `dev-zeq/valdoirmiranda` é público, e o GitHub Pages estava **a
 - Acompanhar se a duplicação de texto na página de afiliados da Hotmart se resolve sozinha (ver seção Afiliados)
 - Avisar os amigos que vão vender no Peru que o backend já suporta ES/EN completo (login, e-mail, dashboard, os 6 módulos) — falta só eles terem a página de vendas deles em espanhol linkando pra `/entrar?lang=es`
 - Revisar com calma o restante do conteúdo dos "piores alimentos" do álbum do Valdoir (açúcar, farinha, industrializados etc.) — só entrou o essencial dos 6 itens novos (alho, peixe, kefir, especiarias, magnésio, limão) e a nota sobre iodo/tireoide; a seção de "alimentos a evitar" tem bastante alegação exagerada/imprecisa (ex. "farinha integral pior que a branca", "glúten aumentou 400x") que ainda precisa da mesma triagem antes de virar conteúdo, se quiserem usar
+- Adicionar suporte a vídeo/Reels no workflow n8n de publicação no Instagram — hoje só publica foto (a API do Instagram trata vídeo de forma assíncrona, precisa de lógica de polling antes de publicar)
+- Apagar o contato de teste que sobrou no Tokewoot (`Webhook Lead +554799997777` / `+5547999998888`) — não atrapalha nada, mas é lixo de teste
+- Considerar rotacionar o `HOTMART_HOTTOK` (apareceu exposto no terminal numa sessão de debug em 28/07/2026) — Ezequiel decidiu não priorizar por enquanto, risco baixo
 
 ## Onde as coisas estão
 
@@ -199,3 +237,9 @@ O repositório `dev-zeq/valdoirmiranda` é público, e o GitHub Pages estava **a
 - **E-mail (envio)**: Resend, domínio verificado, API key na VPS
 - **E-mail (Mailcow, backup/futuro)**: `mail.bezclean.com.br`
 - **Painel Hotmart**: produto 8164684, dentro do Club "biblioteca-valdoir-miranda"
+- **n8n**: `flow.ezstudio.com.br`, projeto pessoal do Ezequiel — workflow "Publicar no Instagram - Código da Longevidade" (`cBM35ikgDUzhlJDT`), credencial "Facebook Graph account" (token do Meta for Developers)
+- **Tokewoot**: `wa.tokewoot.com`, conta ID 561710, plano Pro ativo — webhook `compra-hotmart-longevidade` e sequência "Boas-vindas - Código da Longevidade" (ID 673291)
+
+## Nota — repositório git acidental na pasta home (28/07/2026)
+
+Descoberto e corrigido: `/home/zeqmiranda` (a pasta pessoal inteira, fora do projeto) tinha virado sem querer um repositório git do projeto `painel-studio-template` (`git init` rodado no lugar errado em 03/07/2026) — sem `.gitignore`, o que colocava em risco arquivos sensíveis da pasta home (chaves, histórico do bash etc.) se alguém desse um `git add -A` ali. Só um arquivo (`README.md`) chegou a ser commitado, nada vazou. O `.git` foi removido (`rm -rf /home/zeqmiranda/.git`) — não afeta o projeto `ValdoirMiranda` (repositório próprio, independente). Isso também explicava por que o app desktop às vezes abria o `painel-studio-template` sozinho junto com o `ValdoirMiranda` (por ele estar "dentro" daquele repositório acidental).
