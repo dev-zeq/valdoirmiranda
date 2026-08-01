@@ -1,6 +1,17 @@
 # O Código da Longevidade — Progresso
 
-_Atualizado em 28/07/2026 (fim de sessão longa — próxima sessão começa daqui)_
+_Atualizado em 31/07/2026_
+
+## Seção 06 "Sono e longevidade" — reescrita expandida + traduções ES/EN + script de sincronização (31/07/2026)
+
+Reescrita da seção 06 do Módulo 5 (Corpo, Mente e Hábitos, `7d40d1ef04.html`), agora muito mais completa, e com uma correção importante no processo de deploy.
+
+- **Conteúdo expandido (PT)**: nova versão com Matthew Walker (diretor do Center for Human Sleep Science, UC Berkeley), estudo do UK Biobank (~61 mil pessoas) mostrando que a regularidade do sono prevê mortalidade **mais fortemente que a duração** (20% a 48% menos risco nos 20% mais regulares), os cronótipos do Dr. Michael Breus (Leão / Urso / Lobo / Golfinho, com componente de abas clicáveis novo), pilares práticos (cafeína só até 14h, sem álcool 3h antes de dormir, quarto a 18–19°C, não ficar acordado na cama), curva em U da duração (faixa segura 7–8h), sistema glinfático da Dra. Maiken Nedergaard e o pico de hormônio do crescimento no REM. Substituiu o conteúdo publicado original (mais curto, com a figura `/posts/12-sono-e-longevidade.jpg`).
+- **Padrão de marcação consertado**: ao inserir o conteúdo novo, a abertura da `<section>` original foi substituída e o bloco antigo ficou órfão (conteúdo duplicado + HTML desbalanceado). Corrigido: `id` de volta pra `sono-e-longevidade` (casa com o TOC/âncora), cabeçalho no padrão das outras seções (`<span class="num">06</span>` + `.section-mark`), botão de concluir com `data-target` (o `data-section="6"` que tinha sido usado não é lido pelo JS), `<h3>` duplicado removido e bloco antigo deletado.
+- **Cronótipo "Delfim" → "Golfinho"**: "Delfim" é palavra válida mas soa como nome próprio no Brasil; "Golfinho" casa com o ícone 🐬 e com o termo usado nas traduções do método. Atributos internos (`data-tab`/`data-panel`) mantidos.
+- **Traduções ES/EN**: a seção expandida foi traduzida pro espanhol e inglês (`es/7d40d1ef04.html`, `en/7d40d1ef04.html`) — cronótipos como León/Oso/Lobo/Delfín e Lion/Bear/Wolf/Dolphin, mantendo 100% da estrutura e o componente de abas (o handler genérico `toggle-compare` já existia nos dois arquivos). Antes da reescrita, as versões ES/EN ainda tinham o conteúdo antigo.
+- **Novo `infra/sync-private.sh`**: script que roda na VPS depois do `git pull` e sincroniza os módulos privados (`/var/www/valdoirmiranda-private`) **derivando o destino do caminho de origem** — `7d40d1ef04.html` → raiz privada, `es/7d40d1ef04.html` → `es/`, `en/` → `en/`. Surgiu porque nesta sessão, num deploy manual, a cópia do `es/`/`en/` sobrescreveu por engano o módulo PT privado (pego pela checagem de checksum e corrigido na hora) — com o script isso não acontece, o destino certo vem do caminho do arquivo. Só sincroniza arquivos que já têm espelho privado (módulo novo precisa de uma cópia manual inicial). A skill de deploy (`.claude/commands/deploy.md`) foi atualizada pra usar o script em vez de copiar arquivo a arquivo. Testado localmente em pastas simuladas e na VPS.
+- **Deploys na VPS**: 3 commits publicados e no ar — `7faf927` (reescrita PT), `8e8dd76` (Golfinho), `495da8c` (traduções ES/EN) — e `fbb17a1` (script de sincronização). Módulos privados verificados por checksum nas 3 línguas.
 
 ## Status geral
 
@@ -123,7 +134,7 @@ Tags `hreflang` no `<head>` de todas pro Google indexar a versão certa por paí
 
 - **VPS**: DigitalOcean, droplet `biblioteca-valdoir-vps` (Ubuntu 24.04, 512MB RAM + 1GB swap), IP `161.35.110.78`, US$ 4/mês. SSH: `~/.ssh/digitalocean_biblioteca_valdoir`
 - **Site institucional** (`index.html` + `/es/` + `/en/`): nginx serve direto de `/var/www/valdoirmiranda` (clone do repo `dev-zeq/valdoirmiranda`)
-- **Os 5 módulos**: ficam em `/var/www/valdoirmiranda-private` (fora da pasta pública), só acessíveis pelo fluxo de login — **precisam ser copiados manualmente pra lá depois de cada `git pull`** (não é sincronizado automaticamente, ver seção "Como fazer deploy")
+- **Os 5 módulos**: ficam em `/var/www/valdoirmiranda-private` (fora da pasta pública), só acessíveis pelo fluxo de login — **sincronizados depois de cada `git pull` pelo `infra/sync-private.sh`** (não é automático no pull, é um passo do deploy; ver seção "Como fazer deploy")
 - **nginx**: config em `/etc/nginx/sites-available/valdoirmiranda`, cópia salva em `infra/nginx-valdoirmiranda.conf` no repo. Só repassa pro backend Node as rotas explícitas: `/webhook/`, `/entrar`, `/biblioteca`, `/sair`, `/modulos/`. Qualquer rota nova no `server.js` **precisa ser adicionada aqui também**, senão dá 404 (aconteceu com `/sair`, já corrigido)
 - **HTTPS**: Let's Encrypt, renovação automática
 
@@ -202,7 +213,7 @@ Antes, o "Marcar como concluído" dos módulos salvava só no `localStorage` de 
 
 ## Como fazer deploy (checklist rápido)
 
-1. **Site institucional / módulos (arquivos HTML)**: editar local → `git commit` + `git push` → `ssh` na VPS → `git pull` em `/var/www/valdoirmiranda` → se mudou algum dos 5 módulos, copiar manualmente pra `/var/www/valdoirmiranda-private/`
+1. **Site institucional / módulos (arquivos HTML)**: editar local → `git commit` + `git push` → `ssh` na VPS → `git pull` em `/var/www/valdoirmiranda` → rodar `./infra/sync-private.sh` (copia sozinho os módulos alterados pra `/var/www/valdoirmiranda-private`, incluindo `es/` e `en/`; ver seção da sessão de 31/07)
 2. **Backend (`server.js`, templates de e-mail)**: baixar da VPS com `scp` → editar local → `node -c server.js` (checar sintaxe) → `scp` de volta → `systemctl restart biblioteca-app` na VPS
 3. **nginx**: se adicionar rota nova no `server.js`, adicionar também em `/etc/nginx/sites-available/valdoirmiranda` → `nginx -t` (testar) → `systemctl reload nginx`. Sempre fazer backup do arquivo antes (`cp arquivo arquivo.bak`).
 4. **Página de afiliados**: repo separado `dev-zeq/valdoirmiranda-afiliados`, GitHub Pages atualiza sozinho após o push.
