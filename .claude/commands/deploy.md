@@ -17,10 +17,11 @@ Você está rodando localmente, com acesso SSH real à VPS de produção. Siga e
 - Guardar a lista de arquivos que o `git pull` alterou (aparece no output do pull, ou rode `git diff --stat HEAD@{1} HEAD`)
 
 ## 4. Sincronizar módulos privados (se necessário)
-- Os 6 módulos ficam também em `/var/www/valdoirmiranda-private/` (fora da pasta pública, só acessível pelo login) — são cópias manuais, não symlink
-- Nomes dos 6 arquivos de módulo: `2adee283ae.html`, `7d40d1ef04.html`, `b455ba4f3f.html`, `c16240ae3d.html`, `d786c82234.html`, `f25ef86eb7.html`
-- Se qualquer um desses estiver na lista de arquivos alterados do passo 3, copiar a versão nova pra `/var/www/valdoirmiranda-private/`:
-  `cp /var/www/valdoirmiranda/<arquivo>.html /var/www/valdoirmiranda-private/<arquivo>.html`
+- Os módulos ficam também em `/var/www/valdoirmiranda-private/` (fora da pasta pública, só acessível pelo login) — cópias manuais, não symlink; cada módulo existe em 3 versões: raiz (PT), `es/` e `en/`
+- Depois do `git pull` do passo 3, rodar o script de sincronização — ele deriva o destino do caminho de origem (cobre raiz, `es/` e `en/` sozinho):
+  `/var/www/valdoirmiranda/infra/sync-private.sh`
+- O script lista o que copiou e quantos arquivos ignorou (sem espelho privado). Confirmar que os módulos apareceram como "copiado".
+- Atenção: o script só sincroniza arquivos que **já têm** espelho privado. Se um módulo novo entrar no repo, copiá-lo à mão uma vez pra pasta privada (raiz, `es/`, `en/`) antes de o script passar a segui-lo.
 
 ## 5. O que este comando NÃO faz (e por quê)
 - **Não mexe no `server.js` nem nos templates de e-mail** — esses arquivos vivem só na VPS (`/opt/biblioteca-app`), não fazem parte deste repositório git. Se alguma tarefa pedir mudança neles, isso é um processo separado: baixar com `scp`, editar, `node -c server.js` pra validar sintaxe, subir de volta, e só então `systemctl restart biblioteca-app`. Nunca reiniciar o serviço sem validar a sintaxe antes.
