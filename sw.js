@@ -1,6 +1,7 @@
-const CACHE_NAME = "vm-longevidade-v2";
+const CACHE_NAME = "vm-longevidade-v3";
 const PRECACHE_URLS = [
   "/manifest.json",
+  "/assets/module.js",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
 ];
