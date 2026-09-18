@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import re, os
+import re
+from pathlib import Path
 
-SRC = '/home/zeqmiranda/ValdoirMiranda/index.html'
-full = open(SRC, encoding='utf-8').read()
+ROOT = Path(__file__).resolve().parent
+SRC = ROOT / 'index.html'
+full = SRC.read_text(encoding='utf-8')
 
 # (pt, en, es) — text-node translations
 TR = [
@@ -141,7 +143,10 @@ TR = [
  ("por","for","por"),
  ("Pagamento único · sem mensalidades","One-time payment · no subscription","Pago único · sin mensualidades"),
  ("Preço em reais (R$) — convertido para a sua moeda no checkout.","Price in Brazilian reais (R$) — converted to your currency at checkout.","Precio en reales (R$) — convertido a tu moneda en el checkout."),
- ("✓ Os 5 módulos atuais de O Código da Longevidade","✓ The 5 current modules of The Longevity Code","✓ Los 5 módulos actuales de El Código de la Longevidad"),
+ ("Já decidi — ir direto para o pagamento →","Already decided — go straight to checkout →","Ya decidí — ir directo al pago →"),
+ ("Já se identificou com esses temas?","Already relate to these topics?","¿Ya te identificaste con estos temas?"),
+ ("Gostou do que vai receber?","Liked what you'll get?","¿Te gustó lo que vas a recibir?"),
+ ("✓ Os 6 módulos atuais de O Código da Longevidade","✓ The 6 current modules of The Longevity Code","✓ Los 6 módulos actuales de El Código de la Longevidad"),
  ("✓ Todo o conteúdo futuro incluído — sem pagar de novo","✓ All future content included — no extra payment","✓ Todo el contenido futuro incluido — sin pagar de nuevo"),
  ("✓ Acesso pela área de membros","✓ Access through the members' area","✓ Acceso por el área de miembros"),
  ("R$ 37 garantido para sempre","R$ 37 locked in forever","R$ 37 asegurado para siempre"),
@@ -176,6 +181,15 @@ HEAD = [
   'content="What decades of research reveal about living longer — with health, energy and vitality. Decades of study on nutrition, body, mind and longevity, brought together for you to apply in your life."',
   'content="Lo que décadas de investigación revelan sobre vivir más — con salud, energía y vitalidad. Décadas de estudio sobre alimentación, cuerpo, mente y longevidad, reunidas para que las apliques en tu vida."'),
  ('content="pt_BR"', 'content="en_US"', 'content="es_ES"'),
+]
+
+# Textos dentro de blocos protegidos ou comentários HTML.
+RAW = [
+ ("CTA EXTRAS (áreas / biblioteca / hero direto / barra fixa mobile)",
+  "CTA EXTRAS (areas / library / direct hero / sticky mobile bar)",
+  "CTA EXTRAS (áreas / biblioteca / hero directo / barra fija mobile)"),
+ ("BARRA FIXA MOBILE", "STICKY MOBILE BAR", "BARRA FIJA MOBILE"),
+ ("— Garantir acesso", "— Secure access", "— Asegurar acceso"),
 ]
 
 # multi-line nodes: groups of pt fragments that are actually ONE text node
@@ -236,6 +250,8 @@ def translate(full, idx, lang_attr, active_class):
     # restore protected
     def unstash(m): return store[int(m.group(1))]
     text = re.sub("\x00(\\d+)\x00", unstash, text)
+    for row in RAW:
+        text = text.replace(row[0], row[idx])
 
     # active language in switcher
     text = text.replace('class="lang-pt active"', 'class="lang-pt"')
@@ -244,12 +260,14 @@ def translate(full, idx, lang_attr, active_class):
 
 print("== EN ==")
 en = translate(full, 1, "en", "lang-en")
-os.makedirs('/home/zeqmiranda/ValdoirMiranda/en', exist_ok=True)
-open('/home/zeqmiranda/ValdoirMiranda/en/index.html','w',encoding='utf-8').write(en)
+output_en = ROOT / 'en'
+output_en.mkdir(exist_ok=True)
+(output_en / 'index.html').write_text(en, encoding='utf-8')
 
 print("== ES ==")
 es = translate(full, 2, "es-419", "lang-es")
-os.makedirs('/home/zeqmiranda/ValdoirMiranda/es', exist_ok=True)
-open('/home/zeqmiranda/ValdoirMiranda/es/index.html','w',encoding='utf-8').write(es)
+output_es = ROOT / 'es'
+output_es.mkdir(exist_ok=True)
+(output_es / 'index.html').write_text(es, encoding='utf-8')
 
 print("done")
