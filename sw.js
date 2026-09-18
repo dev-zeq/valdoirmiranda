@@ -1,4 +1,4 @@
-const CACHE_NAME = "vm-longevidade-v3";
+const CACHE_NAME = "vm-longevidade-v4";
 const PRECACHE_URLS = [
   "/manifest.json",
   "/assets/module.js",
@@ -24,8 +24,9 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Network-first for pages (so updates show up when online), falling back to
-// cache when offline. Cache-first for static assets (icons, manifest).
+// Network-first for pages and for the shared scripts in /assets/ (so updates
+// show up when online without bumping CACHE_NAME), falling back to cache when
+// offline. Cache-first for the remaining static assets (icons, manifest).
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
@@ -33,10 +34,12 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  const isModulePage =
-    url.pathname === "/biblioteca" || url.pathname.startsWith("/modulos/");
+  const isNetworkFirst =
+    url.pathname === "/biblioteca" ||
+    url.pathname.startsWith("/modulos/") ||
+    url.pathname.startsWith("/assets/");
 
-  if (isModulePage) {
+  if (isNetworkFirst) {
     event.respondWith(
       fetch(req)
         .then((res) => {
